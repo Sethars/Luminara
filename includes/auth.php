@@ -23,7 +23,7 @@ function authenticate($conn, $jwt_token) {
         $decoded = JWT::decode($jwt, new Key($jwt_token, 'HS256'));
 
         // cek apakah user masih ada di DB
-        $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, username, email, `role`, gender FROM users WHERE id = ?");
         $stmt->execute([$decoded->user_id]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

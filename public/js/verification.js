@@ -93,6 +93,7 @@ document
 
       if (result.success) {
         // alert('Verifikasi berhasil! Anda akan dialihkan ke halaman utama.');
+        localStorage.removeItem("formData");
         window.location.href = "/login";
       } else {
         // alert('Verifikasi gagal: ' + result.message);

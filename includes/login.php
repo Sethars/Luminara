@@ -30,9 +30,9 @@ function login($conn, $jwt_token) {
             
             
         } else {
-            echo json_encode(["success" => true, "message" => "Email atau password salah"]);
+            echo json_encode(["success" => false, "message" => "Email atau password salah"]);
         }
     } else {
-        echo json_encode(["success" => true, "message" => "Email tidak ditemukan"]);
+        echo json_encode(["success" => false, "message" => "Email tidak ditemukan"]);
     }
 }

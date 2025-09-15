@@ -8,7 +8,16 @@
 
   <script src="../js/utils.js"></script>
 
-  <script type="<?= $type ?? null ?>" src="../js/<?= $script ?? "login"; ?>.js"></script>
+  <?php if (!empty($script)): ?>
+    <?php if (is_array($script)): ?>
+      <?php foreach ($script as $s): ?>
+        <script type="<?= $type ?? 'module' ?>" src="../js/<?= $s ?>.js"></script>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <script type="<?= $type ?? 'module' ?>" src="../js/<?= $script ?>.js"></script>
+    <?php endif; ?>
+  <?php endif; ?>
+
   <?php if (!empty($checkAuth) && $checkAuth === true): ?>
     <script src="/../js/auth.js"></script>
   <?php else: ?>

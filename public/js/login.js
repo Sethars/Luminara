@@ -31,6 +31,7 @@ document
       const data = await res.json();
 
       if (data.success) {
+        localStorage.setItem("token", data.token);
         alert("Login berhasil!");
         window.location.href = "/";
       } else {
