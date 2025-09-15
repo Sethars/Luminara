@@ -29,11 +29,11 @@ include_once __DIR__ . '/../components/header.php';
             <p id="message"></p>
           <br>
         
-          <button type="submit" class="btn gradient-gold w-100">Simpan Password</button>
+          <button type="submit" class="btn gradient-gold w-100">Kirim</button>
         </form>
 
         <div class="text-center mt-3">
-          <a href="login.php" class="text-decoration-none lnkLgn">Kembali ke Login</a>
+          <a href="/login" class="text-decoration-none lnkLgn">Kembali ke Login</a>
         </div>
       </div>
     </div>
