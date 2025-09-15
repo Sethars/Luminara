@@ -1,6 +1,10 @@
-<?php 
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 header('Content-Type: application/json');
 require __DIR__ . "/mailer.php";
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit;
 
 function checkEmail($conn) {
     $data = json_decode(file_get_contents("php://input"), true);

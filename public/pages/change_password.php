@@ -54,14 +54,14 @@ include_once __DIR__ . '/../components/header.php';
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Token Tidak valid</h1>
       </div>
       <div class="modal-body">
         <p id="warningMessage"></p>
-        Silahkan klik tombol "Understood" untuk mengirim ulang email reset password.
+        Silahkan klik tombol "Kembali" untuk mengirim ulang email reset password.
       </div>
       <div class="modal-footer">
-        <button onclick="window.location.href='/resetPassword'" type="button" class="btn btn-primary">Understood</button>
+        <button onclick="window.location.href='/resetPassword'" type="button" class="btn btn-primary">Kembali</button>
       </div>
     </div>
   </div>

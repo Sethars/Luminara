@@ -32,9 +32,10 @@ document
 
       if (data.success) {
         localStorage.setItem("token", data.token);
-        alert("Login berhasil!");
+        showModal('loginSuccess');
         window.location.href = "/";
       } else {
+        showModal('loginFailed');
         document.getElementById("warningText").textContent = data.message;
       }
     } catch (err) {

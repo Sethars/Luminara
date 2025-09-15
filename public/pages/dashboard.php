@@ -10,13 +10,8 @@ $checkAuth = true;
 
 ?>
 
-<div class="loading">
-    <?php
-    include_once __DIR__ . '/../components/' 
-    ?>
-</div>
 
-<div class="main-content">
+<div id="main-content">
     <?php
     include_once __DIR__ . '/../components/header.php';
     ?>
@@ -31,5 +26,11 @@ $checkAuth = true;
 
     <?php
     include_once __DIR__ . '/../components/footer.php';
+    ?>
+</div>
+
+<div id="loading">
+    <?php
+    include_once __DIR__ . '/../components/loadingScreen.php' 
     ?>
 </div>
