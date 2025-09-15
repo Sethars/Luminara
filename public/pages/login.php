@@ -134,10 +134,10 @@ include_once __DIR__ . '/../components/header.php';
       </div>
       <div class="modal-body">
         <p id="warningMessage"></p>
-        Anda akan diarahkan ke halaman utama.
+        Email atau password salah.
       </div>
       <div class="modal-footer">
-        <button onclick="window.location.href='/'" type="button" class="btn btn-login" style="z-index: 1;">
+        <button onclick="window.location.href='/login'" type="button" class="btn btn-login" style="z-index: 1;">
           <strong>
             Oke
           </strong>
