@@ -31,9 +31,11 @@ document
       const data = await res.json();
 
       if (data.success) {
-        alert("Login berhasil!");
+        localStorage.setItem("token", data.token);
+        showModal('loginSuccess');
         window.location.href = "/";
       } else {
+        showModal('loginFailed');
         document.getElementById("warningText").textContent = data.message;
       }
     } catch (err) {

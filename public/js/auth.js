@@ -1,4 +1,6 @@
 async function checkAuth() {
+  document.getElementById('main-content').classList.add('d-none');
+
   const token = localStorage.getItem("token");
   if (!token) {
     window.location.href = "/login";
@@ -17,6 +19,9 @@ async function checkAuth() {
       localStorage.removeItem("user");
       window.location.href = "/login";
     } else {
+      document.getElementById('main-content').classList.remove('d-none');
+      document.getElementById('loading').classList.add('d-none');
+
       // update localStorage user
       localStorage.setItem("user", JSON.stringify(data.user));
       return data.user;

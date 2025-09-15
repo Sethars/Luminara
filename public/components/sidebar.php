@@ -17,11 +17,11 @@
                 class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            <a href="profile.php" class="d-block"><?= $user['name'] ?? 'Demo'; ?></a>
+            <a id="username" href="profile.php" class="d-block"></a>
         </div>
         </div>
         <div>
-            <form id="logoutForm" method="POST" action="/api/logout">
+            <form id="logoutForm" method="POST">
                 <button type="submit" class="btn btn-danger btn-sm w-100">
                     <i class="fas fa-sign-out-alt"></i><strong>Logout</strong> 
                 </button>

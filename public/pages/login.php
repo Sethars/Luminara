@@ -103,7 +103,11 @@ include_once __DIR__ . '/../components/header.php';
   </div>
 </div>
 
-<div class="modal fade" id="" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<?php
+include_once __DIR__ . '/../components/footer.php';
+?>
+
+<div class="modal fade" id="loginSuccess" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <img class="bottom-0 end-0" src="../assets/img/modal/modal_img.png" alt="Loading..." style="width: 12.8rem; height: 12.8rem; position: absolute; z-index: 0; opacity: 0.5;">
@@ -125,7 +129,7 @@ include_once __DIR__ . '/../components/header.php';
   </div>
 </div>
 
-<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="loginFailed" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <img class="bottom-0 end-0" src="../assets/img/modal/modal_gagal_img.jpeg" alt="Loading..." style="width: auto; height: 12.8rem; position: absolute; z-index: 0; opacity: 1;">
@@ -137,7 +141,7 @@ include_once __DIR__ . '/../components/header.php';
         Email atau password salah.
       </div>
       <div class="modal-footer">
-        <button onclick="window.location.href='/login'" type="button" class="btn btn-login" style="z-index: 1;">
+        <button onclick="closeModal('loginFailed')" type="button" class="btn btn-login" style="z-index: 1;">
           <strong>
             Oke
           </strong>
@@ -148,6 +152,4 @@ include_once __DIR__ . '/../components/header.php';
 </div>
 
 
-<?php
-include_once __DIR__ . '/../components/footer.php';
-?>
+

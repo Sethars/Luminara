@@ -1,4 +1,8 @@
 .env
 access.log
+*._log
+.log
 error_log
+*_log
+_log
 /vendor
