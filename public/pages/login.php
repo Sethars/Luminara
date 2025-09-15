@@ -103,12 +103,34 @@ include_once __DIR__ . '/../components/header.php';
   </div>
 </div>
 
-<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <img class="bottom-0 end-0" src="../assets/img/modal/modal_img.png" alt="Loading..." style="width: 12.8rem; height: 12.8rem; position: absolute; z-index: 0; opacity: 0.5;">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Login Berhasil</h1>
+      </div>
+      <div class="modal-body">
+        <p id="warningMessage"></p>
+        Anda akan diarahkan ke halaman utama.
+      </div>
+      <div class="modal-footer">
+        <button onclick="window.location.href='/'" type="button" class="btn btn-login" style="z-index: 1;">
+          <strong>
+            Oke
+          </strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <img class="bottom-0 end-0" src="../assets/img/modal/modal_gagal_img.jpeg" alt="Loading..." style="width: auto; height: 12.8rem; position: absolute; z-index: 0; opacity: 1;">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Login Gagal</h1>
       </div>
       <div class="modal-body">
         <p id="warningMessage"></p>
