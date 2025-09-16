@@ -26,10 +26,16 @@ include_once __DIR__ . '/../components/header.php';
             <input type="email" placeholder="Masukan alamat email" class="form-control" id="email" name="password"  required>
           </div>
           <br>
-            <p id="message"></p>
+            <p>
+              <span id="messageSuccess" style="color: lime;"></span>
+              <span id="messageFailed" style="color: red;"></span>
+            </p>
           <br>
         
-          <button type="submit" class="btn gradient-gold w-100">Kirim Email</button>
+          <button type="submit" id="sendEmail" class="btn gradient-gold w-100">
+            <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status"></span>
+            <span id="btnText">Kirim Email</span>
+          </button>
         </form>
 
         <div class="text-center mt-3">

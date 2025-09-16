@@ -71,17 +71,16 @@ include_once __DIR__ . '/../components/header.php';
             </div>
           </div>
           <br>
-          <p id="warningText" class="text-danger"></p>
           <!-- Button -->
            <div class="d-grid gap-2 mb-3 d-flex justify-content-center">
               <button type="button" 
-                      class="btn gradient-gold w-100" 
-                      onclick="showModal('loginModal');">
+                      id ="demoLoginBtn"
+                      class="btn gradient-gold w-100" >
                 <strong>
                   Demo
                 </strong>
               </button>
-              <button type="submit" class="btn gradient-gold w-100"><strong>Login</strong></button>
+              <button type="submit" id="loginBtn" class="btn gradient-gold w-100"><strong>Login</strong></button>
            </div>
 
 
@@ -115,7 +114,6 @@ include_once __DIR__ . '/../components/footer.php';
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Login Berhasil</h1>
       </div>
       <div class="modal-body">
-        <p id="warningMessage"></p>
         Anda akan diarahkan ke halaman utama.
       </div>
       <div class="modal-footer">
@@ -137,8 +135,7 @@ include_once __DIR__ . '/../components/footer.php';
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Login Gagal</h1>
       </div>
       <div class="modal-body">
-        <p id="warningMessage"></p>
-        Email atau password salah.
+        <p id="warningText"></p>
       </div>
       <div class="modal-footer">
         <button onclick="closeModal('loginFailed')" type="button" class="btn btn-login" style="z-index: 1;">

@@ -13,6 +13,7 @@ togglePassword.addEventListener("click", function () {
       : '<i class="bi bi-eye-slash"></i>';
 });
 
+//Login Btn
 document
   .getElementById("loginForm")
   .addEventListener("submit", async function (e) {
@@ -33,7 +34,6 @@ document
       if (data.success) {
         localStorage.setItem("token", data.token);
         showModal('loginSuccess');
-        window.location.href = "/";
       } else {
         showModal('loginFailed');
         document.getElementById("warningText").textContent = data.message;
@@ -42,3 +42,19 @@ document
       console.error("Error:", err);
     }
   });
+
+//Demo Btn
+document.getElementById('demoLoginBtn').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  localStorage.setItem('demo', JSON.stringify(true));
+
+  const tokenDemo = generateRandomString(32);
+  localStorage.setItem('token', tokenDemo);
+
+  const now = new Date();
+  const expired = now.getTime() + 2 * 60 * 60 * 1000 //2 jam
+  localStorage.setItem('expired', JSON.stringify(expired));
+
+  showModal('loginSuccess');
+})

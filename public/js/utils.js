@@ -22,3 +22,31 @@ window.closeModal = function (modalId) {
         console.error(`Modal with ID ${modalId} not found.`);
     }
 }
+
+function setLoading(isLoading, btnId) {
+  const btn = document.getElementById(btnId); // id tombol submit
+  const btnSpinner = document.getElementById("btnSpinner");
+  const btnText = document.getElementById("btnText");
+
+  if (isLoading) {
+    btn.disabled = true;
+    btnSpinner.classList.remove("d-none");
+    btnText.classList.add("d-none");
+  } else {
+    btn.disabled = false;
+    btnSpinner.classList.add("d-none");
+    btnText.classList.remove("d-none");
+  }
+}
+
+function generateRandomString(length) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    result += chars[randomIndex];
+  }
+  
+  return result;
+}

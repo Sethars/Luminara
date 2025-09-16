@@ -2,6 +2,7 @@ document.getElementById('resetPasswordForm').addEventListener('submit', async (e
     event.preventDefault(); // Prevent the default form submission
 
     const email = document.getElementById('email').value;
+    setLoading(true, 'sendEmail');
 
     try {
         const res = await fetch('/api/resetPassword', {
@@ -11,12 +12,16 @@ document.getElementById('resetPasswordForm').addEventListener('submit', async (e
         });
         const result = await res.json();
         if (result.success) {
-            document.getElementById('message').textContent = 'Email reset password telah dikirim.';
+            document.getElementById('messageSuccess').textContent = 'Email reset password telah dikirim.';
+            setLoading(false, 'sendEmail');
         } else {
-            document.getElementById('message').textContent = 'Gagal mengirim email: ' + result.error;
+            document.getElementById('messageFailed').textContent = 'Gagal mengirim email';
+            console.error(result.error)
+            setLoading(false, 'sendEmail');
         }
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('message').textContent = 'Terjadi kesalahan saat mengirim email.';
+        setLoading(false, 'sendEmail');
     }
 });

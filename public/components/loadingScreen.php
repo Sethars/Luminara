@@ -13,6 +13,7 @@
         .spinner-border {
             /* border: 0.5em solid rgba(0, 0, 0, 0.1); */
             /* border-top: 0.5em solid #3498db; */
+            border: none !important;
             border-radius: 50%;
             width: 3rem;
             height: 3rem;
