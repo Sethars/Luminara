@@ -1,5 +1,6 @@
 <?php
-$request = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+$request = trim(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?? '', '/');
+
 
 require __DIR__ . '/../includes/config.php';
 require __DIR__ . '/../vendor/autoload.php';
