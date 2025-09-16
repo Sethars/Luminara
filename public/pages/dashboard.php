@@ -29,7 +29,7 @@ $checkAuth = true;
     ?>
 </div>
 
-<div id="loading">
+<div id="loading" class="d-none">
     <?php
     include_once __DIR__ . '/../components/loadingScreen.php' 
     ?>

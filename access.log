@@ -4392,6 +4392,7 @@
 127.0.0.1 - - [15/Sep/2025:14:49:39 +0700] "GET /assets/img/modal/modal_gagal_img.jpeg HTTP/1.1" 200 111390
 127.0.0.1 - - [15/Sep/2025:14:49:42 +0700] "GET /assets/img/favicon.ico HTTP/1.1" 200 15406
 127.0.0.1 - - [15/Sep/2025:14:49:42 +0700] "POST /api/login HTTP/1.1" 200 51
+<<<<<<< HEAD
 >>>>>>> 7f8338ff720be35b1dfd3edf32deb8a3e976630c
 127.0.0.1 - - [15/Sep/2025:15:33:30 +0700] "GET /index.php HTTP/1.1" 200 2820
 127.0.0.1 - - [15/Sep/2025:15:33:31 +0700] "GET /css/not_found.css HTTP/1.1" 200 2820
@@ -6696,3 +6697,5 @@
 127.0.0.1 - - [16/Sep/2025:08:45:04 +0700] "GET /css/BJLobby.css HTTP/1.1" 304 -
 127.0.0.1 - - [16/Sep/2025:08:45:04 +0700] "GET /api/auth HTTP/1.1" 200 174
 127.0.0.1 - - [16/Sep/2025:08:45:04 +0700] "GET /favicon.ico HTTP/1.1" 200 2820
+=======
+>>>>>>> 0214e943c7e5c3700d8d4100c6bdb4ee988c5de3

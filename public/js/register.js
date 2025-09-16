@@ -1,10 +1,3 @@
-function load() {
-  var element = document.getElementById("btnSpinner");
-  element.classList.remove("d-none");
-  var element = document.getElementById("btnText");
-  element.classList.add("d-none");
-}
-
 function togglePasswordVisibility(togglePassword, passwordInput) {
   togglePassword.addEventListener("click", function () {
     const type =
@@ -51,8 +44,8 @@ document
         password: document.getElementById("password").value,
       };
       localStorage.setItem("formData", JSON.stringify(formData));
-      
-      load()
+
+      setLoading(true, 'registerBtn');
       
       try{
         const res = await fetch("/api/sendOTP", {
@@ -68,9 +61,11 @@ document
           window.location.href = window.location.origin + "/verification";
         } else {
           document.getElementById("warningText").textContent = result.message;
+          setLoading(false, 'registerBtn');
         }
       } catch (err) {
         console.error("Error: ", err);
+        setLoading(false, 'registerBtn');
       }
     } else {
       document.getElementById("warningText").textContent =
