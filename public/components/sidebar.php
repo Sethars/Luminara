@@ -1,3 +1,5 @@
+
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
@@ -12,20 +14,13 @@
     <!-- Sidebar user -->
      <div class="user-panel mt-3 pb-3 mb-3">
         <div class=" mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-            <img src="../assets/img/photo_profile/ppkosong.jpg"
-                class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-            <a id="username" href="profile.php" class="d-block"></a>
-        </div>
-        </div>
-        <div>
-            <form id="logoutForm" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm w-100">
-                    <i class="fas fa-sign-out-alt"></i><strong>Logout</strong> 
-                </button>
-            </form>
+          <div class="image">
+              <img src="../assets/img/photo_profile/ppkosong.jpg"
+                  class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+              <a id="username" href="profile.php" class="d-block"></a>
+          </div>
         </div>
     </div>
 
@@ -42,6 +37,16 @@
           </a>
         </li>
 
+        <!-- Logout Button -->
+        <li class="nav-item">
+          <form id="logoutForm" method="POST" action="logout.php" style="margin:0;">
+            <button type="submit" class="nav-link active btn-danger text-left">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p class="ml-2">Logout</p>
+            </button>
+          </form>
+        </li>
+
         <!-- Master Data -->
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
@@ -53,15 +58,15 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="users.php" class="nav-link">
+              <a href="/BJLobby" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Users</p>
+                <p>Black Jack</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="devices.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Devices</p>
+                <p>Roulette</p>
               </a>
             </li>
           </ul>

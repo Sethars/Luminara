@@ -1,0 +1,181 @@
+.lobby-container {
+  padding: 20px;
+}
+
+/* header bar di atas list */
+.lobby-header {
+  padding-left: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.lobby-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.create-btn {
+  background: #28a745;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.create-btn:hover {
+  background: #218838;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 200px;
+  flex: 1;
+}
+
+/* daftar lobby */
+.lobby-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lobby-card {
+  margin-left: 75px;
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+  overflow: hidden; /* supaya efek fade tidak keluar box */
+  padding-right: 15px;
+  gap: 10px;
+}
+
+.lobby-card:hover {
+  transform: scale(1.02);
+}
+
+.lobby-profile {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+
+  /* trik fade out */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.lobby-info {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.lobby-info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.lobby-info p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.join-btn {
+  background: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.join-btn:hover {
+  background: #0056b3;
+}
+
+/* ============================= */
+/*        RESPONSIVE HP          */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .lobby-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: 0;
+  }
+
+  .lobby-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .create-btn,
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input {
+    min-width: unset;
+  }
+
+  .lobby-card {
+    margin-left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .lobby-profile {
+    width: 80px;
+    height: 80px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-radius: 8px;
+  }
+
+  .join-btn {
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .lobby-title {
+    font-size: 18px;
+  }
+
+  .lobby-info h3 {
+    font-size: 16px;
+  }
+
+  .lobby-info p {
+    font-size: 13px;
+  }
+
+  .lobby-profile {
+    width: 70px;
+    height: 70px;
+  }
+}

@@ -75,6 +75,9 @@ switch ($request) {
     case 'changePassword':
         require __DIR__ . '/pages/change_password.php';
         break;
+    case 'BJLobby':
+        require __DIR__ . '/pages/BJLobby.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;

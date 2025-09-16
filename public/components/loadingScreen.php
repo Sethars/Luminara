@@ -1,69 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔃loading</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔃loading</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
 
-        .spinner-border {
-            /* border: 0.5em solid rgba(0, 0, 0, 0.1); */
-            /* border-top: 0.5em solid #3498db; */
-            border-radius: 50%;
-            width: 3rem;
-            height: 3rem;
-            animation: spin 2s linear infinite;
-        }
+    .vh-100 {
+      height: 100vh;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    .d-flex {
+      display: flex;
+    }
 
-        p {
-            font-size: 1.2rem;
-            margin-top: 1rem;
-        }
+    .justify-content-center {
+      justify-content: center;
+    }
 
-        .vh-100 {
-            height: 100vh;
-        }
+    .align-items-center {
+      align-items: center;
+    }
 
-        .d-flex {
-            display: flex;
-        }
+    .text-center {
+      text-align: center;
+      position: relative; /* penting untuk jadi parent positioning */
+      display: inline-block;
+    }
 
-        .justify-content-center {
-            justify-content: center;
-        }
+    /* Animasi putar berat */
+ @keyframes heavy-spin {
+  0%   { transform: rotate(0deg); }
 
-        .align-items-center {
-            align-items: center;
-        }
+  /* 90° */
+  19%  { transform: rotate(45deg); }
+  20%  { transform: rotate(95deg); }   /* overshoot */
+  21%  { transform: rotate(85deg); }   /* balik dikit */
+  28%  { transform: rotate(90deg); }   /* settle */
 
-        .text-center {
-            text-align: center;
-        }
-    </style>
+  /* 180° */
+  44%  { transform: rotate(135deg); }
+  45%  { transform: rotate(185deg); }
+  46%  { transform: rotate(175deg); }
+  53%  { transform: rotate(180deg); }
+
+  /* 270° */
+  69%  { transform: rotate(225deg); }
+  70%  { transform: rotate(275deg); }
+  71%  { transform: rotate(265deg); }
+  78%  { transform: rotate(270deg); }
+
+  /* 360° */
+  94%  { transform: rotate(315deg); }
+  95%  { transform: rotate(365deg); }
+  96%  { transform: rotate(355deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+    .spinner-img {
+      width: auto;
+      height: 30rem;
+      display: block;
+      margin: auto;
+    }
+
+    .putar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      animation: heavy-spin 10s infinite;
+      transform-origin: center center;
+    }
+
+    .diam {
+      position: relative;
+      z-index: 2; /* selalu di atas */
+    }
+  </style>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status" style="width: 5rem; height: 5rem;">
-                <img src="../assets/img/404/1.jpg" alt="Loading..." style="width: 10rem; height: 10rem; margin-top: 50px; margin-right: 0px; position: absolute;">
-            </div>
-            <div class="spinner-border text-primary" role="status" style="width: 5rem; height: 5rem;">
-                <img src="../assets/img/404/2.jpg" alt="Loading..." style="width: 10rem; height: 10rem; margin-top: -150px; margin-right: 0px; position:absolute;   rotate: -180deg;">
-            </div>
-        </div>
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <img src="../assets/loadimg/diam.png" alt="Loading..." class="spinner-img diam">
+      <img src="../assets/loadimg/putar.png" alt="Loading..." class="spinner-img putar">
     </div>
+  </div>
 </body>
-<script>
-                // <img src="../assets/img/404/2.jpg" alt="Loading..." style="width: 10rem; height: 10rem; margin-top: -150px; margin-right: 0px; position:absolute;   rotate: -180deg;">
 
-</script>
 </html>

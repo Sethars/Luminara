@@ -38,3 +38,4 @@ Stack trace:
 [15-Sep-2025 07:12:52 UTC] PHP Stack trace:
 [15-Sep-2025 07:12:52 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
 [15-Sep-2025 07:12:52 UTC] PHP   2. trim($string = NULL, $characters = '/') D:\localweb\WEB_LOCAL\Luminara\public\index.php:2
+[16-Sep-2025 01:34:57 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in D:\localweb\WEB_LOCAL\Luminara\public\pages\BJLobby.php on line 41
