@@ -9,26 +9,26 @@ $script = [
 $checkAuth = true;
 
 
-$badgeStyles = [
-  "VIP"         => "bg-warning text-dark fw-bold border border-warning", // emas mewah
-  "Developer"   => "bg-success text-white",
-  "Moderator"   => "bg-info text-white",
-  "Beta Tester" => "bg-secondary text-white"
-];
+// $badgeStyles = [
+//   "VIP"         => "bg-warning text-dark fw-bold border border-warning", // emas mewah
+//   "Developer"   => "bg-success text-white",
+//   "Moderator"   => "bg-info text-white",
+//   "Beta Tester" => "bg-secondary text-white"
+// ];
 
-$badgeIcons = [
-  "VIP"         => "fa fa-diamond me-2",     // diamond
-  "Developer"   => "fa fa-code me-2",    // code
-  "Moderator"   => "fa fa-shield me-2",  // shield
-  "Beta Tester" => "fa fa-flask me-2"    // flask
-];
+// $badgeIcons = [
+//   "VIP"         => "fa fa-diamond me-2",     // diamond
+//   "Developer"   => "fa fa-code me-2",    // code
+//   "Moderator"   => "fa fa-shield me-2",  // shield
+//   "Beta Tester" => "fa fa-flask me-2"    // flask
+// ];
 
 $badges = [
     "used" => ["VIP", "Developer"],
     "unused" => [ "Moderator", "Beta Tester"]
 ];
 
-$username   = $user["username"] ?? "Kitasan's Father";
+$username   = $user["username"] ?? "Demo";
 $bio        = $user["bio"] ?? "Bio pengguna akan tampil di sini...";
 $gender     = $user["gender"] ?? "-";
 $photo      = $user["photo"] ?? "";

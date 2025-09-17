@@ -51,3 +51,67 @@ Stack trace:
 [16-Sep-2025 15:29:26 UTC] PHP Stack trace:
 [16-Sep-2025 15:29:26 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
 [16-Sep-2025 15:29:26 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 135
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 135
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 135
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 135
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 147
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 147
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 147
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:34:42 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 147
+[17-Sep-2025 04:34:42 UTC] PHP Stack trace:
+[17-Sep-2025 04:34:42 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:34:42 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 136
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 136
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 136
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 136
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 148
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 148
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Undefined variable $badgeIcons in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 148
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[17-Sep-2025 04:38:07 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 148
+[17-Sep-2025 04:38:07 UTC] PHP Stack trace:
+[17-Sep-2025 04:38:07 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[17-Sep-2025 04:38:07 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82

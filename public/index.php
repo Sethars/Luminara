@@ -81,6 +81,9 @@ switch ($request) {
     case 'profile':
         require __DIR__ . '/pages/profile.php';
         break;
+    case 'casual_black_jack':
+        require __DIR__ . '/pages/casual_black_jack.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;

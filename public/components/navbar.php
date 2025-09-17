@@ -1,4 +1,52 @@
 <style>
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  /* Make dropdown full width on mobile */
+  .dropdown-menu {
+    position: static !important;
+    float: none !important;
+    width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Style submenu items */
+  .dropdown-submenu .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    padding-left: 1.5rem !important;
+  }
+  
+  /* Add indicator for submenu items */
+  .dropdown-submenu > .dropdown-item::after {
+    content: "›";
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+  }
+  
+  /* Style active submenu */
+  .dropdown-submenu.show > .dropdown-menu {
+    display: block !important;
+  }
+  
+  /* Add back button for submenu */
+  .dropdown-back {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #6c757d;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+  }
+  
+  .dropdown-back:hover {
+    background-color: #f8f9fa;
+  }
+}
+</style>
+<style>
 /* Submenu style */
 .dropdown-submenu {
   position: relative;
@@ -65,7 +113,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="bjSubmenu">
                 <li>
-                  <a class="dropdown-item" href="/BJLobby/casual">
+                  <a class="dropdown-item" href="/casual_black_jack">
                     <i class="bi bi-controller me-2"></i> Casual
                   </a>
                 </li>
@@ -128,3 +176,38 @@
     </div>
   </div>
 </nav>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle submenu toggle on mobile
+  const submenuToggles = document.querySelectorAll('.dropdown-submenu > .dropdown-toggle');
+  
+  submenuToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const parent = this.parentElement;
+        const submenu = parent.querySelector('.dropdown-menu');
+        
+        // Add back button if not exists
+        if (!submenu.querySelector('.dropdown-back')) {
+          const backButton = document.createElement('li');
+          backButton.className = 'dropdown-back';
+          backButton.innerHTML = '<a class="dropdown-item" href="#"><i class="bi bi-arrow-left me-2"></i> Back</a>';
+          submenu.prepend(backButton);
+          
+          backButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            parent.classList.remove('show');
+          });
+        }
+        
+        // Toggle submenu
+        parent.classList.toggle('show');
+      }
+    });
+  });
+});
+</script>
