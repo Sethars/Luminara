@@ -41,10 +41,12 @@ async function checkAuth() {
 
       // update localStorage user
       localStorage.setItem("user", JSON.stringify(data.user));
-      return {demo : false, user : data.user, to};
+      return {demo : false, user : data.user, token};
     }
   } catch (err) {
-    console.error("Auth check gagal:", err);
+    console.error("Auth check gagal:", err.message);
+    console.error("Stack:", err.stack);
+    alert("woi")
     window.location.href = "/login";
   }
 }
@@ -59,7 +61,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   if(!user){
     const user = await checkAuth();
-    window.location.reload();
+    if(user){
+      window.location.reload();
+    }
     return;
   }
 });

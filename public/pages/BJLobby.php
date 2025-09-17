@@ -27,7 +27,7 @@ $checkAuth = true;
             [
                 "creator" => "Ubur-Ubur Ivy",
                 "profile" => "March 7th Evernight₊˚⊹⋆.jpg",
-                "desc" => "DIEEE."
+                "desc" => "Watch this evil MOVVEEEE."
             ],
             [
                 "creator" => "Yanto Pesut",
