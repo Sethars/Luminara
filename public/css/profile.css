@@ -1,0 +1,11 @@
+.badge-item {
+  cursor: grab;
+  user-select: none;
+}
+.badge-item:active {
+  cursor: grabbing;
+  opacity: 0.6;
+}
+.min-vh-25 {
+  min-height: 150px;
+}

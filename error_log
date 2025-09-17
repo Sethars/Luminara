@@ -39,3 +39,15 @@ Stack trace:
 [15-Sep-2025 07:12:52 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
 [15-Sep-2025 07:12:52 UTC] PHP   2. trim($string = NULL, $characters = '/') D:\localweb\WEB_LOCAL\Luminara\public\index.php:2
 [16-Sep-2025 01:34:57 UTC] PHP Parse error:  syntax error, unexpected string content "", expecting "-" or identifier or variable or number in D:\localweb\WEB_LOCAL\Luminara\public\pages\BJLobby.php on line 41
+[16-Sep-2025 15:29:26 UTC] PHP Warning:  Undefined variable $badges in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 47
+[16-Sep-2025 15:29:26 UTC] PHP Stack trace:
+[16-Sep-2025 15:29:26 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[16-Sep-2025 15:29:26 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[16-Sep-2025 15:29:26 UTC] PHP Warning:  Trying to access array offset on null in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 47
+[16-Sep-2025 15:29:26 UTC] PHP Stack trace:
+[16-Sep-2025 15:29:26 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[16-Sep-2025 15:29:26 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82
+[16-Sep-2025 15:29:26 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 47
+[16-Sep-2025 15:29:26 UTC] PHP Stack trace:
+[16-Sep-2025 15:29:26 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[16-Sep-2025 15:29:26 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:82

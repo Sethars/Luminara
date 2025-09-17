@@ -19,9 +19,10 @@
                   class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-              <a id="username" href="profile.php" class="d-block"></a>
+              <a id="username" href="/profile" class="d-block"></a>
           </div>
         </div>
+        
     </div>
 
     <!-- Sidebar Menu -->
@@ -50,9 +51,9 @@
         <!-- Master Data -->
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-database"></i>
+            <i class="bi bi-dice-3-fill"></i>
             <p>
-              Master Data
+              Gambling
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
@@ -75,7 +76,7 @@
         <!-- Settings -->
         <li class="nav-item">
           <a href="settings.php" class="nav-link">
-            <i class="nav-icon fas fa-cogs"></i>
+            <i class="nav-icon fa fa-user-o "></i>
             <p>Settings</p>
           </a>
         </li>

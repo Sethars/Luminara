@@ -6,6 +6,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
+<!-- drag drop -->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>;
+
+  
+
   <script src="../js/utils.js"></script>
 
   <?php if (!empty($script)): ?>
