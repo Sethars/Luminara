@@ -1,0 +1,8 @@
+.env
+access.log
+*.log
+.log
+error_log
+*_log
+_log
+/vendor

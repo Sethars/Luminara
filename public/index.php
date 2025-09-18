@@ -99,6 +99,12 @@ switch ($request) {
     case 'casual_black_jack':
         require __DIR__ . '/pages/casual_black_jack.php';
         break;
+    case 'BJLobbyCS':
+        require __DIR__ . '/pages/BJLobby_cs.php';
+        break;
+    case 'contact':
+        require __DIR__ . '/pages/contact.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;

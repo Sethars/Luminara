@@ -17,6 +17,7 @@ $username   = $user["username"] ?? "Demo";
 $bio        = $user["bio"] ?? "Bio pengguna akan tampil di sini...";
 $gender     = $user["gender"] ?? "-";
 $photo      = $user["photo"] ?? "";
+$cash       = $user["cash"] ?? 1000;
 
 $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($photo) : "/assets/img/photo_profile/ppkosong.jpg";
 
@@ -69,6 +70,10 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
                         ?>
                     </div>
                 </div>
+            </div>
+            <div>
+                <div class="card-footer text-end">
+                    <span class="text-muted small">Cash: $<?= number_format($cash, 0, ',', '.') ?></span>
             </div>
         </div>
 
