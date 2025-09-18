@@ -1,27 +1,31 @@
 window.getQueryParam = function (param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+};
 
 window.showModal = function (modalId) {
-    const modalElement = document.getElementById(modalId);
-    if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-        modal.show();
-    } else {
-        console.error(`Modal with ID ${modalId} not found.`);
-    }
-}
+  const modalElement = document.getElementById(modalId);
+  if (modalElement) {
+    const modal =
+      bootstrap.Modal.getInstance(modalElement) ||
+      new bootstrap.Modal(modalElement);
+    modal.show();
+  } else {
+    console.error(`Modal with ID ${modalId} not found.`);
+  }
+};
 
 window.closeModal = function (modalId) {
-    const modalElement = document.getElementById(modalId);
-    if (modalElement) {
-        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-        modal.hide();
-    } else {
-        console.error(`Modal with ID ${modalId} not found.`);
-    }
-}
+  const modalElement = document.getElementById(modalId);
+  if (modalElement) {
+    const modal =
+      bootstrap.Modal.getInstance(modalElement) ||
+      new bootstrap.Modal(modalElement);
+    modal.hide();
+  } else {
+    console.error(`Modal with ID ${modalId} not found.`);
+  }
+};
 
 function setLoading(isLoading, btnId) {
   const btn = document.getElementById(btnId); // id tombol submit
@@ -40,13 +44,24 @@ function setLoading(isLoading, btnId) {
 }
 
 function generateRandomString(length) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
-  
+
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * chars.length);
     result += chars[randomIndex];
   }
-  
+
   return result;
 }
+
+//ambil data
+const user = JSON.parse(localStorage.getItem("user"));
+
+//ambil username
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("username").textContent = user
+    ? user.username
+    : "Demo";
+});

@@ -113,7 +113,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="bjSubmenu">
                 <li>
-                  <a class="dropdown-item" href="/casual_black_jack">
+                  <a class="dropdown-item" href="/BJLobbyCS">
                     <i class="bi bi-controller me-2"></i> Casual
                   </a>
                 </li>

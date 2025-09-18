@@ -4,7 +4,8 @@ $title = "Casual Black Jack Lobby";
 $css = "BJLobby_cs"; 
 $script = [
     "logout",
-    "BJLobby_cs"
+    "BJLobby_cs",
+    "dashboard"
 ];
 $checkAuth = true;
 ?>
@@ -22,19 +23,19 @@ $checkAuth = true;
     <div class="lobby-list" id="lobbyList">
         <?php
         $lobbies = [
-            [
-                "creator" => "Angga Kakap",
-                "profile" => "",
-                "desc" => "Lobby untuk pemula yang mau belajar blackjack."
+            [   
+                "creator" => "Aventurine",
+                "profile" => "aven.jpg",
+                "desc" => "All or nothing."
             ],
             [
-                "creator" => "Ubur-Ubur Ivy", // ambil dari user
-                "profile" => "March 7th Evernight₊˚⊹⋆.jpg", // ambil dari user
-                "desc" => "DIEEE.",
+                "creator" => "Ubur-Ubur Ivy",
+                "profile" => "March 7th Evernight₊˚⊹⋆.jpg",
+                "desc" => "DIEEE."
             ],
             [
-                "creator" => "Yanto Pesut",
-                "profile" => "",
+                "creator" => "Pemain Blackjack Nomor 1",
+                "profile" => "download (6)",
                 "desc" => "Lobby high stakes, hanya untuk yang berani."
             ]
 
