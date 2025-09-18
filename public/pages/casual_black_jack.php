@@ -42,7 +42,7 @@ $checkAuth = true;
                 id="bet-amount"
                 class="bet-input"
                 value="10"
-                min="5"
+                min="0"
                 max="1000"
                 disabled
                 />

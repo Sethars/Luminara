@@ -16,6 +16,10 @@ $badges =
         "used" => ["VIP", "Developer", "WS5"],
         "unused" => ["Moderator", "Beta Tester"]
     ];
+$badges = [
+    "used" => ["VIP", "Developer"],
+    "unused" => [ "Moderator", "Beta Tester"]
+];
 
 $username   = $user["username"] ?? "Demo";
 $bio        = $user["bio"] ?? "Bio pengguna akan tampil di sini...";
@@ -53,7 +57,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
 
                 <!-- Info -->
                 <div>
-                    <h4 id="preview-username"><?= htmlspecialchars($username) ?></h4>
+                    <h4 id="preview-username"></h4>
                     <p id="preview-bio" class="text-muted mb-1"><?= htmlspecialchars($bio) ?></p>
                     <p id="preview-gender" class="small text-secondary">Gender: <?= htmlspecialchars($gender) ?></p>
                     
@@ -88,8 +92,11 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
         <div class="card mb-3">
             <div class="card-header">Nama</div>
             <div class="card-body">
-                <input type="text" id="username" class="form-control mb-3" placeholder="Masukkan nama anda">
-                <button class="btn btn-primary">Simpan Perubahan</button>
+                <form id="changeNameForm">
+                    <input type="text" id="newUsername" class="form-control mb-3" placeholder="Masukkan nama anda">
+                    <p id="changeUsernameMsg"></p>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </form>
             </div>
         </div>
 
@@ -166,10 +173,13 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
         <div class="card mb-3">
             <div class="card-header">Ganti Password</div>
             <div class="card-body">
-                <input type="password" id="oldPassword" class="form-control mb-2" placeholder="Password lama">
-                <input type="password" id="newPassword" class="form-control mb-2" placeholder="Password baru">
-                <input type="password" id="confirmPassword" class="form-control mb-3" placeholder="Konfirmasi password baru">
-                <button class="btn btn-primary">Simpan Perubahan</button>
+                <form id="changePasswordForm">
+                    <input type="password" id="oldPassword" class="form-control mb-2" placeholder="Password lama">
+                    <input type="password" id="newPassword" class="form-control mb-2" placeholder="Password baru">
+                    <input type="password" id="confirmPassword" class="form-control mb-3" placeholder="Konfirmasi password baru">
+                    <p id="messageChangePassword"></p>
+                    <button id="changePasswordBtn" type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </form>
             </div>
         </div>
 
@@ -196,29 +206,43 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteAccountLabel">Konfirmasi Hapus Akun</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-      </div>
-      <div class="modal-body">
-        <p>Masukkan password untuk mengkonfirmasi penghapusan akun:</p>
-        <input type="password" id="deletePassword" class="form-control" placeholder="Password anda">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button type="button" class="btn btn-danger">Hapus Permanen</button>
-      </div>
+      <form id="deleteAccountForm">
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteAccountLabel">Konfirmasi Hapus Akun</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body">
+            <p>Masukkan password untuk mengkonfirmasi penghapusan akun:</p>
+            <input type="password" id="deletePassword" class="form-control" placeholder="Password anda">
+            <p id="deleteAccountMsg"></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button id="deleteAccountBtn" type="submit" class="btn btn-danger">Hapus Permanen</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-
-<!-- TODO: bentuk json badge 
-
-{
-  "used": ["VIP"],
-  "unused": ["Developer", "Moderator", "Beta Tester"]
-}
-  
-
--->
+<!-- Modal berhasil hapus akun -->
+<div class="modal fade" id="deleteSuccess" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <img class="bottom-0 end-0" src="../assets/img/modal/modal_img.png" alt="Loading..." style="width: auto; height: 11.9rem; position: absolute; z-index: 0; opacity: 0.5;">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Berhasil Hapus Akun</h1>
+      </div>
+      <div class="modal-body">
+        Anda akan diarahkan ke halaman login.
+      </div>
+      <div class="modal-footer">
+        <button onclick="window.location.href='/login'" type="button" class="btn btn-deleteAcc" style="z-index: 1;">
+          <strong>
+            Oke
+          </strong>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

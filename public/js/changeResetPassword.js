@@ -45,7 +45,7 @@ document.getElementById("changePasswordForm").addEventListener("submit", async (
     }
 
     try {
-        const res = await fetch("/api/changePassword", {
+        const res = await fetch("/api/changeResetPassword", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ token: token, identifier: identifier,newPassword: newPassword, confirmPassword: confirmPassword }),

@@ -9,3 +9,18 @@
 .min-vh-25 {
   min-height: 150px;
 }
+.btn-deleteAcc {
+  /* background: linear-gradient(90deg, ); */
+  background-color: rgba(248, 196, 113, 0.7);
+  background-size: 200% 100%;
+  background-position: left center;
+  color: white;
+  transition: 0.5s ease-in-out, color 0.3s ease-in-out;
+}
+
+.btn-deleteAcc:hover {
+  background-position: right center;
+  background-color: rgba(248, 196, 113, 1);
+
+  color: white;
+}

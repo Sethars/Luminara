@@ -10,7 +10,7 @@ if (str_starts_with($request, "api/")) {
 
     switch ($request) {
         case "api/login":
-            require __DIR__ . '/../includes/login.php';
+            require __DIR__ . '/../includes/auth.php';
             login($conn, $jwt_token);
             break;
         
@@ -34,8 +34,13 @@ if (str_starts_with($request, "api/")) {
             checkTokenResetPassword($conn);
             break;
 
-        case "api/changePassword":
+        case "api/changeResetPassword":
             require __DIR__ . '/../includes/resetPassword.php';
+            changePassword($conn);
+            break;
+
+        case "api/changePassword":
+            require __DIR__ . '/../includes/changePassword.php';
             changePassword($conn);
             break;
 
@@ -45,6 +50,16 @@ if (str_starts_with($request, "api/")) {
 
         case "api/logout":
             require __DIR__ . '/../includes/logout.php';
+            break;
+
+        case "api/deleteAccount":
+            require __DIR__ . '/../includes/auth.php';
+            deleteAccount($conn);
+            break;
+
+        case "api/changeUsername":
+            require __DIR__ . '/../includes/profileData.php';
+            changeUsername($conn);
             break;
 
         default:

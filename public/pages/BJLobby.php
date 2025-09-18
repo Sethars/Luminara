@@ -28,9 +28,9 @@ $checkAuth = true;
                 "desc" => "Lobby untuk pemula yang mau belajar blackjack."
             ],
             [
-                "creator" => "Ubur-Ubur Ivy", // ambil dari user
-                "profile" => "March 7th Evernight₊˚⊹⋆.jpg", // ambil dari user
-                "desc" => "DIEEE.",
+                "creator" => "Ubur-Ubur Ivy",
+                "profile" => "March 7th Evernight₊˚⊹⋆.jpg",
+                "desc" => "Watch this evil MOVVEEEE."
             ],
             [
                 "creator" => "Yanto Pesut",

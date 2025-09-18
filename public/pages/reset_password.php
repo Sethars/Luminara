@@ -49,10 +49,10 @@ include_once __DIR__ . '/../components/header.php';
 <div>
     <!-- <img src="../assets/img/rst_pass.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute bottom-0 end-0" style="width: 300px; opacity: 0.1;"> -->
     <!-- <img src="../assets/img/rst_pass.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-0 start-0" style="width: 300px; opacity: 0.1;"> -->
-    <img src="../assets/img/reset_password/rst_pass.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img2 d-none d-lg-block" style="">
-    <img src="../assets/img/reset_password/rst_pass2.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img1 d-none d-lg-block" style="">
-    <img src="../assets/img/reset_password/rst_pass.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img4 d-lg-none" style="">
-    <img src="../assets/img/reset_password/rst_pass2.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img5 d-lg-none " style="">
+    <img src="../assets/img/reset_password/rst_pass.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img2 d-none d-lg-block">
+    <img src="../assets/img/reset_password/rst_pass2.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img1 d-none d-lg-block">
+    <img src="../assets/img/reset_password/rst_pass.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img4 d-lg-none">
+    <img src="../assets/img/reset_password/rst_pass2.jpg" alt="Reset Password Illustration" class="img-fluid position-absolute top-50 start-50 translate-middle img5 d-lg-none ">
 </div>
 
 <?php

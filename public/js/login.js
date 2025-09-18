@@ -32,6 +32,7 @@ document
       const data = await res.json();
 
       if (data.success) {
+        localStorage.clear();
         localStorage.setItem("token", data.token);
         showModal("loginSuccess");
       } else {
@@ -46,6 +47,8 @@ document
 //Demo Btn
 document.getElementById("demoLoginBtn").addEventListener("click", function (e) {
   e.preventDefault();
+
+  localStorage.clear();
 
   localStorage.setItem("demo", JSON.stringify(true));
 

@@ -102,7 +102,7 @@ function initGame() {
 function setBetAmount(amount) {
   const newBet = parseInt(betAmountInput.value) + amount;
 
-  if (newBet <= stats.chips) {
+  if (newBet) {
     betAmountInput.value = newBet;
     validateBetAmount();
   }
@@ -110,7 +110,7 @@ function setBetAmount(amount) {
 
 // Reset bet amount
 function resetBet() {
-  betAmountInput.value = 10;
+  betAmountInput.value = 0;
   validateBetAmount();
 }
 
@@ -123,7 +123,10 @@ function validateBetAmount() {
   }
 
   if (betValue < 5) {
-    betAmountInput.value = 5;
+    messageEl.textContent = "Minimum bet is 5 chips";
+    return;
+  } else {
+    messageEl.textContent = "Place your bet to start playing";
   }
 }
 
@@ -986,6 +989,7 @@ function updateStatsDisplay() {
       ? Math.round((stats.wins / stats.gamesPlayed) * 100)
       : 0;
   if (winRateEl) winRateEl.textContent = `${winRate}%`;
+  if (chipCountPanelEl) chipCountPanelEl.textContent = stats.chips;
 }
 
 // Show rules modal
