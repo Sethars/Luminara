@@ -1,13 +1,15 @@
 <?php
 $title = "BlackJack Lobby";
 $css = "BJLobby"; 
-$script = "BJLobby";
+$script = [
+    "logout",
+    "BjLobby"
+];
 $checkAuth = true;
 ?>
-<div id="main-content">
+
     <?php include_once __DIR__ . '/../components/header.php'; ?>
     <?php include_once __DIR__ . '/../components/navbar.php'; ?>
-    <?php include_once __DIR__ . '/../components/sidebar.php'; ?>
 
 <div class="lobby-container">
     <div class="lobby-header">
@@ -53,9 +55,6 @@ $checkAuth = true;
 </div>
 
 
-    <?php include_once __DIR__ . '/../components/footer.php'; ?>
-</div>
+<?php include_once __DIR__ . '/../components/footer.php'; ?>
 
-<div id="loading">
-    <?php include_once __DIR__ . '/../components/loadingScreen.php'; ?>
-</div>
+

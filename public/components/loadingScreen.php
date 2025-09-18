@@ -8,6 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       color: #333;
+      background-color: transparent;
     }
 
     .vh-100 {
@@ -37,25 +38,25 @@
   0%   { transform: rotate(0deg); }
 
   /* 90° */
-  19%  { transform: rotate(45deg); }
+  15%  { transform: rotate(-15deg); }
   20%  { transform: rotate(95deg); }   /* overshoot */
   21%  { transform: rotate(85deg); }   /* balik dikit */
   28%  { transform: rotate(90deg); }   /* settle */
 
   /* 180° */
-  44%  { transform: rotate(135deg); }
+  40%  { transform: rotate(75deg); }
   45%  { transform: rotate(185deg); }
   46%  { transform: rotate(175deg); }
   53%  { transform: rotate(180deg); }
 
   /* 270° */
-  69%  { transform: rotate(225deg); }
+  65%  { transform: rotate(165deg); }
   70%  { transform: rotate(275deg); }
   71%  { transform: rotate(265deg); }
   78%  { transform: rotate(270deg); }
 
   /* 360° */
-  94%  { transform: rotate(315deg); }
+  94%  { transform: rotate(255deg); }
   95%  { transform: rotate(365deg); }
   96%  { transform: rotate(355deg); }
   100% { transform: rotate(360deg); }

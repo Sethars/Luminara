@@ -1,3 +1,11 @@
+const user = JSON.parse(localStorage.getItem("user"));
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("username").textContent = user
+    ? user.username
+    : "Demo";
+});
+
 function joinLobby(creator) {
   alert("Kamu bergabung ke lobby milik " + creator);
 }

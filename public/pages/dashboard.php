@@ -21,10 +21,6 @@ $checkAuth = true;
     ?>
 
     <?php
-    include_once __DIR__ . '/../components/sidebar.php';
-    ?>
-
-    <?php
     include_once __DIR__ . '/../components/footer.php';
     ?>
 </div>

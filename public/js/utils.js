@@ -1,3 +1,7 @@
+//ambil data
+const user = JSON.parse(localStorage.getItem('user'));
+const userId = user.id;
+
 window.getQueryParam = function (param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
@@ -24,20 +28,19 @@ window.closeModal = function (modalId) {
 }
 
 function setLoading(isLoading, btnId) {
-  const btn = document.getElementById(btnId); // id tombol submit
-  const btnSpinner = document.getElementById("btnSpinner");
-  const btnText = document.getElementById("btnText");
+  const btn = document.getElementById(btnId);
 
   if (isLoading) {
     btn.disabled = true;
-    btnSpinner.classList.remove("d-none");
-    btnText.classList.add("d-none");
+    btn.dataset.originalText = btn.innerHTML;
+    btn.innerHTML = `
+      <span class="spinner-border spinner-border-sm me-2" role="status"></span>`;
   } else {
     btn.disabled = false;
-    btnSpinner.classList.add("d-none");
-    btnText.classList.remove("d-none");
+    btn.innerHTML = btn.dataset.originalText || "Submit";
   }
 }
+
 
 function generateRandomString(length) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -50,3 +53,27 @@ function generateRandomString(length) {
   
   return result;
 }
+
+function updateUserData(key, value) {
+  if (!user) {
+    console.error("User tidak ditemukan di localStorage");
+    return;
+  }
+
+  try {
+    user[key] = value; // update field sesuai parameter
+    localStorage.setItem("user", JSON.stringify(user)); // simpan lagi
+    console.log(`User ${key} berhasil diupdate jadi:`, value);
+  } catch (err) {
+    console.error("Gagal parse data user:", err);
+  }
+}
+
+//ambil username
+function showUsername(){
+  document.getElementById('username').textContent = user ? user.username : 'Demo';
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    showUsername();
+})

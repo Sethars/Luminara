@@ -1,16 +1,16 @@
 async function checkAuth() {
-  document.getElementById('main-content').classList.add('d-none');
-  document.getElementById('loading').classList.remove('d-none');
+  document.getElementById("main-content").classList.add("d-none");
+  document.getElementById("loading").classList.remove("d-none");
 
-  if(JSON.parse(localStorage.getItem('demo') || 'false')){
-    const expired = JSON.parse(localStorage.getItem('expired'));
-    const token = localStorage.getItem('token');
-    if(token && Date.now() <= expired){
-      document.getElementById('main-content').classList.remove('d-none');
-      document.getElementById('loading').classList.add('d-none');
-      return{demo : true, user : null, token};
+  if (JSON.parse(localStorage.getItem("demo") || "false")) {
+    const expired = JSON.parse(localStorage.getItem("expired"));
+    const token = localStorage.getItem("token");
+    if (token && Date.now() <= expired) {
+      document.getElementById("main-content").classList.remove("d-none");
+      document.getElementById("loading").classList.add("d-none");
+      return { demo: true, user: null, token };
     } else {
-      localStorage.removeItem('demo');
+      localStorage.removeItem("demo");
       localStorage.removeItem("token");
       localStorage.removeItem("expired");
       window.location.href = "/login";
@@ -26,7 +26,7 @@ async function checkAuth() {
 
   try {
     const res = await fetch("/api/auth", {
-      headers: { "Authorization": `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
@@ -36,8 +36,8 @@ async function checkAuth() {
       localStorage.removeItem("user");
       window.location.href = "/login";
     } else {
-      document.getElementById('main-content').classList.remove('d-none');
-      document.getElementById('loading').classList.add('d-none');
+      document.getElementById("main-content").classList.remove("d-none");
+      document.getElementById("loading").classList.add("d-none");
 
       // update localStorage user
       localStorage.setItem("user", JSON.stringify(data.user));
@@ -52,14 +52,14 @@ async function checkAuth() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const user = localStorage.getItem('user');
-  const isDemo = JSON.parse(localStorage.getItem('demo') || 'false');
-  if(isDemo){
+  const user = localStorage.getItem("user");
+  const isDemo = JSON.parse(localStorage.getItem("demo") || "false");
+  if (isDemo) {
     await checkAuth();
     return;
   }
-  
-  if(!user){
+
+  if (!user) {
     const user = await checkAuth();
     if(user){
       window.location.reload();

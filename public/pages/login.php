@@ -109,7 +109,7 @@ include_once __DIR__ . '/../components/footer.php';
 <div class="modal fade" id="loginSuccess" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <img class="bottom-0 end-0" src="../assets/img/modal/modal_img.png" alt="Loading..." style="width: 12.8rem; height: 12.8rem; position: absolute; z-index: 0; opacity: 0.5;">
+      <img class="bottom-0 end-0" src="../assets/img/modal/modal_img.png" alt="Loading..." style="width: auto; height: 11.9rem; position: absolute; z-index: 0; opacity: 0.5;">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel">Login Berhasil</h1>
       </div>

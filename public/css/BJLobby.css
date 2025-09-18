@@ -4,7 +4,6 @@
 
 /* header bar di atas list */
 .lobby-header {
-  padding-left: 75px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,7 +48,6 @@
 }
 
 .lobby-card {
-  margin-left: 75px;
   display: flex;
   align-items: center;
   background: #f8f9fa;
