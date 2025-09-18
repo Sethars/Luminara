@@ -12,7 +12,10 @@ $checkAuth = true;
 
     <?php include_once __DIR__ . '/../components/header.php'; ?>
     <?php include_once __DIR__ . '/../components/navbar.php'; ?>
-
+<div>
+    <img src="../assets/img/wp/bg_lobby_cassual.jpg" alt="gacor" class="bg-lobby">
+</div>
+<!-- Main Content -->
 <div class="lobby-container">
     <div class="lobby-header">
         <h2 class="lobby-title">Daftar Lobbys</h2>
