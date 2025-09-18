@@ -128,7 +128,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
                     <option value="">Pilih gender</option>
                     <option value="male">Laki-laki</option>
                     <option value="female">Perempuan</option>
-                    <option value="other">Kapal Tempur</option>
+                    <option value="dragunov">Dragunov</option>
                 </select>
                 <button class="btn btn-primary">Simpan Perubahan</button>
             </div>
