@@ -29,8 +29,5 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- badge -->
-    <?php include_once __DIR__ . '/../css/badge.php'; ?>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

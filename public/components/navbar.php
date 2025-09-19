@@ -205,9 +205,9 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarUser" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="../assets/img/photo_profile/ppkosong.jpg" class="rounded-circle border" alt="User Image"
+            <img id="navbar-profile-photo" class="rounded-circle border" alt="User Image"
               style="height:32px; width:32px; margin-right:8px;">
-            <span id="username" class="fw-semibold">Username</span>
+            <span id="username" class="fw-semibold"></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUser">
             <li>

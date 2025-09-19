@@ -1,12 +1,16 @@
-//ambil data
-const user = JSON.parse(localStorage.getItem('user'));
-const userId = user.id;
+// ambil data user dari localStorage
+const user = JSON.parse(localStorage.getItem("user"));
+if (user) {
+  window.userId = user.id; // jadi global
+}
 
+// ✅ Ambil query param dari URL
 window.getQueryParam = function (param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 };
 
+// ✅ Show modal (Bootstrap)
 window.showModal = function (modalId) {
   const modalElement = document.getElementById(modalId);
   if (modalElement) {
@@ -19,6 +23,7 @@ window.showModal = function (modalId) {
   }
 };
 
+// ✅ Close modal (Bootstrap)
 window.closeModal = function (modalId) {
   const modalElement = document.getElementById(modalId);
   if (modalElement) {
@@ -31,8 +36,14 @@ window.closeModal = function (modalId) {
   }
 };
 
-function setLoading(isLoading, btnId) {
+// ✅ Loading button handler
+window.setLoading = function (isLoading, btnId) {
   const btn = document.getElementById(btnId);
+
+  if (!btn) {
+    console.error(`Button with ID ${btnId} not found.`);
+    return;
+  }
 
   if (isLoading) {
     btn.disabled = true;
@@ -43,10 +54,10 @@ function setLoading(isLoading, btnId) {
     btn.disabled = false;
     btn.innerHTML = btn.dataset.originalText || "Submit";
   }
-}
+};
 
-
-function generateRandomString(length) {
+// ✅ Generate random string
+window.generateRandomString = function (length) {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
@@ -57,28 +68,150 @@ function generateRandomString(length) {
   }
 
   return result;
-}
+};
 
-function updateUserData(key, value) {
-  if (!user) {
-    console.error("User tidak ditemukan di localStorage");
+// ✅ Update localStorage data
+window.updateLocalData = function (storageKey, field, value) {
+  const data = JSON.parse(localStorage.getItem(storageKey));
+
+  if (!data) {
+    console.error(storageKey + " tidak ditemukan di localStorage");
     return;
   }
 
   try {
-    user[key] = value; // update field sesuai parameter
-    localStorage.setItem("user", JSON.stringify(user)); // simpan lagi
-    console.log(`User ${key} berhasil diupdate jadi:`, value);
+    data[field] = value;
+    localStorage.setItem(storageKey, JSON.stringify(data));
+    console.log(`${storageKey}.${field} berhasil diupdate jadi:`, value);
   } catch (err) {
-    console.error("Gagal parse data user:", err);
+    console.error("Gagal update data:", err);
+  }
+};
+
+window.isDemo = function(){
+  const isDemo = JSON.parse(localStorage.getItem("demo"));
+
+  if (isDemo === true) {
+    return true;
   }
 }
 
-//ambil username
-function showUsername(){
-  document.getElementById('username').textContent = user ? user.username : 'Demo';
+// ✅ Tampilkan username
+window.showUsernameAndPp = function () {
+  const el = document.getElementById("username");
+  const epp = document.getElementById('navbar-profile-photo');
+  const isEpp = JSON.parse(localStorage.getItem('profile'));
+  if (el && epp) {
+    el.textContent = user ? user.username : "Demo";
+    epp.src =  isEpp.photo ? isEpp.photo : "/assets/img/photo_profile/ppkosong.jpg";
+  } else {
+    console.error("Element #username not found.");
+  }
+};
+
+// Auto jalan setelah DOM siap
+document.addEventListener("DOMContentLoaded", function () {
+  try{
+    window.showUsernameAndPp();
+  } catch(err){}
+});
+
+//Ambil data profile
+async function getDataProfile(){
+  try{
+    const res = await fetch('api/getDataProfile', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({userId})
+    })
+
+    const result = await res.json();
+
+    if(result.success){
+      localStorage.setItem('profile', JSON.stringify(result.profile));
+      return true;
+    }
+  } catch(err){}
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-    showUsername();
-})
+//Ambil badges tiap 5 menit
+let oldBadges = localStorage.getItem("profile")
+  ? JSON.parse(localStorage.getItem("profile")).badges
+  : null;
+
+function isDifferent(a, b) {
+  return JSON.stringify(a) !== JSON.stringify(b);
+}
+
+// Loop tiap 5 menit
+setInterval(() => {
+  getDataProfile().then(success => {
+    if (success) {
+      const profile = JSON.parse(localStorage.getItem("profile"));
+      const newBadges = profile.badges;
+      
+      if (isDifferent(oldBadges, newBadges) && window.location.pathname === '/profile') {
+        console.log("Badges berubah, render ulang!");
+        oldBadges = newBadges; // update oldBadges
+        renderBadges(newBadges);
+      }
+    }
+  });
+}, 5 * 60 * 1000);
+
+// mapping style & icon
+const badgeIcons = {
+  VIP: "fa fa-diamond me-2",     // diamond
+  Developer: "fa fa-code me-2",    // code
+  Moderator: "fa fa-shield me-2",  // shield
+  BetaTester: "fa fa-flask me-2",    // flask
+  WS5: "fa fa-fire me-2" // fire
+};
+
+const badgeStyles = {
+  VIP: "bg-warning text-dark fw-bold border border-warning", // emas mewah
+  Developer: "bg-success text-white",
+  Moderator: "bg-info text-white",
+  BetaTester: "bg-secondary text-white",
+  WS5: "bg-warning text-dark" // win streak 5
+};
+
+// fungsi render
+function renderBadges(badges) {
+  if (typeof badges === "string") {
+    badges = JSON.parse(badges);
+  }
+
+  const usedContainer = document.getElementById("used-badges");
+  usedContainer.innerHTML = "";
+  badges.used.forEach(badge => {
+    const li = document.createElement("li");
+    li.className = "list-group-item badge-item";
+    li.dataset.badge = badge;
+    li.innerHTML = `<i class="${badgeIcons[badge] || "fa-solid fa-star"} me-1"></i>${badge}`;
+    usedContainer.appendChild(li);
+  });
+
+  const unusedContainer = document.getElementById("unused-badges");
+  unusedContainer.innerHTML = "";
+  badges.unused.forEach(badge => {
+    const li = document.createElement("li");
+    li.className = "list-group-item badge-item";
+    li.dataset.badge = badge;
+    li.innerHTML = `<i class="${badgeIcons[badge] || "fa-solid fa-star"} me-1"></i>${badge}`;
+    unusedContainer.appendChild(li);
+  });
+
+  const previewContainer = document.getElementById("preview-badges");
+  previewContainer.innerHTML = "";
+  if (badges.used.length > 0) {
+    badges.used.forEach(badge => {
+      const span = document.createElement("span");
+      span.className = `badge ${badgeStyles[badge] || "bg-dark text-white"}`;
+      span.innerHTML = `<i class="${badgeIcons[badge] || "fa-solid fa-star"} me-1"></i>${badge}`;
+      previewContainer.appendChild(span);
+    });
+  } else {
+    previewContainer.innerHTML = `<span class="text-muted small">Tidak ada badge yang digunakan</span>`;
+  }
+}

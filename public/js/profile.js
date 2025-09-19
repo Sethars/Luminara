@@ -1,5 +1,25 @@
-document.addEventListener("DOMContentLoaded", function () {
+const profile = JSON.parse(localStorage.getItem('profile'));
+
+document.addEventListener("DOMContentLoaded", async function () {
+  if(!localStorage.getItem('profile') && !isDemo()){
+    getDataProfile().then(success=> {
+      if(success){
+        window.location.reload();
+      }
+    })
+  }
+
+  const badges = profile.badges || { used: [], unused: [] };
+  renderBadges(badges); 
   document.getElementById('preview-username').textContent = user ? user.username : 'Demo';
+  document.getElementById('preview-photo').src = profile.photo ? profile.photo : "/assets/img/photo_profile/ppkosong.jpg";
+  if(profile && profile.bio !== null){
+    document.getElementById('preview-bio').textContent = profile.bio;
+  } else {
+    document.getElementById('preview-bio').textContent = 'Pengguna belum mengatur bio';
+  }
+  document.getElementById('preview-gender').textContent = profile ? profile.gender : 'Dragunov';
+  
 
   new Sortable(document.getElementById("used-badges"), {
     group: "badges",
@@ -16,13 +36,29 @@ document.addEventListener("DOMContentLoaded", function () {
   // Simpan hasil perubahan ke JSON
   document
     .getElementById("saveBadgesBtn")
-    .addEventListener("click", function () {
+    .addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      const msg = document.getElementById('changeBadgeMsg');
+
+      msg.textContent = ''
+      msg.className = ''
+
       const used = [];
       const unused = [];
+      let totalUsed = 0;
 
       document.querySelectorAll("#used-badges .badge-item").forEach((el) => {
         used.push(el.dataset.badge);
+        totalUsed++;
       });
+
+      if(totalUsed > 3){
+        msg.textContent = "Maksimal badge yang digunakan hanya 3";
+        msg.classList.add('text-danger');
+        return;
+      }
+
       document.querySelectorAll("#unused-badges .badge-item").forEach((el) => {
         unused.push(el.dataset.badge);
       });
@@ -30,18 +66,33 @@ document.addEventListener("DOMContentLoaded", function () {
       const badgeConfig = { used, unused };
       console.log("Badge JSON:", badgeConfig);
 
-      fetch("save_badges.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(badgeConfig),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          alert("Badge berhasil disimpan!");
+      try{
+        const res = await fetch("api/updateBadges", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({userId, badgeConfig}),
         })
-        .catch((err) => console.error(err));
+
+        const result = await res.json();
+        if(result.success){
+          msg.textContent = 'Berhasil ganti badges';
+          msg.classList.add('text-success');
+          renderBadges(badgeConfig);
+          profile.badges= badgeConfig;
+          localStorage.setItem('profile', JSON.stringify(profile));
+        } else{
+          msg.textContent = result.message || "Gagal ganti badges";
+          msg.classList.add('text-danger');
+          if (result.error) console.error("Server error:", result.error);
+        }
+      } catch(err) { 
+        console.error(err);
+        msg.textContent = "Terjadi kesalahan koneksi atau server.";
+        msg.classList.add('text-danger');
+      }
     });
 });
+
 
 //Change username
 document.getElementById('changeNameForm').addEventListener('submit', async function (e) {
@@ -49,6 +100,12 @@ document.getElementById('changeNameForm').addEventListener('submit', async funct
 
   const newUsername = document.getElementById('newUsername').value;
   const msg = document.getElementById('changeUsernameMsg');
+
+  if(isDemo()){
+    msg.textContent = "Anda harus login terlebih dahulu";
+    msg.classList.add('text-danger');
+    return;
+  }
 
   msg.textContent = ''
   msg.className = ''
@@ -69,8 +126,8 @@ document.getElementById('changeNameForm').addEventListener('submit', async funct
     if(result.success){
       msg.textContent = 'Berhasil ganti username';
       msg.classList.add('text-success');
-      updateUserData('username', newUsername);
-      showUsername();
+      updateLocalData('user' ,'username', newUsername);
+      document.getElementById('username').textContent = newUsername;
       document.getElementById('preview-username').textContent = newUsername;
     } else{
       msg.textContent = result.message || "Gagal ganti username";
@@ -84,15 +141,147 @@ document.getElementById('changeNameForm').addEventListener('submit', async funct
   }
 })
 
+//Change Photo Profile
+//Preview
+document.getElementById("profilePhoto").addEventListener("change", function (e) {
+  const file = e.target.files[0];
+  if (file) {
+    document.getElementById("photo-preview-mini").src = URL.createObjectURL(file);
+  }
+});
+
+//Update
+document.getElementById('changePPBtn').addEventListener('click', async function (e) {
+  e.preventDefault();
+  
+  const msg = document.getElementById('changePPMsg');
+  const file = document.getElementById("profilePhoto").files[0];
+
+  msg.textContent = ''
+  msg.className = '';
+
+  if(!file){
+    msg.textContent = 'Masukkan foto terlebih dahulu';
+    msg.classList.add('text-danger');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('user_id', userId);
+  formData.append('pp', file);
+
+  try{
+    const res = await fetch('api/changePhotoProfile', {
+      method: "POST",
+      body: formData
+    })
+
+    const result = await res.json();
+    if (result.success) {
+      msg.textContent = 'Berhasil mengganti foto profil Anda';
+      msg.classList.add('text-success');
+      document.getElementById("preview-photo").src = result.file_url;
+      document.getElementById('navbar-profile-photo').src = result.file_url;
+      document.getElementById("photo-preview-mini").src = "/assets/img/photo_profile/ppkosong.jpg";
+      updateLocalData('profile', 'photo', result.file_url);
+    } else {
+      msg.textContent = "Upload gagal: " + result.message;
+      msg.classList.add('text-danger');
+    }
+  } catch(err){}
+})
+
+//Change Bio
+document.getElementById('changeBioForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const bio = document.getElementById('preview-bio');
+  const newBio = document.getElementById('newBio').value;
+  const msg = document.getElementById('changeBioMsg');
+
+  if(isDemo()){
+    msg.textContent = "Anda harus login terlebih dahulu";
+    msg.classList.add('text-danger');
+    return;
+  }
+
+  msg.textContent = ''
+  msg.className = ''
+
+  try{
+    const res = await fetch('api/changeBio', {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({userId, newBio})
+    });
+
+    const result = await res.json();
+    if(result.success){
+      msg.textContent = 'Berhasil ganti bio';
+      msg.classList.add('text-success');
+      updateLocalData('profile', 'bio', newBio);
+      bio.textContent = newBio;
+    }
+  } catch(err){
+    console.error(err);
+    msg.textContent = "Terjadi kesalahan koneksi atau server.";
+    msg.classList.add('text-danger');
+  }
+})
+
+//Change Gender
+document.getElementById('changeGenderBtn').addEventListener('click', async function (e) {
+  e.preventDefault();
+
+  const gender = document.getElementById('preview-gender');
+  const newGender = document.getElementById('newGender').value;
+  const msg = document.getElementById('changeGenderMsg');
+
+  msg.textContent = '';
+  msg.className = '';
+
+  if(!newGender){
+    return;
+  }
+
+  try {
+    const response = await fetch("api/changeGender", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({userId, newGender}),
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      msg.textContent = 'Gender berhasil diperbarui';
+      msg.classList.add('text-success');
+      updateLocalData('profile', 'gender', newGender);
+      gender.textContent = newGender;
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    msg.textContent = "Terjadi kesalahan koneksi atau server.";
+    msg.classList.add('text-danger');
+  }
+})
+
 //Change Password
 document.getElementById('changePasswordForm').addEventListener('submit', async function (e) {
   e.preventDefault();
   setLoading(true, 'changePasswordBtn');
-
+  
   const oldPassword = document.getElementById('oldPassword').value;
   const newPassword = document.getElementById('newPassword').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
   const msg = document.getElementById('messageChangePassword');
+  
+  if(isDemo()){
+    msg.textContent = "Anda harus login terlebih dahulu";
+    msg.classList.add('text-danger');
+    setLoading(false, 'changePasswordBtn');
+    return;
+  }
 
   msg.textContent = "";
   msg.classList.remove("text-danger", "text-success");
@@ -147,6 +336,13 @@ document.getElementById('deleteAccountForm').addEventListener('submit', async fu
   const password = document.getElementById('deletePassword').value;
   const msg = document.getElementById('deleteAccountMsg');
   setLoading(true, 'deleteAccountBtn');
+  
+  if(isDemo()){
+    msg.textContent = "Anda harus login terlebih dahulu";
+    msg.classList.add('text-danger');
+    setLoading(false, 'deleteAccountBtn');
+    return;
+  }
 
   try{
     const response = await fetch('/api/deleteAccount', {

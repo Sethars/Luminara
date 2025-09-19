@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [19-Sep-2025 02:02:33 UTC] PHP Warning:  Undefined array key "" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 146
 [19-Sep-2025 02:02:33 UTC] PHP Stack trace:
 [19-Sep-2025 02:02:33 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
@@ -142,3 +143,59 @@ Stack trace:
 #0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
 #1 {main}
   thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 21
+=======
+[19-Sep-2025 02:15:55 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'user_id' doesn't have a default value in C:\laragon\www\luminara\includes\register.php:90
+Stack trace:
+#0 C:\laragon\www\luminara\includes\register.php(90): PDOStatement->execute(Array)
+#1 C:\laragon\www\luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\register.php on line 90
+[19-Sep-2025 02:16:00 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'user_id' doesn't have a default value in C:\laragon\www\luminara\includes\register.php:90
+Stack trace:
+#0 C:\laragon\www\luminara\includes\register.php(90): PDOStatement->execute(Array)
+#1 C:\laragon\www\luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\register.php on line 90
+[19-Sep-2025 02:16:26 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'user_id' doesn't have a default value in C:\laragon\www\luminara\includes\register.php:90
+Stack trace:
+#0 C:\laragon\www\luminara\includes\register.php(90): PDOStatement->execute(Array)
+#1 C:\laragon\www\luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\register.php on line 90
+[19-Sep-2025 03:35:07 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:07 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:09 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:09 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:22 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:22 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:23 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:23 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:53 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:53 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:53 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:35:53 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:09 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:09 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:09 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:09 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:36 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:36 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:37 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:37:37 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:13 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:13 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:14 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:14 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:26 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:26 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:27 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:27 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:30 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:30 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:31 UTC] PHP Warning:  include_once(C:\laragon\www\luminara\public\components/../css/badge.php): Failed to open stream: No such file or directory in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 03:39:31 UTC] PHP Warning:  include_once(): Failed opening 'C:\laragon\www\luminara\public\components/../css/badge.php' for inclusion (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\luminara\public\components\header.php on line 34
+[19-Sep-2025 05:46:36 UTC] PHP Warning:  Trying to access array offset on int in C:\laragon\www\luminara\includes\profileData.php on line 116
+[19-Sep-2025 05:46:36 UTC] PHP Warning:  Trying to access array offset on int in C:\laragon\www\luminara\includes\profileData.php on line 117
+[19-Sep-2025 05:55:35 UTC] PHP Warning:  Array to string conversion in C:\laragon\www\luminara\includes\profileData.php on line 121
+[19-Sep-2025 05:55:48 UTC] PHP Warning:  Array to string conversion in C:\laragon\www\luminara\includes\profileData.php on line 121
+>>>>>>> c22bf2579714ff57317d12f5d0547832d0be5e00
