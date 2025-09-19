@@ -171,6 +171,7 @@ const badgeIcons = {
   Moderator: "fa fa-shield me-2", // shield
   BetaTester: "fa fa-flask me-2", // flask
   WS5: "fa fa-fire me-2", // fire
+  Rasist: "fas fa-skull-crossbones", // skull
 };
 
 const badgeStyles = {
@@ -179,6 +180,7 @@ const badgeStyles = {
   Moderator: "bg-info text-white",
   BetaTester: "bg-secondary text-white",
   WS5: "bg-warning text-dark", // win streak 5
+  Rasist: "bg-dark text-white", // hitam
 };
 
 // fungsi render

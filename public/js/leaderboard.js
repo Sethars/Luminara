@@ -75,12 +75,47 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Fungsi pencarian
+
+  // Fungsi pencarian + Easter Egg
   function searchUsers(query) {
     if (!query) {
       renderLeaderboard(allUsers);
       return;
     }
 
+    // Easter Egg: deteksi kata "istereg"
+    if (
+      query.toLowerCase().includes("ireng") ||
+      query.toLowerCase().includes("nigger") ||
+      query.toLowerCase().includes("nigga")
+    ) {
+      const tbody = document.getElementById("leaderboardBody");
+      const noResults = document.getElementById("noResults");
+      noResults.style.display = "none";
+
+      tbody.innerHTML = `
+      <tr>
+        <td colspan="3" class="text-center easter-egg">
+          <div class="easter-egg-box">
+            <p>🎉 Badges Rahasia Unlocked!</p>
+          </div>
+        </td>
+      </tr>
+    `;
+
+      fetch("/api/addBadge.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ badge: "isteregg" }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log("Badge update:", data))
+        .catch((err) => console.error("Error update badge:", err));
+
+      return;
+    }
+
+    // normal search
     const filtered = allUsers.filter((user) =>
       user.name.toLowerCase().includes(query.toLowerCase())
     );

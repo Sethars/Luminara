@@ -230,7 +230,7 @@ body {
 
 .leaderboard-table tbody tr:hover {
   background: #f9fafb;
-  transform: translateX(5px);
+  transform: translateX(-5px);
 }
 
 .leaderboard-table td {
