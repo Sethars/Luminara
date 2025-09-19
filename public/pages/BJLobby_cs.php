@@ -5,7 +5,6 @@ $css = "BJLobby_cs";
 $script = [
     "logout",
     "BJLobby_cs",
-    "dashboard"
 ];
 $checkAuth = true;
 ?>
@@ -38,9 +37,9 @@ $checkAuth = true;
                 "desc" => "DIEEE."
             ],
             [
-                "creator" => "Pemain Blackjack Nomor 1",
+                "creator" => "Stelle777",
                 "profile" => "download (6)",
-                "desc" => "Lobby high stakes, hanya untuk yang berani."
+                "desc" => "Game Izi"
             ]
 
         ];

@@ -11,6 +11,9 @@ $checkAuth = true;
 
     <?php include_once __DIR__ . '/../components/header.php'; ?>
     <?php include_once __DIR__ . '/../components/navbar.php'; ?>
+<div>
+    <img src="../assets/img/wp/bg_lobby_cassual.jpg" alt="gacor" class="bg-lobby">
+</div>
 
 <div class="lobby-container">
     <div class="lobby-header">
@@ -25,7 +28,7 @@ $checkAuth = true;
             [
                 "creator" => "Angga Kakap",
                 "profile" => "",
-                "desc" => "Lobby untuk pemula yang mau belajar blackjack."
+                "desc" => "Lobby untuk pemula."
             ],
             [
                 "creator" => "Ubur-Ubur Ivy",
@@ -35,7 +38,7 @@ $checkAuth = true;
             [
                 "creator" => "Yanto Pesut",
                 "profile" => "",
-                "desc" => "Lobby high stakes, hanya untuk yang berani."
+                "desc" => "hanya untuk yang berani."
             ]
 
         ];

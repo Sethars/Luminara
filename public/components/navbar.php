@@ -47,6 +47,15 @@
     background-color: #f8f9fa;
   }
 }
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+
+}
 </style>
 <style>
 /* Submenu style */
@@ -141,14 +150,45 @@
           </a>
         </li>
         <!-- Leaderboard -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="/leaderboard" class="nav-link">
             <i class="bi bi-trophy me-1"></i> Leaderboard
           </a>
+        </li> -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarGambling" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-trophy me-1"></i> Leaderboard
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarGambling">
+            <li>
+              <a class="dropdown-item" href="/moneyboard">
+                <i class="far fa-circle me-2"></i> Money 
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="devices.php">
+                <i class="far fa-circle me-2"></i> Win Rate
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="devices.php">
+                <i class="far fa-circle me-2"></i> Dept
+              </a>
+            </li>
+
+          </ul>
         </li>
+
+
+
+
+
+
+
         <!-- Search -->
         <li class="nav-item">
-          <form class="d-flex" method="GET" action="/search">
+          <form class="d-flex search" method="GET" action="/search.php">
             <input class="form-control form-control-sm me-2" type="search" placeholder="Cari username..."
                   aria-label="Search" name="q">
             <button class="btn btn-sm btn-outline-primary" type="submit">

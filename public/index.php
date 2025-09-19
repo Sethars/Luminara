@@ -130,6 +130,9 @@ switch ($request) {
     case 'contact':
         require __DIR__ . '/pages/contact.php';
         break;
+    case 'moneyboard':
+        require __DIR__ . '/pages/moneyboard.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;
