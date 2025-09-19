@@ -132,9 +132,9 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
                     </div>
 
                     <!-- Unused Badges -->
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="">
                         <h6>Tidak Digunakan</h6>
-                        <ul id="unused-badges" class="list-group min-vh-25 border p-2"></ul>
+                        <ul id="unused-badges" class="list-group min-vh-25 border p-2" style="max-height:200px; overflow-Y:auto;   scrollbar-width: thin;"></ul>
                     </div>
                 </div>
                 <p id="changeBadgeMsg"></p>

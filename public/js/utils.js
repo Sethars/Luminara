@@ -99,8 +99,8 @@ window.isDemo = function () {
 // ✅ Tampilkan username
 window.showUsernameAndPp = function () {
   const el = document.getElementById("username");
-  const epp = document.getElementById('navbar-profile-photo');
-  const isEpp = JSON.parse(localStorage.getItem('profile')) || {};
+  const epp = document.getElementById("navbar-profile-photo");
+  const isEpp = JSON.parse(localStorage.getItem("profile")) || {};
   if (el && epp) {
     el.textContent = user ? user.username : "Demo";
     epp.src = isEpp.photo
@@ -113,11 +113,11 @@ window.showUsernameAndPp = function () {
 
 // Auto jalan setelah DOM siap
 document.addEventListener("DOMContentLoaded", function () {
-  try{
-    getDataProfile().then(success => {
+  try {
+    getDataProfile().then((success) => {
       window.showUsernameAndPp();
-    })
-  } catch(err){}
+    });
+  } catch (err) {}
 });
 
 //Ambil data profile
@@ -173,7 +173,7 @@ const badgeIcons = {
   Moderator: "fa fa-shield me-2", // shield
   Beta_Tester: "fa fa-flask me-2", // flask
   WS5: "fa fa-fire me-2", // fire
-  Rasist: "fas fa-skull-crossbones", // skull
+  Racist: "fas fa-skull-crossbones", // skull
 };
 
 const badgeStyles = {
@@ -182,12 +182,12 @@ const badgeStyles = {
   Moderator: "bg-info text-white",
   Beta_Tester: "bg-secondary text-white",
   WS5: "bg-warning text-dark", // win streak 5
-  Rasist: "bg-dark text-white", // hitam
+  Racist: "bg-dark text-white", // hitam
 };
 
 //fungsi hapus _
-function underscoreDelete(str){
-  if (typeof str !== "string") return str;   // jaga-jaga kalau bukan string
+function underscoreDelete(str) {
+  if (typeof str !== "string") return str; // jaga-jaga kalau bukan string
   return str.includes("_") ? str.replace(/_/g, " ") : str;
 }
 
