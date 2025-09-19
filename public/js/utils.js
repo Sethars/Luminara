@@ -4,13 +4,13 @@ if (user) {
   window.userId = user.id; // jadi global
 }
 
-// ✅ Ambil query param dari URL
+// Ambil query param dari URL
 window.getQueryParam = function (param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 };
 
-// ✅ Show modal (Bootstrap)
+// Show modal (Bootstrap)
 window.showModal = function (modalId) {
   const modalElement = document.getElementById(modalId);
   if (modalElement) {
@@ -23,7 +23,7 @@ window.showModal = function (modalId) {
   }
 };
 
-// ✅ Close modal (Bootstrap)
+// Close modal (Bootstrap)
 window.closeModal = function (modalId) {
   const modalElement = document.getElementById(modalId);
   if (modalElement) {
@@ -36,7 +36,7 @@ window.closeModal = function (modalId) {
   }
 };
 
-// ✅ Loading button handler
+// Loading button handler
 window.setLoading = function (isLoading, btnId) {
   const btn = document.getElementById(btnId);
 
@@ -56,7 +56,7 @@ window.setLoading = function (isLoading, btnId) {
   }
 };
 
-// ✅ Generate random string
+// Generate random string
 window.generateRandomString = function (length) {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -70,7 +70,7 @@ window.generateRandomString = function (length) {
   return result;
 };
 
-// ✅ Update localStorage data
+// Update localStorage data
 window.updateLocalData = function (storageKey, field, value) {
   const data = JSON.parse(localStorage.getItem(storageKey));
 
@@ -96,7 +96,7 @@ window.isDemo = function () {
   }
 };
 
-// ✅ Tampilkan username
+// Tampilkan username
 window.showUsernameAndPp = function () {
   const el = document.getElementById("username");
   const epp = document.getElementById('navbar-profile-photo');
@@ -173,7 +173,7 @@ const badgeIcons = {
   Moderator: "fa fa-shield me-2", // shield
   Beta_Tester: "fa fa-flask me-2", // flask
   WS5: "fa fa-fire me-2", // fire
-  Rasist: "fas fa-skull-crossbones", // skull
+  Racist: "fas fa-skull-crossbones", // skull
 };
 
 const badgeStyles = {
@@ -182,7 +182,7 @@ const badgeStyles = {
   Moderator: "bg-info text-white",
   Beta_Tester: "bg-secondary text-white",
   WS5: "bg-warning text-dark", // win streak 5
-  Rasist: "bg-dark text-white", // hitam
+  Racist: "bg-dark text-white", // hitam
 };
 
 //fungsi hapus _
@@ -192,7 +192,7 @@ function underscoreDelete(str){
 }
 
 // fungsi render
-function renderBadges(badges) {
+window.renderBadges = function(badges) {
   if (typeof badges === "string") {
     badges = JSON.parse(badges);
   }
@@ -234,5 +234,50 @@ function renderBadges(badges) {
     });
   } else {
     previewContainer.innerHTML = `<span class="text-muted small">Tidak ada badge yang digunakan</span>`;
+  }
+}
+
+//Add Badge
+window.addBadge = async function (newBadge) {
+  const profile = JSON.parse(localStorage.getItem('profile'));
+  if (!profile) {
+    console.error("Profile not found in localStorage");
+    return;
+  }
+
+  let badges = profile.badges;
+  if (typeof badges === "string") {
+    try {
+      badges = JSON.parse(badges);
+    } catch (e) {
+      console.error("Gagal parse badges:", e);
+      badges = { used: [], unused: [] };
+    }
+  }
+  if (!badges.used) badges.used = [];
+  if (!badges.unused) badges.unused = [];
+
+  if (!badges.unused.includes(newBadge) && !badges.used.includes(newBadge)) {
+    badges.unused.push(newBadge);
+  } else {
+    console.log("Badge sudah ada");
+    return;
+  }
+  profile.badges = badges;
+
+  try {
+    const res = await fetch("api/updateBadges", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: user.id,
+        badgeConfig: badges
+      }),
+    });
+
+    const data = await res.json();
+    localStorage.setItem("profile", JSON.stringify(profile));
+  } catch (err) {
+    console.error("Error update badge:", err);
   }
 }

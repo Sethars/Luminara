@@ -38,7 +38,7 @@ $checkAuth = true;
             ],
             [
                 "creator" => "Stelle777",
-                "profile" => "download (6)",
+                "profile" => "download (6).jpg",
                 "desc" => "Game Izi"
             ]
 

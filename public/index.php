@@ -71,6 +71,11 @@ if (str_starts_with($request, "api/")) {
             getLeaderboard($conn);
             break;
 
+        case 'api/getMoneyData':
+            require __DIR__ . '/../includes/profileData.php';
+            getMoneyData($conn);
+            break;
+
         case 'api/changeBio':
             require __DIR__ . '/../includes/profileData.php';
             changeBio($conn);
@@ -85,7 +90,7 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/profileData.php';
             changePhotoProfile($conn);
             break;
-        
+
         case 'api/updateBadges':
             require __DIR__ . '/../includes/profileData.php';
             updateBadges($conn);

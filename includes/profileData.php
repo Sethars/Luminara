@@ -35,6 +35,30 @@ function changeUsername($conn){
     }
 }
 
+function getMoneyData($conn){
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = $data['userId'];
+
+    try{
+        $stmt = $conn->prepare('SELECT cash FROM profiles WHERE user_id = ?');
+        $stmt->execute([$id]);
+        $money = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($money) {
+            echo json_encode([
+                'success' => true,
+                'money'   => (int)$money['cash'] // langsung ambil angka
+            ]);
+        }
+    } catch (Exception $e){
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan di server',
+            'error'   => $e->getMessage()
+        ]));
+    }
+}
+
 function changePhotoProfile($conn){
     if (!isset($_POST["user_id"]) || !isset($_FILES["pp"])) {
         echo json_encode(["success" => false, "message" => "Data tidak lengkap"]);
@@ -60,7 +84,18 @@ function changePhotoProfile($conn){
         exit;
     }
 
+    // Ambil foto lama
+    $stmt = $conn->prepare("SELECT photo FROM profiles WHERE user_id = ?");
+    $stmt->execute([$user_id]);
+    $oldPhoto = $stmt->fetchColumn();
+
     if (move_uploaded_file($_FILES["pp"]["tmp_name"], $targetFile)) {
+        // Hapus foto lama kalau ada dan bukan default
+        if ($oldPhoto && file_exists("../public" . $oldPhoto)) {
+            unlink("../public" . $oldPhoto);
+        }
+
+        // Update database dengan foto baru
         $stmt = $conn->prepare("UPDATE profiles SET photo = ? WHERE user_id = ?");
         $stmt->execute([$urlFile, $user_id]);
 
@@ -72,6 +107,7 @@ function changePhotoProfile($conn){
         echo json_encode(["success" => false, "message" => "Gagal upload file"]);
     }
 }
+
 
 function changeBio($conn){
     $data = json_decode(file_get_contents("php://input"), true);

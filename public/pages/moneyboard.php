@@ -1,6 +1,6 @@
 <?php
 
-$title = "leaderboard";
+$title = "Leaderboard";
 $css = "leaderboard"; 
 $script = [
     "logout",

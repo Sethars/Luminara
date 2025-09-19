@@ -74,8 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Fungsi pencarian
-
   // Fungsi pencarian + Easter Egg
   function searchUsers(query) {
     if (!query) {
@@ -94,24 +92,16 @@ document.addEventListener("DOMContentLoaded", function () {
       noResults.style.display = "none";
 
       tbody.innerHTML = `
-      <tr>
-        <td colspan="3" class="text-center easter-egg">
-          <div class="easter-egg-box">
-            <p>🎉 Badges Rahasia Unlocked!</p>
-          </div>
-        </td>
-      </tr>
-    `;
+        <tr>
+          <td colspan="3" class="text-center easter-egg">
+            <div class="easter-egg-box">
+              <p>🎉 Badges Rahasia Unlocked!</p>
+            </div>
+          </td>
+        </tr>
+      `;
 
-      fetch("/api/addBadge.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ badge: "isteregg" }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log("Badge update:", data))
-        .catch((err) => console.error("Error update badge:", err));
-
+      addBadge('Racist');
       return;
     }
 

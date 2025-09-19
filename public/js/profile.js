@@ -1,4 +1,5 @@
 const profile = JSON.parse(localStorage.getItem('profile'));
+const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
 
 document.addEventListener("DOMContentLoaded", async function () {
   if(!localStorage.getItem('profile') && !isDemo()){
@@ -9,17 +10,38 @@ document.addEventListener("DOMContentLoaded", async function () {
     })
   }
 
-  const badges = profile.badges || { used: [], unused: [] };
-  renderBadges(badges); 
+  //Cash Money
+  fetch('api/getMoneyData', {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({userId})
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      document.getElementById('profile-money').textContent = data.money;
+    }
+  })
+
+  //Username
   document.getElementById('preview-username').textContent = user ? user.username : 'Demo';
-  document.getElementById('preview-photo').src = profile.photo ? profile.photo : "/assets/img/photo_profile/ppkosong.jpg";
+
+  //Photo Profile
+  document.getElementById('preview-photo').src = profile && profile.photo ? profile.photo : photoDefault;
+
+  //Bio
   if(profile && profile.bio !== null){
     document.getElementById('preview-bio').textContent = profile.bio;
   } else {
     document.getElementById('preview-bio').textContent = 'Pengguna belum mengatur bio';
   }
+
+  //Gender
   document.getElementById('preview-gender').textContent = profile ? profile.gender : 'Dragunov';
   
+  //Badges
+  const badges = profile.badges || { used: [], unused: [] };
+  renderBadges(badges); 
 
   new Sortable(document.getElementById("used-badges"), {
     group: "badges",
@@ -182,7 +204,7 @@ document.getElementById('changePPBtn').addEventListener('click', async function 
       msg.classList.add('text-success');
       document.getElementById("preview-photo").src = result.file_url;
       document.getElementById('navbar-profile-photo').src = result.file_url;
-      document.getElementById("photo-preview-mini").src = "/assets/img/photo_profile/ppkosong.jpg";
+      document.getElementById("photo-preview-mini").src = photoDefault;
       updateLocalData('profile', 'photo', result.file_url);
     } else {
       msg.textContent = "Upload gagal: " + result.message;

@@ -61,7 +61,8 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             </div>
             <div>
                 <div class="card-footer text-end">
-                    <span class="text-muted small">Cash: $<?= number_format($cash, 0, ',', '.') ?></span>
+                    <p class="text-muted small">Cash: $<span id="profile-money"></span></p>
+                </div>
             </div>
         </div>
 
