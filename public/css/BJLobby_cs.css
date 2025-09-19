@@ -159,7 +159,7 @@ body {
 
   .lobby-card {
     margin-left: 0;
-    flex-direction: column;
+    flex-direction: flex;
     align-items: flex-start;
     text-align: left;
   }
@@ -173,18 +173,19 @@ body {
   }
 
   .join-btn {
-    width: 100%;
-    margin-top: 10px;
+    width: 100px;
     text-align: center;
+    margin-top: 25px;
   }
 }
 
 @media (max-width: 480px) {
   .lobby-title {
-    font-size: 18px;
+    font-size: 12px;
   }
 
   .lobby-info h3 {
+    margin-top: 25px;
     font-size: 16px;
   }
 
@@ -193,7 +194,20 @@ body {
   }
 
   .lobby-profile {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+    /* trik fade out */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    );
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
   }
 }
