@@ -100,7 +100,7 @@ window.isDemo = function(){
 window.showUsernameAndPp = function () {
   const el = document.getElementById("username");
   const epp = document.getElementById('navbar-profile-photo');
-  const isEpp = JSON.parse(localStorage.getItem('profile'));
+  const isEpp = JSON.parse(localStorage.getItem('profile')) || {};
   if (el && epp) {
     el.textContent = user ? user.username : "Demo";
     epp.src =  isEpp.photo ? isEpp.photo : "/assets/img/photo_profile/ppkosong.jpg";
@@ -112,7 +112,9 @@ window.showUsernameAndPp = function () {
 // Auto jalan setelah DOM siap
 document.addEventListener("DOMContentLoaded", function () {
   try{
-    window.showUsernameAndPp();
+    getDataProfile().then(success => {
+      window.showUsernameAndPp();
+    })
   } catch(err){}
 });
 
