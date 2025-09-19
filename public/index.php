@@ -61,6 +61,10 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/profileData.php';
             changeUsername($conn);
             break;
+        case "api/leaderboard":
+            require __DIR__ . '/../includes/leaderboard.php';
+            getLeaderboard($conn);
+            break;
 
         default:
             http_response_code(404);

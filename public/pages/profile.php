@@ -10,16 +10,11 @@ $checkAuth = true;
 
 $id = 1;    
 $user_id = 1; 
-$badges = 
-    $user["badges"] ?? 
-    [
-        "used" => ["VIP", "Developer", "WS5"],
-        "unused" => ["Moderator", "Beta Tester"]
+$badges = $user["badges"] ?? [
+    "used" => [],
+    "unused" => []
     ];
-$badges = [
-    "used" => ["VIP", "Developer"],
-    "unused" => [ "Moderator", "Beta Tester"]
-];
+
 
 $username   = $user["username"] ?? "Demo";
 $bio        = $user["bio"] ?? "Bio pengguna akan tampil di sini...";
@@ -28,6 +23,7 @@ $photo      = $user["photo"] ?? "";
 $cash       = $user["cash"] ?? 1000;
 
 $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($photo) : "/assets/img/photo_profile/ppkosong.jpg";
+
 
 ?>
 

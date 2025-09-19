@@ -1,0 +1,144 @@
+[19-Sep-2025 02:02:33 UTC] PHP Warning:  Undefined array key "" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 146
+[19-Sep-2025 02:02:33 UTC] PHP Stack trace:
+[19-Sep-2025 02:02:33 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:02:33 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 02:02:33 UTC] PHP Warning:  Undefined array key "" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 158
+[19-Sep-2025 02:02:33 UTC] PHP Stack trace:
+[19-Sep-2025 02:02:33 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:02:33 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 02:04:23 UTC] PHP Warning:  Undefined array key "" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 144
+[19-Sep-2025 02:04:23 UTC] PHP Stack trace:
+[19-Sep-2025 02:04:23 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:04:23 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 02:04:23 UTC] PHP Warning:  Undefined array key "" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 156
+[19-Sep-2025 02:04:23 UTC] PHP Stack trace:
+[19-Sep-2025 02:04:23 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:04:23 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 02:05:15 UTC] PHP Warning:  Undefined array key "NO1" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 156
+[19-Sep-2025 02:05:15 UTC] PHP Stack trace:
+[19-Sep-2025 02:05:15 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:05:15 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 02:07:46 UTC] PHP Warning:  Undefined array key "developer" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 144
+[19-Sep-2025 02:07:46 UTC] PHP Stack trace:
+[19-Sep-2025 02:07:46 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:07:46 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 02:07:46 UTC] PHP Warning:  Undefined array key "moderator" in D:\localweb\WEB_LOCAL\Luminara\public\pages\profile.php on line 144
+[19-Sep-2025 02:07:46 UTC] PHP Stack trace:
+[19-Sep-2025 02:07:46 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 02:07:46 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:97
+[19-Sep-2025 03:19:50 UTC] PHP Warning:  require(db.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 3
+[19-Sep-2025 03:19:50 UTC] PHP Stack trace:
+[19-Sep-2025 03:19:50 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 03:19:50 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:65
+[19-Sep-2025 03:19:50 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'db.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:3
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(65): require()
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 3
+[19-Sep-2025 03:21:08 UTC] PHP Warning:  require(db.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 3
+[19-Sep-2025 03:21:08 UTC] PHP Stack trace:
+[19-Sep-2025 03:21:08 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 03:21:08 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:65
+[19-Sep-2025 03:21:08 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'db.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:3
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(65): require()
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 3
+[19-Sep-2025 03:21:09 UTC] PHP Warning:  require(db.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 3
+[19-Sep-2025 03:21:09 UTC] PHP Stack trace:
+[19-Sep-2025 03:21:09 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 03:21:09 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:65
+[19-Sep-2025 03:21:09 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'db.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:3
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(65): require()
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 3
+[19-Sep-2025 03:23:32 UTC] PHP Warning:  require_once(D:\localweb\WEB_LOCAL\Luminara\includesconfig.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 2
+[19-Sep-2025 03:23:32 UTC] PHP Stack trace:
+[19-Sep-2025 03:23:32 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[19-Sep-2025 03:23:32 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:65
+[19-Sep-2025 03:23:32 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\includesconfig.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:2
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(65): require()
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 2
+[19-Sep-2025 03:27:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:10
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 10
+[19-Sep-2025 03:28:25 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:14
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 14
+[19-Sep-2025 03:28:58 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:19
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 19
+[19-Sep-2025 03:29:08 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:15
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 15
+[19-Sep-2025 03:31:49 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:15
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 15
+[19-Sep-2025 03:32:34 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:15
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 15
+[19-Sep-2025 03:33:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:10
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 10
+[19-Sep-2025 03:34:45 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:14
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 14
+[19-Sep-2025 03:34:53 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:14
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 14
+[19-Sep-2025 03:43:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:14
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 14
+[19-Sep-2025 03:43:58 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:14
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 14
+[19-Sep-2025 03:44:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:15
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 15
+[19-Sep-2025 03:44:43 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::get_result() in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:15
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 15
+[19-Sep-2025 03:45:30 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:20
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 20
+[19-Sep-2025 03:46:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:21
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 21
+[19-Sep-2025 03:46:37 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on array in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php:21
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 21

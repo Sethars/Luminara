@@ -87,7 +87,7 @@
 </style>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
   <div class="container-fluid">
     <!-- Brand -->
     <a href="/" class="navbar-brand d-flex align-items-center">
