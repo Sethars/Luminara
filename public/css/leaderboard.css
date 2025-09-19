@@ -99,6 +99,16 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   color: var(--dark);
+  overflow-x: hidden;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  width: 100%;
+  table-layout: auto;
 }
 
 .main-content {
@@ -220,7 +230,7 @@ body {
 
 .leaderboard-table tbody tr:hover {
   background: #f9fafb;
-  transform: translateX(5px);
+  /* transform: translateX(5px); */
 }
 
 .leaderboard-table td {

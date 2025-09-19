@@ -11,18 +11,23 @@ $checkAuth = true;
 $id = 1;    
 $user_id = 1; 
 
+
+
 $username   = $user["username"] ?? "Demo";
 $bio        = $user["bio"] ?? "Bio pengguna akan tampil di sini...";
 $gender     = $user["gender"] ?? "-";
 $photo      = $user["photo"] ?? "";
 $cash       = $user["cash"] ?? 1000;
 
-$photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($photo) : 
-"/assets/img/photo_profile/ppkosong.jpg";
+$photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($photo) : "/assets/img/photo_profile/ppkosong.jpg";
+
+
 ?>
 
-<div id="main-content">
     <?php include_once __DIR__ . '/../components/header.php'; ?>
+
+<div id="main-content">
+
     <?php include_once __DIR__ . '/../components/navbar.php'; ?>
 
     <div class="container my-4">

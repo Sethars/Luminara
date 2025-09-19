@@ -66,6 +66,10 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/profileData.php';
             changeUsername($conn);
             break;
+        case "api/leaderboard":
+            require __DIR__ . '/../includes/leaderboard.php';
+            getLeaderboard($conn);
+            break;
 
         case 'api/changeBio':
             require __DIR__ . '/../includes/profileData.php';

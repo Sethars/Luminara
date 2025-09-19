@@ -10,11 +10,12 @@ $checkAuth = true;
 
 ?>
 
-
-<div id="main-content">
     <?php
     include_once __DIR__ . '/../components/header.php';
     ?>
+    
+<div id="main-content">
+
 
     <?php
     include_once __DIR__ . '/../components/navbar.php';
@@ -24,7 +25,7 @@ $checkAuth = true;
         <div class="container">
             <div class="page-header">
                 <h1><i class="fas fa-trophy"></i> Leaderboard</h1>
-                <p class="subtitle">Peringkat Pengguna Terbaik</p>
+                <p class="subtitle">Peringkat Gambler Terbaik</p>
             </div>
 
             <div class="search-container">
@@ -43,7 +44,7 @@ $checkAuth = true;
                     <table class="leaderboard-table">
                         <thead>
                             <tr>
-                                <th>Peringkat</th>
+                                <th>Rank</th>
                                 <th>Pengguna</th>
                                 <th>Money</th>
                             </tr>

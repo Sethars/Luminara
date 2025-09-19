@@ -88,13 +88,13 @@ window.updateLocalData = function (storageKey, field, value) {
   }
 };
 
-window.isDemo = function(){
+window.isDemo = function () {
   const isDemo = JSON.parse(localStorage.getItem("demo"));
 
   if (isDemo === true) {
     return true;
   }
-}
+};
 
 // ✅ Tampilkan username
 window.showUsernameAndPp = function () {
@@ -103,7 +103,9 @@ window.showUsernameAndPp = function () {
   const isEpp = JSON.parse(localStorage.getItem('profile')) || {};
   if (el && epp) {
     el.textContent = user ? user.username : "Demo";
-    epp.src =  isEpp.photo ? isEpp.photo : "/assets/img/photo_profile/ppkosong.jpg";
+    epp.src = isEpp.photo
+      ? isEpp.photo
+      : "/assets/img/photo_profile/ppkosong.jpg";
   } else {
     console.error("Element #username not found.");
   }
@@ -119,21 +121,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //Ambil data profile
-async function getDataProfile(){
-  try{
-    const res = await fetch('api/getDataProfile', {
+async function getDataProfile() {
+  try {
+    const res = await fetch("api/getDataProfile", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId})
-    })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId }),
+    });
 
     const result = await res.json();
 
-    if(result.success){
-      localStorage.setItem('profile', JSON.stringify(result.profile));
+    if (result.success) {
+      localStorage.setItem("profile", JSON.stringify(result.profile));
       return true;
     }
-  } catch(err){}
+  } catch (err) {}
 }
 
 //Ambil badges tiap 5 menit
@@ -147,12 +149,15 @@ function isDifferent(a, b) {
 
 // Loop tiap 5 menit
 setInterval(() => {
-  getDataProfile().then(success => {
+  getDataProfile().then((success) => {
     if (success) {
       const profile = JSON.parse(localStorage.getItem("profile"));
       const newBadges = profile.badges;
-      
-      if (isDifferent(oldBadges, newBadges) && window.location.pathname === '/profile') {
+
+      if (
+        isDifferent(oldBadges, newBadges) &&
+        window.location.pathname === "/profile"
+      ) {
         console.log("Badges berubah, render ulang!");
         oldBadges = newBadges; // update oldBadges
         renderBadges(newBadges);
@@ -161,22 +166,28 @@ setInterval(() => {
   });
 }, 5 * 60 * 1000);
 
-// mapping style & icon
+// TODO: STYLE BADGE
 const badgeIcons = {
-  VIP: "fa fa-diamond me-2",     // diamond
-  Developer: "fa fa-code me-2",    // code
-  Moderator: "fa fa-shield me-2",  // shield
-  BetaTester: "fa fa-flask me-2",    // flask
-  WS5: "fa fa-fire me-2" // fire
+  VIP: "fa fa-diamond me-2", // diamond
+  Developer: "fa fa-code me-2", // code
+  Moderator: "fa fa-shield me-2", // shield
+  Beta_Tester: "fa fa-flask me-2", // flask
+  WS5: "fa fa-fire me-2", // fire
 };
 
 const badgeStyles = {
   VIP: "bg-warning text-dark fw-bold border border-warning", // emas mewah
   Developer: "bg-success text-white",
   Moderator: "bg-info text-white",
-  BetaTester: "bg-secondary text-white",
-  WS5: "bg-warning text-dark" // win streak 5
+  Beta_Tester: "bg-secondary text-white",
+  WS5: "bg-warning text-dark", // win streak 5
 };
+
+//fungsi hapus _
+function underscoreDelete(str){
+  if (typeof str !== "string") return str;   // jaga-jaga kalau bukan string
+  return str.includes("_") ? str.replace(/_/g, " ") : str;
+}
 
 // fungsi render
 function renderBadges(badges) {
@@ -186,31 +197,37 @@ function renderBadges(badges) {
 
   const usedContainer = document.getElementById("used-badges");
   usedContainer.innerHTML = "";
-  badges.used.forEach(badge => {
+  badges.used.forEach((badge) => {
     const li = document.createElement("li");
     li.className = "list-group-item badge-item";
     li.dataset.badge = badge;
-    li.innerHTML = `<i class="${badgeIcons[badge] || "fa-solid fa-star"} me-1"></i>${badge}`;
+    li.innerHTML = `<i class="${
+      badgeIcons[badge] || "fa-solid fa-star"
+    } me-1"></i>${underscoreDelete(badge)}`;
     usedContainer.appendChild(li);
   });
 
   const unusedContainer = document.getElementById("unused-badges");
   unusedContainer.innerHTML = "";
-  badges.unused.forEach(badge => {
+  badges.unused.forEach((badge) => {
     const li = document.createElement("li");
     li.className = "list-group-item badge-item";
     li.dataset.badge = badge;
-    li.innerHTML = `<i class="${badgeIcons[badge] || "fa-solid fa-star"} me-1"></i>${badge}`;
+    li.innerHTML = `<i class="${
+      badgeIcons[badge] || "fa-solid fa-star"
+    } me-1"></i>${underscoreDelete(badge)}`;
     unusedContainer.appendChild(li);
   });
 
   const previewContainer = document.getElementById("preview-badges");
   previewContainer.innerHTML = "";
   if (badges.used.length > 0) {
-    badges.used.forEach(badge => {
+    badges.used.forEach((badge) => {
       const span = document.createElement("span");
       span.className = `badge ${badgeStyles[badge] || "bg-dark text-white"}`;
-      span.innerHTML = `<i class="${badgeIcons[badge] || "fa-solid fa-star"} me-1"></i>${badge}`;
+      span.innerHTML = `<i class="${
+        badgeIcons[badge] || "fa-solid fa-star"
+      } me-1"></i>${underscoreDelete(badge)}`;
       previewContainer.appendChild(span);
     });
   } else {

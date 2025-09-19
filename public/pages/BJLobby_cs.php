@@ -33,7 +33,7 @@ $checkAuth = true;
             ],
             [
                 "creator" => "Ubur-Ubur Ivy",
-                "profile" => "March 7th Evernight₊˚⊹⋆.jpg",
+                "profile" => "March 7th Evernight.jpg",
                 "desc" => "DIEEE."
             ],
             [
