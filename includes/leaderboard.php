@@ -28,7 +28,7 @@ function getLeaderboard($conn) {
                 "name"   => $row["name"],
                 "money"  => (int) $row["money"],
                 "avatar" => $row["photo"] ?? "/assets/img/photo_profile/ppkosong.jpg",
-                "badges" => $badges // ✅ bukan badge string lagi
+                "badges" => $badges 
             ];
         }
 
