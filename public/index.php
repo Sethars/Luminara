@@ -57,9 +57,34 @@ if (str_starts_with($request, "api/")) {
             deleteAccount($conn);
             break;
 
+        case 'api/getDataProfile':
+            require __DIR__ . '/../includes/profileData.php';
+            getData($conn);
+            break;
+
         case "api/changeUsername":
             require __DIR__ . '/../includes/profileData.php';
             changeUsername($conn);
+            break;
+
+        case 'api/changeBio':
+            require __DIR__ . '/../includes/profileData.php';
+            changeBio($conn);
+            break;
+
+        case 'api/changeGender':
+            require __DIR__ . '/../includes/profileData.php';
+            changeGender($conn);
+            break;
+
+        case 'api/changePhotoProfile':
+            require __DIR__ . '/../includes/profileData.php';
+            changePhotoProfile($conn);
+            break;
+        
+        case 'api/updateBadges':
+            require __DIR__ . '/../includes/profileData.php';
+            updateBadges($conn);
             break;
 
         default:

@@ -8,10 +8,8 @@ $script = [
 ];
 $checkAuth = true;
 
-$badges = [
-    "used" => ["VIP", "Developer"],
-    "unused" => [ "Moderator", "Beta Tester"]
-];
+$id = 1;    
+$user_id = 1; 
 
 $username   = $user["username"] ?? "Demo";
 $bio        = $user["bio"] ?? "Bio pengguna akan tampil di sini...";
@@ -19,8 +17,8 @@ $gender     = $user["gender"] ?? "-";
 $photo      = $user["photo"] ?? "";
 $cash       = $user["cash"] ?? 1000;
 
-$photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($photo) : "/assets/img/photo_profile/ppkosong.jpg";
-
+$photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($photo) : 
+"/assets/img/photo_profile/ppkosong.jpg";
 ?>
 
 <div id="main-content">
@@ -41,7 +39,6 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
 
                 <!-- Foto -->
                 <img id="preview-photo"
-                    src="<?= $photoPath ?>"
                     class="rounded-circle me-3"
                     width="100"
                     height="100"
@@ -50,25 +47,11 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
                 <!-- Info -->
                 <div>
                     <h4 id="preview-username"></h4>
-                    <p id="preview-bio" class="text-muted mb-1"><?= htmlspecialchars($bio) ?></p>
-                    <p id="preview-gender" class="small text-secondary">Gender: <?= htmlspecialchars($gender) ?></p>
+                    <p id="preview-bio" class="text-muted mb-1"></p>
+                    <p class="small text-secondary">Gender: <span id="preview-gender"></span></p>
                     
                     <!-- Badge -->
-                    <div id="preview-badges" class="d-flex flex-wrap gap-2 mt-2">
-                        <?php
-                        if (!empty($badges["used"])) {
-                            foreach ($badges["used"] as $badge) {
-                                $style = $badgeStyles[$badge] ?? "bg-dark text-white";
-                                $icon  = $badgeIcons[$badge] ?? "fa-solid fa-star"; // default icon
-                                echo '<span class="badge ' . $style . '">
-                                        <i class="' . $icon . ' me-1"></i>' . htmlspecialchars($badge) . '
-                                    </span>';
-                            }
-                        } else {
-                            echo '<span class="text-muted small">Tidak ada badge yang digunakan</span>';
-                        }
-                        ?>
-                    </div>
+                    <div id="preview-badges" class="d-flex flex-wrap gap-2 mt-2"></div>
                 </div>
             </div>
             <div>
@@ -96,10 +79,11 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
         <div class="card mb-3">
             <div class="card-header">Foto Profile</div>
             <div class="card-body d-flex align-items-center">
-                <img src="<?= $photoPath ?>" alt="Profile" id="photo-preview-mini"
+                <img src="/assets/img/photo_profile/ppkosong.jpg" alt="Profile" id="photo-preview-mini"
                      class="rounded-circle me-3" width="80" height="80">
                 <input type="file" id="profilePhoto" class="form-control me-3">
-                <button class="btn btn-primary">Simpan Perubahan</button>
+                <p id="changePPMsg"></p>
+                <button id="changePPBtn" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </div>
 
@@ -107,8 +91,11 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
         <div class="card mb-3">
             <div class="card-header">Bio</div>
             <div class="card-body">
-                <textarea id="bio" class="form-control mb-3" rows="3" placeholder="Tuliskan sesuatu tentang dirimu"></textarea>
-                <button class="btn btn-primary">Simpan Perubahan</button>
+                <form id="changeBioForm">
+                    <textarea id="newBio" class="form-control mb-3" rows="3" placeholder="Tuliskan sesuatu tentang dirimu (0-50)"></textarea>
+                    <p id="changeBioMsg"></p>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </form>
             </div>
         </div>
 
@@ -116,13 +103,14 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
         <div class="card mb-3">
             <div class="card-header">Gender</div>
             <div class="card-body">
-                <select id="gender" class="form-select mb-3">
+                <select id="newGender" class="form-select mb-3">
                     <option value="">Pilih gender</option>
-                    <option value="male">Laki-laki</option>
-                    <option value="female">Perempuan</option>
-                    <option value="other">Kapal Tempur</option>
+                    <option value="Male">Laki-laki</option>
+                    <option value="Female">Perempuan</option>
+                    <option value="Dragunov">Dragunov</option>
                 </select>
-                <button class="btn btn-primary">Simpan Perubahan</button>
+                <p id="changeGenderMsg"></p>
+                <button id="changeGenderBtn" class="btn btn-primary">Simpan Perubahan</button>
             </div>
         </div>
 
@@ -135,27 +123,16 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
                     <!-- Used Badges -->
                     <div class="col-md-6">
                         <h6>Digunakan</h6>
-                        <ul id="used-badges" class="list-group min-vh-25 border p-2">
-                            <?php foreach ($badges["used"] as $badge): ?>
-                                <li class="list-group-item badge-item" data-badge="<?= $badge ?>">
-                                    <i class="<?= $badgeIcons[$badge] ?> me-1"></i><?= $badge ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <ul id="used-badges" class="list-group min-vh-25 border p-2"></ul>
                     </div>
 
                     <!-- Unused Badges -->
                     <div class="col-md-6">
                         <h6>Tidak Digunakan</h6>
-                        <ul id="unused-badges" class="list-group min-vh-25 border p-2">
-                            <?php foreach ($badges["unused"] as $badge): ?>
-                                <li class="list-group-item badge-item" data-badge="<?= $badge ?>">
-                                    <i class="<?= $badgeIcons[$badge] ?> me-1"></i><?= $badge ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <ul id="unused-badges" class="list-group min-vh-25 border p-2"></ul>
                     </div>
                 </div>
+                <p id="changeBadgeMsg"></p>
                 <button id="saveBadgesBtn" class="btn btn-primary mt-3">Simpan Perubahan</button>
             </div>
         </div>

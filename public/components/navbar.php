@@ -1,3 +1,5 @@
+
+
 <style>
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
@@ -20,7 +22,7 @@
   
   /* Add indicator for submenu items */
   .dropdown-submenu > .dropdown-item::after {
-    content: "›";
+    content: "";
     position: absolute;
     right: 1rem;
     top: 50%;
@@ -132,24 +134,40 @@
             </li>
           </ul>
         </li>
-        <!-- Settings -->
-        <!-- <li class="nav-item">
-          <a href="settings.php" class="nav-link">
-            <i class="fa fa-user-o me-1"></i> Settings
+        <!-- Shop -->
+        <li class="nav-item">
+          <a href="/shop" class="nav-link">
+            <i class="bi bi-shop me-1"></i> Shop
           </a>
-        </li> -->
-        <!-- Contact -->
+        </li>
+        <!-- Leaderboard -->
+        <li class="nav-item">
+          <a href="/leaderboard" class="nav-link">
+            <i class="bi bi-trophy me-1"></i> Leaderboard
+          </a>
+        </li>
+        <!-- Search -->
+        <li class="nav-item">
+          <form class="d-flex" method="GET" action="/search">
+            <input class="form-control form-control-sm me-2" type="search" placeholder="Cari username..."
+                  aria-label="Search" name="q">
+            <button class="btn btn-sm btn-outline-primary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </li>
 
       </ul>
+
 
       <!-- Right Side: User Profile & Logout -->
       <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarUser" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="../assets/img/photo_profile/ppkosong.jpg" class="rounded-circle border" alt="User Image"
+            <img id="navbar-profile-photo" class="rounded-circle border" alt="User Image"
               style="height:32px; width:32px; margin-right:8px;">
-            <span id="username" class="fw-semibold">Username</span>
+            <span id="username" class="fw-semibold"></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUser">
             <li>
