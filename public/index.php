@@ -142,6 +142,9 @@ switch ($request) {
     case 'moneyboard':
         require __DIR__ . '/pages/moneyboard.php';
         break;
+    case 'shop':
+        require __DIR__ . '/pages/shop.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;
