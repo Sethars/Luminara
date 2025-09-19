@@ -14,10 +14,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function renderBadges(badgeData) {
-    if (!badgeData || !badgeData.used) return "";
-    return badgeData.used
-      .map((b) => `<span class="badge ${b.toLowerCase()}">${b}</span>`)
+  // Fungsi render badges hanya tampilkan yg "used"
+  function renderBadges(badges) {
+    if (!badges) return "";
+    if (typeof badges === "string") {
+      try {
+        badges = JSON.parse(badges);
+      } catch (e) {
+        return "";
+      }
+    }
+    if (!badges.used || badges.used.length === 0) return "";
+
+    return badges.used
+      .map(
+        (badge) => `
+        <span class="badge ${badgeStyles[badge] || "bg-dark text-white"} me-1">
+          <i class="${badgeIcons[badge] || "fa-solid fa-star"}"></i> ${badge}
+        </span>
+      `
+      )
       .join("");
   }
 
@@ -61,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Fungsi pencarian
   function searchUsers(query) {
     if (!query) {
-      renderLeaderboard(allUsers); // kalau kosong balikin semua data
+      renderLeaderboard(allUsers);
       return;
     }
 
@@ -80,14 +96,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((res) => {
       if (res.success) {
         allUsers = res.data;
-        console.log("user data:", allUsers); // cek di console
-        allUsers.forEach((u) => console.log("badges for", u.name, u.badges));
         renderLeaderboard(allUsers);
       } else {
         console.error(res.message, res.error);
       }
     })
-
     .catch((err) => console.error("Fetch error:", err));
 
   // Event listener input search
