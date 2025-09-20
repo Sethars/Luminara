@@ -19,12 +19,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   .then(res => res.json())
   .then(data => {
     if(data.success){
-      document.getElementById('profile-money').textContent = data.money;
+      document.getElementById('profile-money').textContent = formatMoney(data.money);
     }
   })
 
   //Username
   document.getElementById('preview-username').textContent = user ? user.username : 'Demo';
+  document.getElementById('newUsername').value = user ? user.username : '';
 
   //Photo Profile
   document.getElementById('preview-photo').src = profile && profile.photo ? profile.photo : photoDefault;
@@ -32,12 +33,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   //Bio
   if(profile && profile.bio !== null){
     document.getElementById('preview-bio').textContent = profile.bio;
+    document.getElementById('newBio').value = profile.bio;
   } else {
     document.getElementById('preview-bio').textContent = 'Pengguna belum mengatur bio';
   }
 
   //Gender
   document.getElementById('preview-gender').textContent = profile ? profile.gender : 'Dragunov';
+  document.getElementById('newGender').value = profile ? profile.gender : '';
   
   //Badges
   const badges = profile.badges || { used: [], unused: [] };
@@ -291,7 +294,6 @@ document.getElementById('changeGenderBtn').addEventListener('click', async funct
 //Change Password
 document.getElementById('changePasswordForm').addEventListener('submit', async function (e) {
   e.preventDefault();
-  setLoading(true, 'changePasswordBtn');
   
   const oldPassword = document.getElementById('oldPassword').value;
   const newPassword = document.getElementById('newPassword').value;
@@ -301,7 +303,6 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
   if(isDemo()){
     msg.textContent = "Anda harus login terlebih dahulu";
     msg.classList.add('text-danger');
-    setLoading(false, 'changePasswordBtn');
     return;
   }
 
@@ -326,6 +327,8 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
   }
   
   try{
+    setLoading(true, 'changePasswordBtn');
+    
     const response = await fetch('api/changePassword',{
       method: "POST",
       headers: {"Content-Type": "application/json"},

@@ -80,7 +80,7 @@ include_once __DIR__ . '/../components/header.php';
           <div class="mb-2">
             <label for="password" class="form-label">Password</label>
             <div class="input-group">
-              <input type="password" class="form-control" id="password" placeholder="Password" required>
+              <input type="password" class="form-control" minlength="8" id="password" placeholder="Password" required>
               <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                 <i class="bi bi-eye"></i>
               </button>
@@ -89,7 +89,7 @@ include_once __DIR__ . '/../components/header.php';
 
           <!-- Verifikasi Password -->
           <div class="mb-3">
-            <label for="verificationPassword" class="form-label">Verifikasi Password</label>
+            <label for="verificationPassword" minlength="8" class="form-label">Verifikasi Password</label>
             <div class="input-group">
               <input type="password" class="form-control" id="verificationPassword" placeholder="Verifikasi Password" required>
               <button class="btn btn-outline-secondary" type="button" id="toggleVerificationPassword">

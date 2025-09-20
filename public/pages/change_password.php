@@ -21,12 +21,12 @@ include_once __DIR__ . '/../components/header.php';
           
           <div class="mb-3">
             <label for="password" class="form-label">Password Baru</label>
-            <input type="password" class="form-control" id="password" name="password" required>
+            <input type="password" minlength="8" class="form-control" id="password" name="password" required>
           </div>
 
           <div class="mb-3">
             <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+            <input type="password" minlength="8" class="form-control" id="confirmPassword" name="confirmPassword" required>
           </div>
 
           <button type="submit" class="btn gradient-gold w-100">Simpan Password</button>

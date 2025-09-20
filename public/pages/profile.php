@@ -98,7 +98,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             <div class="card-header">Bio</div>
             <div class="card-body">
                 <form id="changeBioForm">
-                    <textarea id="newBio" class="form-control mb-3" rows="3" placeholder="Tuliskan sesuatu tentang dirimu (0-50)"></textarea>
+                    <textarea id="newBio" class="form-control mb-3" rows="3" maxlength="50" placeholder="Tuliskan sesuatu tentang dirimu (0-50)"></textarea>
                     <p id="changeBioMsg"></p>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </form>
@@ -150,8 +150,8 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             <div class="card-body">
                 <form id="changePasswordForm">
                     <input type="password" id="oldPassword" class="form-control mb-2" placeholder="Password lama">
-                    <input type="password" id="newPassword" class="form-control mb-2" placeholder="Password baru">
-                    <input type="password" id="confirmPassword" class="form-control mb-3" placeholder="Konfirmasi password baru">
+                    <input type="password" id="newPassword" minlength="8" class="form-control mb-2" placeholder="Password baru">
+                    <input type="password" id="confirmPassword" minlength="8" class="form-control mb-3" placeholder="Konfirmasi password baru">
                     <p id="messageChangePassword"></p>
                     <button id="changePasswordBtn" type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </form>
