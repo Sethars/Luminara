@@ -109,7 +109,7 @@ $checkAuth = true;
           </div>
         </div>
         <div class="col-md-6 d-flex align-items-center justify-content-center ">
-          <div class="countdown-container d-none d-md-block" style="padding:35px;">
+          <div class="countdown-container" style="padding:35px;">
             <h2>
               <i class="bi bi-clock-history"></i> Klaim Hadiah Harian Dalam
             </h2>
@@ -130,31 +130,6 @@ $checkAuth = true;
               </div>
             </div>
           </div>
-
-
-
-        <div class="countdown-container d-md-none d-sm-block" style="padding:35px;">
-            <h4>
-              <i class="bi bi-clock-history"></i> Klaim Hadiah Harian Dalam
-            </h4>
-            <div class="countdown" id="countdown" >
-              <div class="countdown-item">
-                <span class="countdown-value" id="hours">00</span>
-                <span class="countdown-label">Jam</span>
-              </div>
-              <div class="countdown-item">
-
-                <span class="countdown-value" id="minutes">00</span>
-                <span class="countdown-label">Menit</span>
-              </div>
-              <div class="countdown-item" >
-
-                <span class="countdown-value" id="seconds">00</span>
-                <span class="countdown-label">Detik</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
         <br><br><br>
 

@@ -24,7 +24,7 @@ body {
 }
 
 .shop-container {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 20px;
 }
@@ -383,6 +383,7 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   transform: translateX(150%);
   transition: transform 0.3s ease;
+  margin-top: 75px;
 }
 
 .notification.show {
