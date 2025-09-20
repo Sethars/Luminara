@@ -1,5 +1,4 @@
 <?php
-header("Content-Type: application/json");
 require __DIR__ . "/mailer.php";
 
 function resetPassword($base_url ,$conn, $mailconfig) {

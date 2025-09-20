@@ -142,3 +142,15 @@ Stack trace:
 #0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(66): getLeaderboard(Object(PDO))
 #1 {main}
   thrown in D:\localweb\WEB_LOCAL\Luminara\includes\leaderboard.php on line 21
+[20-Sep-2025 12:07:07 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 C:\laragon\www\luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('null', Object(Firebase\JWT\Key))
+#1 C:\laragon\www\luminara\public\index.php(11): auth('furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[20-Sep-2025 12:08:39 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 C:\laragon\www\luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('null', Object(Firebase\JWT\Key))
+#1 C:\laragon\www\luminara\public\index.php(11): auth('furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php on line 109

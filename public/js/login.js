@@ -1,3 +1,6 @@
+import { showModal } from "../module_js/show_modal.js";
+import { generateRandomString } from "../module_js/generate_random_string.js";
+
 const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
 

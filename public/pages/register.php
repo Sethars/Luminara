@@ -2,6 +2,7 @@
 
 $title = "Register";
 $css = "login"; 
+$modules = "setLoading";
 $script = "register";
 $checkAuth = false; // Tidak perlu autentikasi untuk halaman verifikasi
 

@@ -1,3 +1,5 @@
+import { setLoading } from "../module_js/setLoading.js";
+
 function togglePasswordVisibility(togglePassword, passwordInput) {
   togglePassword.addEventListener("click", function () {
     const type =

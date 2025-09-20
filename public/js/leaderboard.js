@@ -1,3 +1,6 @@
+import { addBadge  } from "../module_js/add_badges.js";
+import { formatMoney } from "../module_js/format_money.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   let allUsers = []; // simpan semua data leaderboard
 

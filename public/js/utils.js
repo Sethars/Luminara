@@ -1,92 +1,8 @@
 // ambil data user dari localStorage
 const user = JSON.parse(localStorage.getItem("user"));
-if (user) {
-  window.userId = user.id; // jadi global
-}
 
-// Ambil query param dari URL
-window.getQueryParam = function (param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param);
-};
-
-// Show modal (Bootstrap)
-window.showModal = function (modalId) {
-  const modalElement = document.getElementById(modalId);
-  if (modalElement) {
-    const modal =
-      bootstrap.Modal.getInstance(modalElement) ||
-      new bootstrap.Modal(modalElement);
-    modal.show();
-  } else {
-    console.error(`Modal with ID ${modalId} not found.`);
-  }
-};
-
-// Close modal (Bootstrap)
-window.closeModal = function (modalId) {
-  const modalElement = document.getElementById(modalId);
-  if (modalElement) {
-    const modal =
-      bootstrap.Modal.getInstance(modalElement) ||
-      new bootstrap.Modal(modalElement);
-    modal.hide();
-  } else {
-    console.error(`Modal with ID ${modalId} not found.`);
-  }
-};
-
-// Loading button handler
-window.setLoading = function (isLoading, btnId) {
-  const btn = document.getElementById(btnId);
-
-  if (!btn) {
-    console.error(`Button with ID ${btnId} not found.`);
-    return;
-  }
-
-  if (isLoading) {
-    btn.disabled = true;
-    btn.dataset.originalText = btn.innerHTML;
-    btn.innerHTML = `
-      <span class="spinner-border spinner-border-sm me-2" role="status"></span>`;
-  } else {
-    btn.disabled = false;
-    btn.innerHTML = btn.dataset.originalText || "Submit";
-  }
-};
-
-// Generate random string
-window.generateRandomString = function (length) {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * chars.length);
-    result += chars[randomIndex];
-  }
-
-  return result;
-};
-
-// Update localStorage data
-window.updateLocalData = function (storageKey, field, value) {
-  const data = JSON.parse(localStorage.getItem(storageKey));
-
-  if (!data) {
-    console.error(storageKey + " tidak ditemukan di localStorage");
-    return;
-  }
-
-  try {
-    data[field] = value;
-    localStorage.setItem(storageKey, JSON.stringify(data));
-    console.log(`${storageKey}.${field} berhasil diupdate jadi:`, value);
-  } catch (err) {
-    console.error("Gagal update data:", err);
-  }
-};
+const token = localStorage.getItem("token");
+window.token = token;
 
 window.isDemo = function () {
   const isDemo = JSON.parse(localStorage.getItem("demo"));
@@ -95,18 +11,6 @@ window.isDemo = function () {
     return true;
   }
 };
-
-window.formatMoney = function(amount) {
-    if (amount >= 1_000_000_000) {
-      return (amount / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + "B";
-    } else if (amount >= 1_000_000) {
-      return (amount / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
-    } else if (amount >= 1_000) {
-      return (amount / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
-    } else {
-      return amount.toString();
-    }
-  }
 
 // Tampilkan username
 window.showUsernameAndPp = function () {
@@ -125,30 +29,8 @@ window.showUsernameAndPp = function () {
 
 // Auto jalan setelah DOM siap
 document.addEventListener("DOMContentLoaded", function () {
-  try {
-    getDataProfile().then((success) => {
-      window.showUsernameAndPp();
-    });
-  } catch (err) {}
+  window.showUsernameAndPp();
 });
-
-//Ambil data profile
-async function getDataProfile() {
-  try {
-    const res = await fetch("api/getDataProfile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId }),
-    });
-
-    const result = await res.json();
-
-    if (result.success) {
-      localStorage.setItem("profile", JSON.stringify(result.profile));
-      return true;
-    }
-  } catch (err) {}
-}
 
 //Ambil badges tiap 5 menit
 let oldBadges = localStorage.getItem("profile")
@@ -246,50 +128,5 @@ window.renderBadges = function(badges) {
     });
   } else {
     previewContainer.innerHTML = `<span class="text-muted small">Tidak ada badge yang digunakan</span>`;
-  }
-}
-
-//Add Badge
-window.addBadge = async function (newBadge) {
-  const profile = JSON.parse(localStorage.getItem('profile'));
-  if (!profile) {
-    console.error("Profile not found in localStorage");
-    return;
-  }
-
-  let badges = profile.badges;
-  if (typeof badges === "string") {
-    try {
-      badges = JSON.parse(badges);
-    } catch (e) {
-      console.error("Gagal parse badges:", e);
-      badges = { used: [], unused: [] };
-    }
-  }
-  if (!badges.used) badges.used = [];
-  if (!badges.unused) badges.unused = [];
-
-  if (!badges.unused.includes(newBadge) && !badges.used.includes(newBadge)) {
-    badges.unused.push(newBadge);
-  } else {
-    console.log("Badge sudah ada");
-    return;
-  }
-  profile.badges = badges;
-
-  try {
-    const res = await fetch("api/updateBadges", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: user.id,
-        badgeConfig: badges
-      }),
-    });
-
-    const data = await res.json();
-    localStorage.setItem("profile", JSON.stringify(profile));
-  } catch (err) {
-    console.error("Error update badge:", err);
   }
 }

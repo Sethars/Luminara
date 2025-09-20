@@ -2,6 +2,12 @@
 
 $title = "Profile";
 $css = "profile"; 
+$modules = [
+    "show_modal",
+    "setLoading",
+    "update_local_data",
+    "format_money"
+];
 $script = [
     "logout",
     "profile"

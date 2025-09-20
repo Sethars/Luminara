@@ -1,19 +1,8 @@
 <?php
 
-function getData($conn){
+function changeUsername($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['userId'];
-
-    $stmt = $conn->prepare('SELECT bio, gender, photo, badges FROM profiles WHERE user_id = ?');
-    $stmt->execute([$id]);
-    $profile = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    echo json_encode(['success' => true, 'profile' => $profile]);
-}
-
-function changeUsername($conn){
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['userId'];
+    $id = auth($jwt_token)->user_id;
     $username = $data['newUsername'];
 
     if(!$id || !$username){
@@ -35,9 +24,8 @@ function changeUsername($conn){
     }
 }
 
-function getMoneyData($conn){
-    $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['userId'];
+function getMoneyData($conn, $jwt_token){
+    $id = auth($jwt_token)->user_id;
 
     try{
         $stmt = $conn->prepare('SELECT cash FROM profiles WHERE user_id = ?');
@@ -59,13 +47,13 @@ function getMoneyData($conn){
     }
 }
 
-function changePhotoProfile($conn){
-    if (!isset($_POST["user_id"]) || !isset($_FILES["pp"])) {
+function changePhotoProfile($conn, $jwt_token){
+    $id = auth($jwt_token)->user_id;
+
+    if (!isset($id) || !isset($_FILES["pp"])) {
         echo json_encode(["success" => false, "message" => "Data tidak lengkap"]);
         exit;
     }
-
-    $user_id = intval($_POST["user_id"]);
 
     $targetDir = "../public/assets/img/photo_profile/";
     if (!is_dir($targetDir)) {
@@ -86,7 +74,7 @@ function changePhotoProfile($conn){
 
     // Ambil foto lama
     $stmt = $conn->prepare("SELECT photo FROM profiles WHERE user_id = ?");
-    $stmt->execute([$user_id]);
+    $stmt->execute([$id]);
     $oldPhoto = $stmt->fetchColumn();
 
     if (move_uploaded_file($_FILES["pp"]["tmp_name"], $targetFile)) {
@@ -97,7 +85,7 @@ function changePhotoProfile($conn){
 
         // Update database dengan foto baru
         $stmt = $conn->prepare("UPDATE profiles SET photo = ? WHERE user_id = ?");
-        $stmt->execute([$urlFile, $user_id]);
+        $stmt->execute([$urlFile, $id]);
 
         echo json_encode([
             "success" => true,
@@ -109,9 +97,9 @@ function changePhotoProfile($conn){
 }
 
 
-function changeBio($conn){
+function changeBio($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['userId'];
+    $id = auth($jwt_token)->user_id;
     $newBio = $data['newBio'];
 
     try{
@@ -128,9 +116,9 @@ function changeBio($conn){
     }
 }
 
-function changeGender($conn){
+function changeGender($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['userId'];
+    $id = auth($jwt_token)->user_id;
     $newGender = $data['newGender'];
 
     try{
@@ -147,9 +135,9 @@ function changeGender($conn){
     }
 }
 
-function updateBadges($conn){
+function updateBadges($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
-    $id = $data['userId'];
+    $id = auth($jwt_token)->user_id;
     $badges = $data['badgeConfig'];
 
     try{

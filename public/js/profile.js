@@ -1,20 +1,19 @@
+import { showModal } from "../module_js/show_modal.js";
+import { setLoading } from "../module_js/setLoading.js";
+import { updateLocalData } from "../module_js/update_local_data.js";
+import { formatMoney } from "../module_js/format_money.js";
+
 const profile = JSON.parse(localStorage.getItem('profile'));
 const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
 
 document.addEventListener("DOMContentLoaded", async function () {
-  if(!localStorage.getItem('profile') && !isDemo()){
-    getDataProfile().then(success=> {
-      if(success){
-        window.location.reload();
-      }
-    })
-  }
-
   //Cash Money
   fetch('api/getMoneyData', {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({userId})
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
   })
   .then(res => res.json())
   .then(data => {
@@ -94,8 +93,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       try{
         const res = await fetch("api/updateBadges", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({userId, badgeConfig}),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({badgeConfig}),
         })
 
         const result = await res.json();
@@ -143,8 +145,11 @@ document.getElementById('changeNameForm').addEventListener('submit', async funct
   try{
     const res = await fetch('api/changeUsername', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, newUsername})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newUsername})
     });
 
     const result = await res.json();
@@ -192,12 +197,14 @@ document.getElementById('changePPBtn').addEventListener('click', async function 
   }
 
   const formData = new FormData();
-  formData.append('user_id', userId);
   formData.append('pp', file);
 
   try{
     const res = await fetch('api/changePhotoProfile', {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
       body: formData
     })
 
@@ -236,8 +243,11 @@ document.getElementById('changeBioForm').addEventListener('submit', async functi
   try{
     const res = await fetch('api/changeBio', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, newBio})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newBio})
     });
 
     const result = await res.json();
@@ -272,8 +282,11 @@ document.getElementById('changeGenderBtn').addEventListener('click', async funct
   try {
     const response = await fetch("api/changeGender", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, newGender}),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newGender}),
     });
 
     const result = await response.json();
@@ -331,8 +344,11 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
     
     const response = await fetch('api/changePassword',{
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, oldPassword, newPassword})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({oldPassword, newPassword})
     });
     
     const result = await response.json();
@@ -372,8 +388,11 @@ document.getElementById('deleteAccountForm').addEventListener('submit', async fu
   try{
     const response = await fetch('/api/deleteAccount', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, password})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({password})
     });
 
     const result = await response.json();

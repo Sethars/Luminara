@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkWelcomeBonus();
 
   // Start countdown
-  startCountdown();
+  startCountdown(serverTime);
 
   // Event listeners
   document
@@ -198,9 +198,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Misalnya server kasih waktu sekarang (epoch detik) GMT+7
-  let serverTime = Math.floor(Date.now() / 1000); // contoh dummy, harusnya ambil dari API
+  let serverTime = Math.floor(Date.now() / 1000);
 
-  function startCountdown(serverEpoch) {
+  // Check if user is already VIP
+  if (isVIP) {
+    document.getElementById("buyVipBtn").textContent = "Anda adalah VIP";
+    document.getElementById("buyVipBtn").disabled = true;
+  }
+});
+
+function startCountdown(serverEpoch) {
     function updateCountdown() {
       let now = new Date(serverEpoch * 1000);
 
@@ -219,16 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
           Klaim Hadiah
         </button>
       `;
-
-        // Pasang event listener untuk claimBtn
-        document.getElementById("claimBtn").addEventListener("click", () => {
-          // Misalnya kamu mau jalankan fungsi claimDailyLogin
-          claimDailyLogin();
-
-          // Reset waktu (ambil live time lagi dari server)
-          serverEpoch = Math.floor(Date.now() / 1000);
-          updateCountdown();
-        });
 
         return; // Hentikan hitungan, jangan render jam-menit-detik lagi
       }
@@ -255,13 +252,3 @@ document.addEventListener("DOMContentLoaded", function () {
     updateCountdown();
     setInterval(updateCountdown, 1000);
   }
-
-  // Panggil
-  startCountdown(serverTime);
-
-  // Check if user is already VIP
-  if (isVIP) {
-    document.getElementById("buyVipBtn").textContent = "Anda adalah VIP";
-    document.getElementById("buyVipBtn").disabled = true;
-  }
-});

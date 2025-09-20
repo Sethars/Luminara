@@ -2,6 +2,10 @@
 
 $title = "Login";
 $css = "login"; 
+$modules = [
+  "show_modal",
+  "generate_random_string"
+];
 $script = "login";
 $checkAuth = false; // Tidak perlu autentikasi untuk halaman verifikasi
 

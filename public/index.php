@@ -7,10 +7,10 @@ require __DIR__ . '/../vendor/autoload.php';
 
 if (str_starts_with($request, "api/")) {
     header("Content-Type: application/json");
+    require __DIR__ . '/../includes/auth.php';
 
     switch ($request) {
         case "api/login":
-            require __DIR__ . '/../includes/auth.php';
             login($conn, $jwt_token);
             break;
         
@@ -45,7 +45,8 @@ if (str_starts_with($request, "api/")) {
             break;
 
         case "api/auth":
-            require __DIR__ . '/../includes/checkAuth.php';
+            require __DIR__ . '/../includes/authenticate.php';
+            authenticate($conn, $jwt_token);
             break;
 
         case "api/logout":
@@ -53,19 +54,14 @@ if (str_starts_with($request, "api/")) {
             break;
 
         case "api/deleteAccount":
-            require __DIR__ . '/../includes/auth.php';
-            deleteAccount($conn);
-            break;
-
-        case 'api/getDataProfile':
-            require __DIR__ . '/../includes/profileData.php';
-            getData($conn);
+            deleteAccount($conn, $jwt_token);
             break;
 
         case "api/changeUsername":
             require __DIR__ . '/../includes/profileData.php';
-            changeUsername($conn);
+            changeUsername($conn, $jwt_token);
             break;
+
         case "api/leaderboard":
             require __DIR__ . '/../includes/leaderboard.php';
             getLeaderboard($conn);
@@ -73,27 +69,27 @@ if (str_starts_with($request, "api/")) {
 
         case 'api/getMoneyData':
             require __DIR__ . '/../includes/profileData.php';
-            getMoneyData($conn);
+            getMoneyData($conn, $jwt_token);
             break;
 
         case 'api/changeBio':
             require __DIR__ . '/../includes/profileData.php';
-            changeBio($conn);
+            changeBio($conn, $jwt_token);
             break;
 
         case 'api/changeGender':
             require __DIR__ . '/../includes/profileData.php';
-            changeGender($conn);
+            changeGender($conn, $jwt_token);
             break;
 
         case 'api/changePhotoProfile':
             require __DIR__ . '/../includes/profileData.php';
-            changePhotoProfile($conn);
+            changePhotoProfile($conn, $jwt_token);
             break;
 
         case 'api/updateBadges':
             require __DIR__ . '/../includes/profileData.php';
-            updateBadges($conn);
+            updateBadges($conn, $jwt_token);
             break;
 
         default:

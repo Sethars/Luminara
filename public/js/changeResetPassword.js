@@ -1,3 +1,6 @@
+import { showModal } from "../module_js/show_modal.js";
+import { getQueryParam } from "../module_js/get_query.js";
+
 const identifier = getQueryParam("identifier");
 const token = getQueryParam("token");
 
