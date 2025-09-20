@@ -197,43 +197,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000);
   }
 
-  // Misalnya server kasih waktu sekarang (epoch detik) GMT+7
-  let serverTime = Math.floor(Date.now() / 1000); // contoh dummy, harusnya ambil dari API
-
-  function startCountdown(serverEpoch) {
+  // Countdown ke jam 12 malam
+  function startCountdown() {
     function updateCountdown() {
-      let now = new Date(serverEpoch * 1000);
+      const now = new Date();
 
-      // Target jam 00:00 (midnight) besok
-      let midnight = new Date(now);
+      // Target jam 00:00 besok
+      const midnight = new Date();
       midnight.setHours(24, 0, 0, 0);
 
-      // Selisih dalam detik
       let diff = Math.floor((midnight.getTime() - now.getTime()) / 1000);
 
       if (diff <= 0) {
-        // Kalau sudah lewat jam 12 malam
         document.getElementById("countdown").innerHTML = `
-        <h3 class="text-success">Sudah Bisa Claim Hadiah!</h3>
-        <button class="btn btn-primary mt-2" id="claimBtn">
-          Klaim Hadiah
-        </button>
-      `;
+          <h3 class="text-success">Sudah Bisa Claim Hadiah!</h3>
+        `;
 
-        // Pasang event listener untuk claimBtn
-        document.getElementById("claimBtn").addEventListener("click", () => {
-          // Misalnya kamu mau jalankan fungsi claimDailyLogin
-          claimDailyLogin();
-
-          // Reset waktu (ambil live time lagi dari server)
-          serverEpoch = Math.floor(Date.now() / 1000);
-          updateCountdown();
-        });
-
-        return; // Hentikan hitungan, jangan render jam-menit-detik lagi
+        // Enable tombol klaim lagi
+        const dailyBtn = document.getElementById("dailyLoginBtn");
+        dailyBtn.disabled = false;
+        dailyBtn.textContent = "Klaim Sekarang";
+        return;
       }
 
-      // Konversi ke jam, menit, detik
       const hours = Math.floor(diff / 3600);
       const minutes = Math.floor((diff % 3600) / 60);
       const seconds = diff % 60;
@@ -247,17 +233,11 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("seconds").textContent = seconds
         .toString()
         .padStart(2, "0");
-
-      // Tambahin 1 detik ke serverEpoch biar terus maju
-      serverEpoch++;
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
   }
-
-  // Panggil
-  startCountdown(serverTime);
 
   // Check if user is already VIP
   if (isVIP) {
