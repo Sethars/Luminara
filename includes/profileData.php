@@ -135,16 +135,70 @@ function changeGender($conn, $jwt_token){
     }
 }
 
+function addBadges($conn, $jwt_token){
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = auth($jwt_token)->user_id;
+    $badgeName = $data['badgeName'];
+
+    $stmt = $conn->prepare("SELECT badges FROM profiles WHERE user_id = ?");
+    $stmt->execute([$id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$row) {
+        echo json_encode(["success" => false, "message" => "User not found"]);
+        exit;
+    }
+
+    $badges = json_decode($row['badges'], true);
+
+    if (in_array($badgeName, $badges['used']) || in_array($badgeName, $badges['unused'])) {
+        echo json_encode(["success" => false, "message" => "Badge already exists"]);
+        exit;
+    }
+
+    $badges['unused'][] = $badgeName;
+
+    $newJson = json_encode($badges);
+    $stmt = $conn->prepare("UPDATE profiles SET badges = ? WHERE user_id = ?");
+    $stmt->execute([$newJson, $id]);
+
+    echo json_encode(["success" => true, "message" => "Badge berhasil ditambahkan"]);
+}
+
 function updateBadges($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
     $id = auth($jwt_token)->user_id;
-    $badges = $data['badgeConfig'];
+    $newUsed = $data['used'];
+    $newUnused = $data['unused'];
+
+    $stmt = $conn->prepare("SELECT badges FROM profiles WHERE user_id = ?");
+    $stmt->execute([$id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$row){
+        echo json_encode(["success" => false, "message" => "User not found"]);
+        exit;
+    };
+
+    $badges = json_decode($row['badges'], true);
+    $dbUsed = $badges['used'];
+    $dbUnused = $badges['unused'];
+
+    $allBadges = array_merge($dbUsed, $dbUnused);
+
+    $validUsed   = array_values(array_intersect($newUsed, $allBadges));
+    $validUnused = array_values(array_intersect($newUnused, $allBadges));
+
+    $newBadges =[
+        "used" => $validUsed,
+        "unused" => $validUnused
+    ];
 
     try{
         $stmt = $conn->prepare('UPDATE profiles SET badges = ? WHERE user_id = ?');
-        $stmt->execute([json_encode($badges), $id]);
+        $stmt->execute([json_encode($newBadges), $id]);
 
-        echo json_encode(['success' => true, 'message' => 'Berhasil ganti badges']);
+        echo json_encode(['success' => true, 'message' => 'Berhasil ganti badges', "badge" => $newBadges]);
     } catch (Exception $e){
         die(json_encode([
             'success' => false,

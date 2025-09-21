@@ -32,33 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
   window.showUsernameAndPp();
 });
 
-//Ambil badges tiap 5 menit
-let oldBadges = localStorage.getItem("profile")
-  ? JSON.parse(localStorage.getItem("profile")).badges
-  : null;
-
 function isDifferent(a, b) {
   return JSON.stringify(a) !== JSON.stringify(b);
 }
-
-// Loop tiap 5 menit
-setInterval(() => {
-  getDataProfile().then((success) => {
-    if (success) {
-      const profile = JSON.parse(localStorage.getItem("profile"));
-      const newBadges = profile.badges;
-
-      if (
-        isDifferent(oldBadges, newBadges) &&
-        window.location.pathname === "/profile"
-      ) {
-        console.log("Badges berubah, render ulang!");
-        oldBadges = newBadges; // update oldBadges
-        renderBadges(newBadges);
-      }
-    }
-  });
-}, 5 * 60 * 1000);
 
 // TODO: STYLE BADGE
 const badgeIcons = {

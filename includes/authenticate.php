@@ -21,6 +21,10 @@ function authenticate($conn, $jwt_token) {
             exit;
         }
 
+        if ($profile && isset($profile['badges'])) {
+            $profile['badges'] = json_decode($profile['badges'], true);
+        }
+
         // return data user
         echo json_encode([
             "status" => "success",
