@@ -142,7 +142,7 @@ include_once __DIR__ . '/../components/footer.php';
         <p id="warningText"></p>
       </div>
       <div class="modal-footer">
-        <button onclick="closeModal('loginFailed')" type="button" class="btn btn-login" style="z-index: 1;">
+        <button id="closeModalLogin" type="button" class="btn btn-login" style="z-index: 1;">
           <strong>
             Oke
           </strong>
