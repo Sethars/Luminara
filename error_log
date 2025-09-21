@@ -196,3 +196,105 @@ Stack trace:
 #1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
 #2 {main}
   thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 01:54:52 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:54:55 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:54:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:54:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:54:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:54:56 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:01 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:11 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:27 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:28 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:30 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:30 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:30 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:30 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:31 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:31 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
+[21-Sep-2025 01:55:48 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value in D:\localweb\WEB_LOCAL\Luminara\includes\register.php:89
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\register.php(89): PDOStatement->execute(Array)
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(24): verifyOTP(Object(PDO))
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\register.php on line 89
