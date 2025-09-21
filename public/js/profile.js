@@ -1,25 +1,49 @@
+import { showModal } from "../module_js/show_modal.js";
+import { setLoading } from "../module_js/setLoading.js";
+import { updateLocalData } from "../module_js/update_local_data.js";
+import { formatMoney } from "../module_js/format_money.js";
+
 const profile = JSON.parse(localStorage.getItem('profile'));
+const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
 
 document.addEventListener("DOMContentLoaded", async function () {
-  if(!localStorage.getItem('profile') && !isDemo()){
-    getDataProfile().then(success=> {
-      if(success){
-        window.location.reload();
-      }
-    })
-  }
+  //Cash Money
+  fetch('api/getMoneyData', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      document.getElementById('profile-money').textContent = formatMoney(data.money);
+    }
+  })
 
-  const badges = profile.badges || { used: [], unused: [] };
-  renderBadges(badges); 
+  //Username
   document.getElementById('preview-username').textContent = user ? user.username : 'Demo';
-  document.getElementById('preview-photo').src = profile.photo ? profile.photo : "/assets/img/photo_profile/ppkosong.jpg";
+  document.getElementById('newUsername').value = user ? user.username : '';
+
+  //Photo Profile
+  document.getElementById('preview-photo').src = profile && profile.photo ? profile.photo : photoDefault;
+
+  //Bio
   if(profile && profile.bio !== null){
     document.getElementById('preview-bio').textContent = profile.bio;
+    document.getElementById('newBio').value = profile.bio;
   } else {
     document.getElementById('preview-bio').textContent = 'Pengguna belum mengatur bio';
   }
+
+  //Gender
   document.getElementById('preview-gender').textContent = profile ? profile.gender : 'Dragunov';
+  document.getElementById('newGender').value = profile ? profile.gender : '';
   
+  //Badges
+  const badges = profile.badges || { used: [], unused: [] };
+  renderBadges(badges); 
 
   new Sortable(document.getElementById("used-badges"), {
     group: "badges",
@@ -69,8 +93,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       try{
         const res = await fetch("api/updateBadges", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({userId, badgeConfig}),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({badgeConfig}),
         })
 
         const result = await res.json();
@@ -118,8 +145,11 @@ document.getElementById('changeNameForm').addEventListener('submit', async funct
   try{
     const res = await fetch('api/changeUsername', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, newUsername})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newUsername})
     });
 
     const result = await res.json();
@@ -167,12 +197,14 @@ document.getElementById('changePPBtn').addEventListener('click', async function 
   }
 
   const formData = new FormData();
-  formData.append('user_id', userId);
   formData.append('pp', file);
 
   try{
     const res = await fetch('api/changePhotoProfile', {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
       body: formData
     })
 
@@ -182,7 +214,7 @@ document.getElementById('changePPBtn').addEventListener('click', async function 
       msg.classList.add('text-success');
       document.getElementById("preview-photo").src = result.file_url;
       document.getElementById('navbar-profile-photo').src = result.file_url;
-      document.getElementById("photo-preview-mini").src = "/assets/img/photo_profile/ppkosong.jpg";
+      document.getElementById("photo-preview-mini").src = photoDefault;
       updateLocalData('profile', 'photo', result.file_url);
     } else {
       msg.textContent = "Upload gagal: " + result.message;
@@ -211,8 +243,11 @@ document.getElementById('changeBioForm').addEventListener('submit', async functi
   try{
     const res = await fetch('api/changeBio', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, newBio})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newBio})
     });
 
     const result = await res.json();
@@ -247,8 +282,11 @@ document.getElementById('changeGenderBtn').addEventListener('click', async funct
   try {
     const response = await fetch("api/changeGender", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, newGender}),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newGender}),
     });
 
     const result = await response.json();
@@ -269,7 +307,6 @@ document.getElementById('changeGenderBtn').addEventListener('click', async funct
 //Change Password
 document.getElementById('changePasswordForm').addEventListener('submit', async function (e) {
   e.preventDefault();
-  setLoading(true, 'changePasswordBtn');
   
   const oldPassword = document.getElementById('oldPassword').value;
   const newPassword = document.getElementById('newPassword').value;
@@ -279,7 +316,6 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
   if(isDemo()){
     msg.textContent = "Anda harus login terlebih dahulu";
     msg.classList.add('text-danger');
-    setLoading(false, 'changePasswordBtn');
     return;
   }
 
@@ -304,10 +340,15 @@ document.getElementById('changePasswordForm').addEventListener('submit', async f
   }
   
   try{
+    setLoading(true, 'changePasswordBtn');
+    
     const response = await fetch('api/changePassword',{
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, oldPassword, newPassword})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({oldPassword, newPassword})
     });
     
     const result = await response.json();
@@ -347,8 +388,11 @@ document.getElementById('deleteAccountForm').addEventListener('submit', async fu
   try{
     const response = await fetch('/api/deleteAccount', {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({userId, password})
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({password})
     });
 
     const result = await response.json();

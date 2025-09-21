@@ -1,6 +1,4 @@
 <?php
-header('Content-Type: application/json');
-
 function changePassword($conn){
     $data = json_decode(file_get_contents("php://input"), true);
     $user_id = $data['userId'] ?? null;

@@ -1,7 +1,11 @@
 <?php
 
-$title = "leaderboard";
+$title = "Leaderboard";
 $css = "leaderboard"; 
+$modules = [
+    "add_badges",
+    "format_money"
+];
 $script = [
     "logout",
     "leaderboard"

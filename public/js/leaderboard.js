@@ -1,18 +1,8 @@
+import { addBadge  } from "../module_js/add_badges.js";
+import { formatMoney } from "../module_js/format_money.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   let allUsers = []; // simpan semua data leaderboard
-
-  // Fungsi format uang
-  function formatMoney(amount) {
-    if (amount >= 1_000_000_000) {
-      return (amount / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + "B";
-    } else if (amount >= 1_000_000) {
-      return (amount / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
-    } else if (amount >= 1_000) {
-      return (amount / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
-    } else {
-      return amount.toString();
-    }
-  }
 
   // Fungsi render badges hanya tampilkan yg "used"
   function renderBadges(badges) {
@@ -74,8 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Fungsi pencarian
-
   // Fungsi pencarian + Easter Egg
   function searchUsers(query) {
     if (!query) {
@@ -94,24 +82,16 @@ document.addEventListener("DOMContentLoaded", function () {
       noResults.style.display = "none";
 
       tbody.innerHTML = `
-      <tr>
-        <td colspan="3" class="text-center easter-egg">
-          <div class="easter-egg-box">
-            <p>🎉 Badges Rahasia Unlocked!</p>
-          </div>
-        </td>
-      </tr>
-    `;
+        <tr>
+          <td colspan="3" class="text-center easter-egg">
+            <div class="easter-egg-box">
+              <p>🎉 Badges Rahasia Unlocked!</p>
+            </div>
+          </td>
+        </tr>
+      `;
 
-      fetch("/api/addBadge.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ badge: "isteregg" }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log("Badge update:", data))
-        .catch((err) => console.error("Error update badge:", err));
-
+      addBadge('Racist');
       return;
     }
 

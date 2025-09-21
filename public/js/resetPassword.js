@@ -1,3 +1,5 @@
+import { setLoading } from "../module_js/setLoading.js";
+
 document.getElementById('resetPasswordForm').addEventListener('submit', async (event) => {
     event.preventDefault(); // Prevent the default form submission
 

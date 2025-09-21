@@ -17,8 +17,7 @@ async function checkAuth() {
       return;
     }
   }
-
-  const token = localStorage.getItem("token");
+  
   if (!token) {
     window.location.href = "/login";
     return;
@@ -41,6 +40,7 @@ async function checkAuth() {
 
       // update localStorage user
       localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("profile", JSON.stringify(data.profile));
       return {demo : false, user : data.user, token};
     }
   } catch (err) {
