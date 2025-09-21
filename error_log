@@ -154,3 +154,45 @@ Stack trace:
 #1 C:\laragon\www\luminara\public\index.php(11): auth('furinacyrenehut...')
 #2 {main}
   thrown in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[21-Sep-2025 00:26:31 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:26:31 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:26:42 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:26:42 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:07 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:07 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:42 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:42 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:50 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:50 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:30:19 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:30:19 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153

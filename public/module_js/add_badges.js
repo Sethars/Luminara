@@ -26,17 +26,21 @@ export async function addBadge (newBadge) {
   profile.badges = badges;
 
   try {
-    const res = await fetch("api/updateBadges", {
+    const res = await fetch("api/addBadges", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
       body: JSON.stringify({
-        userId: user.id,
-        badgeConfig: badges
+        badgeName: newBadge
       }),
     });
 
     const data = await res.json();
-    localStorage.setItem("profile", JSON.stringify(profile));
+    if(data.success){
+      localStorage.setItem("profile", JSON.stringify(profile));
+    }
   } catch (err) {
     console.error("Error update badge:", err);
   }

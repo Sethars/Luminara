@@ -87,6 +87,11 @@ if (str_starts_with($request, "api/")) {
             changePhotoProfile($conn, $jwt_token);
             break;
 
+        case 'api/addBadges':
+            require __DIR__ . '/../includes/profileData.php';
+            addBadges($conn, $jwt_token);
+            break;
+
         case 'api/updateBadges':
             require __DIR__ . '/../includes/profileData.php';
             updateBadges($conn, $jwt_token);

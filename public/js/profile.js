@@ -87,9 +87,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         unused.push(el.dataset.badge);
       });
 
-      const badgeConfig = { used, unused };
-      console.log("Badge JSON:", badgeConfig);
-
       try{
         const res = await fetch("api/updateBadges", {
           method: "POST",
@@ -97,15 +94,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
           },
-          body: JSON.stringify({badgeConfig}),
+          body: JSON.stringify({used, unused}),
         })
 
         const result = await res.json();
         if(result.success){
           msg.textContent = 'Berhasil ganti badges';
           msg.classList.add('text-success');
-          renderBadges(badgeConfig);
-          profile.badges= badgeConfig;
+          renderBadges(result.badge);
+          profile.badges= result.badge;
           localStorage.setItem('profile', JSON.stringify(profile));
         } else{
           msg.textContent = result.message || "Gagal ganti badges";
