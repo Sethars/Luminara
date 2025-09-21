@@ -62,7 +62,7 @@ function underscoreDelete(str) {
 }
 
 // fungsi render
-window.renderBadges = function(badges) {
+window.renderBadges = function (badges) {
   if (typeof badges === "string") {
     badges = JSON.parse(badges);
   }
@@ -105,4 +105,4 @@ window.renderBadges = function(badges) {
   } else {
     previewContainer.innerHTML = `<span class="text-muted small">Tidak ada badge yang digunakan</span>`;
   }
-}
+};
