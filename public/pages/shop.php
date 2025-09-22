@@ -129,6 +129,9 @@ $checkAuth = true;
                 <span class="countdown-label">Detik</span>
               </div>
             </div>
+            <div id="claimReady" style="display:none;">
+              <h3 class="text-success">Sudah Bisa Claim Hadiah!</h3>
+            </div>
           </div>
       </div>
         <br><br><br>

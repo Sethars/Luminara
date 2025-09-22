@@ -6,7 +6,7 @@ function changeUsername($conn, $jwt_token){
     $username = $data['newUsername'];
 
     if(!$id || !$username){
-        echo json_encode(['success' => false, 'message' => 'Form tidak boleh kosong']);
+        echo json_encode(['success' => false, 'message' => 'Username tidak boleh kosong']);
         exit;
     }
 
@@ -35,7 +35,7 @@ function getMoneyData($conn, $jwt_token){
         if ($money) {
             echo json_encode([
                 'success' => true,
-                'money'   => (int)$money['cash'] // langsung ambil angka
+                'money'   => (int)$money['cash']
             ]);
         }
     } catch (Exception $e){

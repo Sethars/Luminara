@@ -97,6 +97,27 @@ if (str_starts_with($request, "api/")) {
             updateBadges($conn, $jwt_token);
             break;
 
+        //Shop Function
+        case 'api/getShopData':
+            require __DIR__ . '/../includes/shopFunction.php';
+            getData($conn, $jwt_token);
+            break;
+
+        case 'api/claimDaily':
+            require __DIR__ . '/../includes/shopFunction.php';
+            claimDaily($conn, $jwt_token);
+            break;
+
+        case 'api/claimWelcomeBonus':
+            require __DIR__ . '/../includes/shopFunction.php';
+            claimWelcomeBonus($conn, $jwt_token);
+            break;
+
+        case 'api/buyVip':
+            require __DIR__ . '/../includes/shopFunction.php';
+            buyVip($conn, $jwt_token);
+            break;
+
         default:
             http_response_code(404);
             echo json_encode(["error" => "API route not found"]);

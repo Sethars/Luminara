@@ -3,10 +3,9 @@ import { setLoading } from "../module_js/setLoading.js";
 import { updateLocalData } from "../module_js/update_local_data.js";
 import { formatMoney } from "../module_js/format_money.js";
 
-const profile = JSON.parse(localStorage.getItem('profile'));
-const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
-
 document.addEventListener("DOMContentLoaded", async function () {
+  const profile = JSON.parse(localStorage.getItem('profile'));
+  const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
   //Cash Money
   fetch('api/getMoneyData', {
     method: "POST",
@@ -134,8 +133,8 @@ document.getElementById('changeNameForm').addEventListener('submit', async funct
   msg.textContent = ''
   msg.className = ''
 
-  if(!username){
-    msg.textContent = "Form harus diisi";
+  if(!newUsername){
+    msg.textContent = "Username tidak boleh kosong";
     msg.classList.add('text-danger');
     return;
   }

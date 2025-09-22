@@ -196,3 +196,13 @@ Stack trace:
 #1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
 #2 {main}
   thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[22-Sep-2025 13:38:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::commit() in C:\laragon\www\luminara\includes\shopFunction.php:111
+Stack trace:
+#0 C:\laragon\www\luminara\public\index.php(113): claimWelcomeBonus(Object(PDO), 'furinacyrenehut...')
+#1 {main}
+  thrown in C:\laragon\www\luminara\includes\shopFunction.php on line 111
+[22-Sep-2025 13:38:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::commit() in C:\laragon\www\luminara\includes\shopFunction.php:111
+Stack trace:
+#0 C:\laragon\www\luminara\public\index.php(113): claimWelcomeBonus(Object(PDO), 'furinacyrenehut...')
+#1 {main}
+  thrown in C:\laragon\www\luminara\includes\shopFunction.php on line 111
