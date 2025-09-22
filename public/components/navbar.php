@@ -187,15 +187,18 @@
 
 
         <!-- Search -->
-        <li class="nav-item">
-          <form class="d-flex search" method="GET" action="/search.php">
-            <input class="form-control form-control-sm me-2" type="search" placeholder="Cari username..."
-                  aria-label="Search" name="q">
-            <button class="btn btn-sm btn-outline-primary" type="submit">
+        <li class="nav-item position-relative">
+          <div class="search">
+            <input id="userSearchInput" class="form-control form-control-sm me-2" 
+                  type="search" placeholder="Cari username..." aria-label="Search">
+            <button class="btn btn-sm btn-outline-primary" type="button" id="searchBtn">
               <i class="bi bi-search"></i>
             </button>
-          </form>
+          </div>
+          <!-- Container hasil search -->
+          <ul id="searchResults" class="dropdown-menu" style="position:absolute; top:100%; left:0; width:250px;"></ul>
         </li>
+
 
       </ul>
 
@@ -236,6 +239,9 @@
 </nav>
 
 <script>
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   // Handle submenu toggle on mobile
   const submenuToggles = document.querySelectorAll('.dropdown-submenu > .dropdown-toggle');
@@ -268,4 +274,76 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+
+// versi untuk search dropdown (return string HTML)
+window.renderBadgesInline = function (badges) {
+  if (!badges || !badges.length) return "";
+
+  return badges.map(badge => {
+    const icon = badgeIcons[badge] || "fa-solid fa-star";
+    const style = badgeStyles[badge] || "bg-dark text-white";
+    return `<span class="badge ${style} me-1">
+              <i class="${icon} me-1"></i>${underscoreDelete(badge)}
+            </span>`;
+  }).join("");
+};
+
+
+
+// search user photo and name
+let debounceTimer;
+const input = document.getElementById("userSearchInput");
+const results = document.getElementById("searchResults");
+
+input.addEventListener("input", () => {
+  clearTimeout(debounceTimer);
+  const q = input.value.trim();
+  if (q.length < 2) {
+    results.innerHTML = "";
+    results.style.display = "none";
+    return;
+  }
+
+  debounceTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(`/api/usersearch?q=${encodeURIComponent(q)}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // <-- pastikan token ada
+        }
+      });
+
+      const data = await res.json();
+
+      results.innerHTML = "";
+      if (data.length === 0) {
+        results.innerHTML = `<li class="dropdown-item text-muted">Tidak ada hasil</li>`;
+      } else {
+        data.forEach(user => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <a href="/profile.php?id=${user.id}" class="dropdown-item d-flex align-items-center">
+              <img src="${user.photo}" class="rounded-circle me-2" style="width:24px;height:24px;object-fit:cover;">
+              
+              <div style="display:flex; flex-direction:column;">
+                <span>${user.username}</span>
+                <div class="d-flex flex-wrap mt-1">
+                  ${renderBadgesInline(user.badges?.used || [])}
+                </div>
+              </div>
+            </a>
+          `;
+          results.appendChild(li);
+        });
+
+      }
+      results.style.display = "block";
+    } catch (err) {
+      console.error("Search error:", err);
+    }
+  }, 400); // debounce 400ms
+});
+
+
 </script>

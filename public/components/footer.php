@@ -11,7 +11,6 @@
 
   
 
-  <script src="../js/utils.js"></script>
 
   
   <?php if (!empty($script)): ?>
