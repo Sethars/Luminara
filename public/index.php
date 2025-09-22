@@ -96,7 +96,10 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/profileData.php';
             updateBadges($conn, $jwt_token);
             break;
-
+        case 'api/usersearch':
+            require __DIR__ . '/../includes/usersearch.php';
+            usersearch($conn, $jwt_token);
+            break;
         default:
             http_response_code(404);
             echo json_encode(["error" => "API route not found"]);
