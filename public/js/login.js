@@ -1,4 +1,5 @@
 import { showModal } from "../module_js/show_modal.js";
+import { closeModal } from "../module_js/close_modal.js";
 import { generateRandomString } from "../module_js/generate_random_string.js";
 
 const passwordInput = document.getElementById("password");
@@ -15,6 +16,8 @@ togglePassword.addEventListener("click", function () {
       ? '<i class="bi bi-eye"></i>'
       : '<i class="bi bi-eye-slash"></i>';
 });
+
+document.getElementById("closeModalLogin").addEventListener("click", () => closeModal('loginFailed'))
 
 //Login Btn
 document
