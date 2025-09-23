@@ -1,19 +1,19 @@
 import { formatMoney } from "../module_js/format_money.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
-  try{
-    const res = await fetch('api/getShopData', {
+  try {
+    const res = await fetch("api/getShopData", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const data = await res.json();
-    if(data.success){
-      let cashBalance = data.cash; 
-      let chipBalance = data.chip; 
-      let isVIP = data.isVip; 
-      let welcomeBonusClaimed = data.isClaimed; 
+    if (data.success) {
+      let cashBalance = data.cash;
+      let chipBalance = data.chip;
+      let isVIP = data.isVip;
+      let welcomeBonusClaimed = data.isClaimed;
       let canClaimDaily = data.canClaimDaily;
 
       // Update balance display
@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       // Check daily login and amount
       checkDailyLogin();
-      document.getElementById('dailyAmount').textContent = (isVIP ? '500' : '100') + ' ' + 'Chip';
+      document.getElementById("dailyAmount").textContent =
+        (isVIP ? "500" : "100") + " " + "Chip";
 
       // Check welcome bonus
       checkWelcomeBonus();
@@ -39,7 +40,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       document.getElementById("buyVipBtn").addEventListener("click", buyVIP);
 
       // Exchange buttons
-      const exchangeButtons = document.querySelectorAll(".btn-exchange[data-type]");
+      const exchangeButtons = document.querySelectorAll(
+        ".btn-exchange[data-type]"
+      );
       exchangeButtons.forEach((button) => {
         button.addEventListener("click", function () {
           const type = this.getAttribute("data-type");
@@ -67,8 +70,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
 
       function updateBalanceDisplay() {
-        document.getElementById("chipBalance").textContent = formatMoney(chipBalance);
-        document.getElementById("cashBalance").textContent = formatMoney(cashBalance);
+        document.getElementById("chipBalance").textContent =
+          formatMoney(chipBalance);
+        document.getElementById("cashBalance").textContent =
+          formatMoney(cashBalance);
       }
 
       function checkDailyLogin() {
@@ -76,7 +81,8 @@ document.addEventListener("DOMContentLoaded", async function () {
           // Already claimed today
           document.getElementById("dailyLoginCard").classList.add("claimed");
           document.getElementById("dailyLoginBtn").disabled = true;
-          document.getElementById("dailyLoginBtn").textContent = "Sudah Diambil";
+          document.getElementById("dailyLoginBtn").textContent =
+            "Sudah Diambil";
         }
       }
 
@@ -85,75 +91,84 @@ document.addEventListener("DOMContentLoaded", async function () {
           // Already claimed
           document.getElementById("welcomeBonusCard").classList.add("claimed");
           document.getElementById("welcomeBonusBtn").disabled = true;
-          document.getElementById("welcomeBonusBtn").textContent = "Sudah Diambil";
+          document.getElementById("welcomeBonusBtn").textContent =
+            "Sudah Diambil";
         }
       }
 
       function claimDailyLogin() {
         if (canClaimDaily) {
-          fetch('api/claimDaily',{
+          fetch("api/claimDaily", {
             headers: {
-              Authorization : `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           })
-          .then(res => res.json())
-          .then(data => {
-            if(data.success){
-              chipBalance += data.chip;
-              canClaimDaily = false;
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                chipBalance += data.chip;
+                canClaimDaily = false;
 
-              // Update UI
-              updateBalanceDisplay();
-              startCountdown();
+                // Update UI
+                updateBalanceDisplay();
+                startCountdown();
 
-              document.getElementById("dailyLoginCard").classList.add("claimed");
-              document.getElementById("dailyLoginBtn").disabled = true;
-              document.getElementById("dailyLoginBtn").textContent = "Sudah Diambil";
-              // Show notification
-              if (data.vip) {
-                showNotification("Berhasil klaim 500 Chip (Bonus VIP)!", "success");
+                document
+                  .getElementById("dailyLoginCard")
+                  .classList.add("claimed");
+                document.getElementById("dailyLoginBtn").disabled = true;
+                document.getElementById("dailyLoginBtn").textContent =
+                  "Sudah Diambil";
+                // Show notification
+                if (data.vip) {
+                  showNotification(
+                    "Berhasil klaim 500 Chip (Bonus VIP)!",
+                    "success"
+                  );
+                } else {
+                  showNotification("Berhasil klaim 100 Chip!", "success");
+                }
               } else {
-                showNotification("Berhasil klaim 100 Chip!", "success");
+                console.error(data.message);
+                if (data.error) console.error(data.error);
               }
-            } else {
-              console.error(data.message);
-              if(data.error) console.error(data.error);
-            }
-          })
+            });
         }
       }
 
       function claimWelcomeBonus() {
         if (!welcomeBonusClaimed) {
           // Can claim
-          fetch('api/claimWelcomeBonus',{
+          fetch("api/claimWelcomeBonus", {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           })
-          .then(res => res.json())
-          .then(data => {
-            if(data.success){
-              //Update chip
-              chipBalance += 1000;
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                //Update chip
+                chipBalance += 1000;
 
-              // Set as claimed
-              welcomeBonusClaimed = true;
-    
-              // Update UI
-              updateBalanceDisplay();
-              document.getElementById("welcomeBonusCard").classList.add("claimed");
-              document.getElementById("welcomeBonusBtn").disabled = true;
-              document.getElementById("welcomeBonusBtn").textContent = "Sudah Diambil";
-    
-              // Show notification
-              showNotification("Berhasil klaim 1000 Chip!", "success");
-            } else {
-              console.error(data.message);
-              if(data.error) console.error(data.error);
-            }
-          })
+                // Set as claimed
+                welcomeBonusClaimed = true;
 
+                // Update UI
+                updateBalanceDisplay();
+                document
+                  .getElementById("welcomeBonusCard")
+                  .classList.add("claimed");
+                document.getElementById("welcomeBonusBtn").disabled = true;
+                document.getElementById("welcomeBonusBtn").textContent =
+                  "Sudah Diambil";
+
+                // Show notification
+                showNotification("Berhasil klaim 1000 Chip!", "success");
+              } else {
+                console.error(data.message);
+                if (data.error) console.error(data.error);
+              }
+            });
         }
       }
 
@@ -163,116 +178,123 @@ document.addEventListener("DOMContentLoaded", async function () {
           return;
         }
 
-        if(cashBalance < 50000){
-          showNotification("Cash Anda tidak mencukupi untuk membeli VIP!", "error");
+        if (cashBalance < 50000) {
+          showNotification(
+            "Cash Anda tidak mencukupi untuk membeli VIP!",
+            "error"
+          );
           return;
         }
 
-        fetch('api/buyVip',{
+        fetch("api/buyVip", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         })
-        .then(res => res.json())
-        .then(data => {
-          if(data.success){
-            cashBalance -= 50000;
-            isVIP = true;
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              cashBalance -= 50000;
+              isVIP = true;
 
-            //Update UI + Show Notification
-            updateBalanceDisplay();
-            showNotification("Selamat! Anda sekarang adalah member VIP!", "vip");
+              //Update UI + Show Notification
+              updateBalanceDisplay();
+              showNotification(
+                "Selamat! Anda sekarang adalah member VIP!",
+                "vip"
+              );
 
-            // Update VIP button
-            document.getElementById("buyVipBtn").textContent = "Anda adalah VIP";
-            document.getElementById("buyVipBtn").disabled = true;
+              // Update VIP button
+              document.getElementById("buyVipBtn").textContent =
+                "Anda adalah VIP";
+              document.getElementById("buyVipBtn").disabled = true;
 
-            if(data.badges){
-              const profile = JSON.parse(localStorage.getItem('profile'));
-              profile.badges = data.badges;
-              localStorage.setItem('profile', JSON.stringify(profile))
+              if (data.badges) {
+                const profile = JSON.parse(localStorage.getItem("profile"));
+                profile.badges = data.badges;
+                localStorage.setItem("profile", JSON.stringify(profile));
+              }
+            } else {
+              showNotification(data.message, "error");
+              if (data.error) console.error(data.error);
             }
-          } else {
-            showNotification(data.message, "error");
-            if(data.error) console.error(data.error);
-          }
-        })
+          });
       }
 
       function exchangeCashToChip(cashAmount, chipAmount, needVip) {
         if (cashBalance < cashAmount) {
           showNotification("Cash Anda tidak mencukupi!", "error");
           return;
-        } 
+        }
 
-        if(needVip){
-          if(!isVIP){
+        if (needVip) {
+          if (!isVIP) {
             showNotification("Hanya untuk member VIP!", "error");
             return;
           }
         }
 
-        fetch('api/exchangeCashToChip', {
+        fetch("api/exchangeCashToChip", {
           method: "POST",
           headers: {
-            'Content-Type' : 'application/json',
-            Authorization : `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({cashAmount, chipAmount, needVip})
+          body: JSON.stringify({ cashAmount, chipAmount, needVip }),
         })
-        .then(res => res.json())
-        .then(data => {
-          if(data.success){
-            cashBalance -= cashAmount;
-            chipBalance += chipAmount;
-            updateBalanceDisplay();
-            showNotification(
-              `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
-              "success"
-            );
-          } else {
-            showNotification(data.message, "error");
-            if(data.error) console.error(data.error);
-          }
-        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              cashBalance -= cashAmount;
+              chipBalance += chipAmount;
+              updateBalanceDisplay();
+              showNotification(
+                `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
+                "success"
+              );
+            } else {
+              showNotification(data.message, "error");
+              if (data.error) console.error(data.error);
+            }
+          });
       }
 
       function exchangeChipToCash(chipAmount, cashAmount, needVip) {
-        if (cashBalance < cashAmount) {
-          showNotification("Cash Anda tidak mencukupi!", "error");
+        if (chipBalance < chipAmount) {
+          showNotification("Chip Anda tidak mencukupi!", "error");
           return;
-        } 
+        }
 
-        if(needVip){
-          if(!isVIP){
+        if (needVip) {
+          if (!isVIP) {
             showNotification("Hanya untuk member VIP!", "error");
             return;
           }
         }
 
-        fetch('api/exchangeChipToCash', {
+        fetch("api/exchangeChipToCash", {
           method: "POST",
           headers: {
-            'Content-Type' : 'application/json',
-            Authorization : `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({cashAmount, chipAmount, needVip})
+          body: JSON.stringify({ cashAmount, chipAmount, needVip }),
         })
-        .then(res => res.json())
-        .then(data => {
-          if(data.success){
-            cashBalance += cashAmount;
-            chipBalance -= chipAmount;
-            updateBalanceDisplay();
-            showNotification(
-              `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
-              "success"
-            );
-          } else {
-            showNotification(data.message, "error");
-            if(data.error) console.error(data.error);
-          }
-        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              cashBalance += cashAmount;
+              chipBalance -= chipAmount;
+              updateBalanceDisplay();
+              showNotification(
+                `Berhasil menukar ${chipAmount} Cash menjadi ${cashAmount} Chip!`,
+                "success"
+              );
+            } else {
+              showNotification(data.message, "error");
+              if (data.error) console.error(data.error);
+            }
+          });
       }
 
       function showNotification(message, type) {
@@ -337,14 +359,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (isVIP) {
         document.getElementById("buyVipBtn").textContent = "Anda adalah VIP";
         document.getElementById("buyVipBtn").disabled = true;
-        document.getElementById('exchangeVIPtoChip').disabled = false;
-        document.getElementById('exchangeVIPtoCash').disabled = false;
+        document.getElementById("exchangeVIPtoChip").disabled = false;
+        document.getElementById("exchangeVIPtoCash").disabled = false;
       }
     } else {
       console.error(data.message);
       return null;
     }
-  } catch (err){
+  } catch (err) {
     console.error(err);
     return null;
   }
