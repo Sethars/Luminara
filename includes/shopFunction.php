@@ -193,3 +193,79 @@ function buyVip($conn, $jwt_token){
     }
 }
 
+function exchangeCashToChip($conn, $jwt_token){
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = auth($jwt_token)->user_id;
+    $cashAmount = $data['cashAmount'];
+    $chipAmount = $data['chipAmount'];
+    $needVip = (bool)$data['needVip'];
+
+    if($needVip){
+        $stmt = $conn->prepare('SELECT isVip FROM economy WHERE user_id = ?');
+        $stmt->execute([$id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if(!(bool)$data['isVip']){
+            echo json_encode(['success' => false, 'message' => 'Hanya untuk member VIP!']);
+            exit;
+        }
+    }
+
+    try{
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare('UPDATE profiles SET cash = cash - ?, chip = chip + ? WHERE user_id = ?');
+        $stmt->execute([$cashAmount, $chipAmount, $id]);
+        
+        $conn->commit();
+
+        echo json_encode(['success' => true, 'message' => 'Berhasil tukar']);
+    } catch (Exception $e) {
+        if ($conn->inTransaction()) {
+            $conn->rollBack();
+        }
+        echo json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan di server',
+            'error'   => $e->getMessage()
+        ]);
+    }
+}
+function exchangeChipToCash($conn, $jwt_token){
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = auth($jwt_token)->user_id;
+    $cashAmount = $data['cashAmount'];
+    $chipAmount = $data['chipAmount'];
+    $needVip = (bool)$data['needVip'];
+
+    if($needVip){
+        $stmt = $conn->prepare('SELECT isVip FROM economy WHERE user_id = ?');
+        $stmt->execute([$id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if(!(bool)$data['isVip']){
+            echo json_encode(['success' => false, 'message' => 'Hanya untuk member VIP!']);
+            exit;
+        }
+    }
+
+    try{
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare('UPDATE profiles SET cash = cash + ?, chip = chip - ? WHERE user_id = ?');
+        $stmt->execute([$cashAmount, $chipAmount, $id]);
+        
+        $conn->commit();
+
+        echo json_encode(['success' => true, 'message' => 'Berhasil tukar']);
+    } catch (Exception $e) {
+        if ($conn->inTransaction()) {
+            $conn->rollBack();
+        }
+        echo json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan di server',
+            'error'   => $e->getMessage()
+        ]);
+    }
+}

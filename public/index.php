@@ -118,11 +118,22 @@ if (str_starts_with($request, "api/")) {
             buyVip($conn, $jwt_token);
             break;
 
+        case 'api/exchangeCashToChip':
+            require __DIR__ . '/../includes/shopFunction.php';
+            exchangeCashToChip($conn, $jwt_token);
+            break;
+
+        case 'api/exchangeChipToCash':
+            require __DIR__ . '/../includes/shopFunction.php';
+            exchangeChipToCash($conn, $jwt_token);
+            break;
+
         //Search
         case 'api/usersearch':
             require __DIR__ . '/../includes/usersearch.php';
             usersearch($conn, $jwt_token);
             break;
+
         default:
             http_response_code(404);
             echo json_encode(["error" => "API route not found"]);
