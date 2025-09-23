@@ -46,6 +46,7 @@ $messages = [
   <?php include_once __DIR__ . '/../components/header.php'; ?>
   <?php include_once __DIR__ . '/../components/navbar.php'; ?>
 
+  <div class="d-flex justify-content-center align-items-center z-3 position-absolute opacity-25 w-100 bg-secondary" style="height: calc(100vh - 75px);"><h1>Coming soon</h1></div>
   <div class="chat-container">
     <!-- Sidebar kiri -->
     <div class="chat-sidebar">

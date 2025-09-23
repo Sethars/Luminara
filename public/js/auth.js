@@ -46,7 +46,6 @@ async function checkAuth() {
   } catch (err) {
     console.error("Auth check gagal:", err.message);
     console.error("Stack:", err.stack);
-    alert("woi")
     window.location.href = "/login";
   }
 }

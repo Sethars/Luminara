@@ -1,0 +1,101 @@
+<<<<<<< HEAD
+=======
+\[22-Sep-2025 03:29:53 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('RCfvgmOR4FXSI3b...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\profileData.php(28): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(72): getMoneyData(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[22-Sep-2025 04:33:38 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('AirBJnn7gqrFIDj...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\profileData.php(28): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(72): getMoneyData(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[22-Sep-2025 04:35:39 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('AirBJnn7gqrFIDj...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\profileData.php(28): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(72): getMoneyData(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[22-Sep-2025 04:43:24 UTC] PHP Warning:  require_once(D:\localweb\WEB_LOCAL\Luminara\includes/jwt.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php on line 2
+[22-Sep-2025 04:43:24 UTC] PHP Stack trace:
+[22-Sep-2025 04:43:24 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[22-Sep-2025 04:43:24 UTC] PHP   2. require() D:\localweb\WEB_LOCAL\Luminara\public\index.php:100
+[22-Sep-2025 04:43:24 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\includes/jwt.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php:2
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\public\index.php(100): require()
+#1 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php on line 2
+[22-Sep-2025 04:49:04 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function auth(), 0 passed in D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php on line 6 and exactly 1 expected in D:\localweb\WEB_LOCAL\Luminara\includes\auth.php:5
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php(6): auth()
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(101): usersearch(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\auth.php on line 5
+[22-Sep-2025 04:50:18 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function auth(), 0 passed in D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php on line 4 and exactly 1 expected in D:\localweb\WEB_LOCAL\Luminara\includes\auth.php:5
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php(4): auth()
+#1 D:\localweb\WEB_LOCAL\Luminara\public\index.php(101): usersearch(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+<<<<<<< HEAD
+  thrown in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[21-Sep-2025 00:26:31 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:26:31 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:26:42 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:26:42 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:07 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:07 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:42 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:42 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:50 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:28:50 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:30:19 UTC] PHP Warning:  Undefined array key "used" in C:\laragon\www\luminara\includes\profileData.php on line 153
+[21-Sep-2025 00:30:19 UTC] PHP Fatal error:  Uncaught TypeError: in_array(): Argument #2 ($haystack) must be of type array, null given in C:\laragon\www\luminara\includes\profileData.php:153
+Stack trace:
+#0 C:\laragon\www\luminara\includes\profileData.php(153): in_array('Racist', NULL)
+#1 C:\laragon\www\luminara\public\index.php(92): addBadges(Object(PDO), 'furinacyrenehut...')
+#2 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 153
+[22-Sep-2025 13:38:00 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::commit() in C:\laragon\www\luminara\includes\shopFunction.php:111
+Stack trace:
+#0 C:\laragon\www\luminara\public\index.php(113): claimWelcomeBonus(Object(PDO), 'furinacyrenehut...')
+#1 {main}
+  thrown in C:\laragon\www\luminara\includes\shopFunction.php on line 111
+[22-Sep-2025 13:38:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method PDOStatement::commit() in C:\laragon\www\luminara\includes\shopFunction.php:111
+Stack trace:
+#0 C:\laragon\www\luminara\public\index.php(113): claimWelcomeBonus(Object(PDO), 'furinacyrenehut...')
+#1 {main}
+  thrown in C:\laragon\www\luminara\includes\shopFunction.php on line 111
+=======
+  thrown in D:\localweb\WEB_LOCAL\Luminara\includes\auth.php on line 5
+>>>>>>> 4e94cfa56d6e77c3554b67c3900b7af54b0383b0
+>>>>>>> a7b12b4c428e7ecac15a2d38dcefda714860e1b1

@@ -5,7 +5,7 @@ function getLeaderboard($conn) {
         $sql = "SELECT u.username AS name, p.cash AS money, p.photo, p.badges
                 FROM users u
                 JOIN profiles p ON u.id = p.user_id
-                ORDER BY p.cash DESC";
+                ORDER BY p.cash DESC LIMIT 10";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();

@@ -96,6 +96,29 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/profileData.php';
             updateBadges($conn, $jwt_token);
             break;
+
+        //Shop Function
+        case 'api/getShopData':
+            require __DIR__ . '/../includes/shopFunction.php';
+            getData($conn, $jwt_token);
+            break;
+
+        case 'api/claimDaily':
+            require __DIR__ . '/../includes/shopFunction.php';
+            claimDaily($conn, $jwt_token);
+            break;
+
+        case 'api/claimWelcomeBonus':
+            require __DIR__ . '/../includes/shopFunction.php';
+            claimWelcomeBonus($conn, $jwt_token);
+            break;
+
+        case 'api/buyVip':
+            require __DIR__ . '/../includes/shopFunction.php';
+            buyVip($conn, $jwt_token);
+            break;
+
+        //Search
         case 'api/usersearch':
             require __DIR__ . '/../includes/usersearch.php';
             usersearch($conn, $jwt_token);

@@ -3,10 +3,9 @@ import { setLoading } from "../module_js/setLoading.js";
 import { updateLocalData } from "../module_js/update_local_data.js";
 import { formatMoney } from "../module_js/format_money.js";
 
-const profile = JSON.parse(localStorage.getItem("profile"));
-const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
-
 document.addEventListener("DOMContentLoaded", async function () {
+  const profile = JSON.parse(localStorage.getItem('profile'));
+  const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
   //Cash Money
   fetch("api/getMoneyData", {
     method: "POST",
@@ -143,20 +142,20 @@ document
     msg.textContent = "";
     msg.className = "";
 
-    if (!username) {
-      msg.textContent = "Form harus diisi";
-      msg.classList.add("text-danger");
-      return;
-    }
-    try {
-      const res = await fetch("api/changeUsername", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ newUsername }),
-      });
+  if(!username){
+    msg.textContent = "Form harus diisi";
+    msg.classList.add('text-danger');
+    return;
+  }
+  try{
+    const res = await fetch('api/changeUsername', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({newUsername})
+    });
 
       const result = await res.json();
       if (result.success) {
