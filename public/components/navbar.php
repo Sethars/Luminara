@@ -189,14 +189,14 @@
         <!-- Search -->
         <li class="nav-item position-relative">
           <div class="search">
-            <input id="userSearchInput" class="form-control form-control-sm me-2" 
+            <input id="userSearchInput" class="form-control form-control-sm me-2" style="" 
                   type="search" placeholder="Cari username..." aria-label="Search">
             <button class="btn btn-sm btn-outline-primary" type="button" id="searchBtn">
               <i class="bi bi-search"></i>
             </button>
           </div>
           <!-- Container hasil search -->
-          <ul id="searchResults" class="dropdown-menu" style="position:absolute; top:100%; left:0; width:250px;"></ul>
+          <ul id="searchResults" class="dropdown-menu" style="position:absolute; top:100%; left:0; width:auto;"></ul>
         </li>
 
 
@@ -238,7 +238,8 @@
   </div>
 </nav>
 
-<script>
+<script type="module">
+import { getQueryParam } from "../module_js/get_query.js";
 
 
 
@@ -310,7 +311,7 @@ input.addEventListener("input", () => {
       const res = await fetch(`/api/usersearch?q=${encodeURIComponent(q)}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // <-- pastikan token ada
+          Authorization: `Bearer ${token}`,
         }
       });
 
@@ -323,8 +324,8 @@ input.addEventListener("input", () => {
         data.forEach(user => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <a href="/profile.php?id=${user.id}" class="dropdown-item d-flex align-items-center">
-              <img src="${user.photo}" class="rounded-circle me-2" style="width:24px;height:24px;object-fit:cover;">
+            <a href="/aprofile?id=${user.id}" class="dropdown-item d-flex align-items-center" style="width:350px; border-bottom: 1px dotted gray; margin-bottom:-7px; margin-top:10px;">
+              <img src="${user.photo ?? "/assets/img/photo_profile/ppkosong.jpg"}" class="rounded-circle me-2" style="width:34px;height:34px;object-fit:cover;">
               
               <div style="display:flex; flex-direction:column;">
                 <span>${user.username}</span>
