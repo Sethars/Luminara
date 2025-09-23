@@ -214,8 +214,8 @@ function exchangeCashToChip($conn, $jwt_token){
     try{
         $conn->beginTransaction();
 
-        $stmt = $conn->prepare('UPDATE profiles SET cash = cash - ?, chip = chip + ? WHERE user_id = ?');
-        $stmt->execute([$cashAmount, $chipAmount, $id]);
+        $stmt = $conn->prepare('UPDATE profiles SET cash = cash - ?, chip = chip + ? WHERE user_id = ? AND cash >= ?');
+        $stmt->execute([$cashAmount, $chipAmount, $id, $cashAmount]);
         
         $conn->commit();
 
@@ -252,8 +252,8 @@ function exchangeChipToCash($conn, $jwt_token){
     try{
         $conn->beginTransaction();
 
-        $stmt = $conn->prepare('UPDATE profiles SET cash = cash + ?, chip = chip - ? WHERE user_id = ?');
-        $stmt->execute([$cashAmount, $chipAmount, $id]);
+        $stmt = $conn->prepare('UPDATE profiles SET cash = cash + ?, chip = chip - ? WHERE user_id = ? AND chip >= ?');
+        $stmt->execute([$cashAmount, $chipAmount, $id, $chipAmount]);
         
         $conn->commit();
 

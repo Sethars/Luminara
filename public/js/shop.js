@@ -238,8 +238,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
 
       function exchangeChipToCash(chipAmount, cashAmount, needVip) {
-        if (cashBalance < cashAmount) {
-          showNotification("Cash Anda tidak mencukupi!", "error");
+        if (chipBalance < chipAmount) {
+          showNotification("Chip Anda tidak mencukupi!", "error");
           return;
         } 
 
@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             chipBalance -= chipAmount;
             updateBalanceDisplay();
             showNotification(
-              `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
+              `Berhasil menukar ${chipAmount} Cash menjadi ${cashAmount} Chip!`,
               "success"
             );
           } else {

@@ -5,7 +5,7 @@ const winRateChart = new Chart(ctx, {
     labels: ["Kemenangan", "Kekalahan"],
     datasets: [
       {
-        data: [68.25, 31.75],
+        data: [49.51, 50.49],
         backgroundColor: [
           "rgba(52, 152, 219, 0.8)",
           "rgba(189, 195, 199, 0.8)",

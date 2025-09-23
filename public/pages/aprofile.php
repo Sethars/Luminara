@@ -45,12 +45,12 @@ $checkAuth = true;
       <!-- Stats Section -->
       <div class="stats-container">
         <div class="stat-card">
-          <h3>Total Kemenangan</h3>
-          <div class="stat-value" id="total-wins">42</div>
+          <h3>Total Match</h3>
+          <div class="stat-value" id="total-wins">505</div>
         </div>
         <div class="stat-card">
           <h3>Win Rate</h3>
-          <div class="stat-value" id="win-rate">68.25%</div>
+          <div class="stat-value" id="win-rate">49.51%</div>
         </div>
       </div>
 
