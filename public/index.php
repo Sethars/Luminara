@@ -183,6 +183,9 @@ switch ($request) {
     case 'shop':
         require __DIR__ . '/pages/shop.php';
         break;
+    case 'aprofile':
+        require __DIR__ . '/pages/aprofile.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;

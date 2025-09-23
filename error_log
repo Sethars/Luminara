@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 \[22-Sep-2025 03:29:53 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
 Stack trace:
 #0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('RCfvgmOR4FXSI3b...', Object(Firebase\JWT\Key))
@@ -96,3 +98,4 @@ Stack trace:
 =======
   thrown in D:\localweb\WEB_LOCAL\Luminara\includes\auth.php on line 5
 >>>>>>> 4e94cfa56d6e77c3554b67c3900b7af54b0383b0
+>>>>>>> a7b12b4c428e7ecac15a2d38dcefda714860e1b1
