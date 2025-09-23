@@ -4804,6 +4804,7 @@
 127.0.0.1 - - [23/Sep/2025:09:24:49 +0700] "GET /js/aprofile.js HTTP/1.1" 200 3287
 =======
 >>>>>>> 4e94cfa56d6e77c3554b67c3900b7af54b0383b0
+<<<<<<< HEAD
 >>>>>>> a7b12b4c428e7ecac15a2d38dcefda714860e1b1
 127.0.0.1 - - [23/Sep/2025:10:50:13 +0700] "GET /module_js/get_query.js HTTP/1.1" 200 172
 127.0.0.1 - - [23/Sep/2025:10:50:13 +0700] "GET /assets/img/photo_profile/1758421221_grass.jpg HTTP/1.1" 200 57326
@@ -4877,3 +4878,5 @@
 127.0.0.1 - - [23/Sep/2025:11:07:20 +0700] "GET /aprofile?id=2 HTTP/1.1" 200 19835
 127.0.0.1 - - [23/Sep/2025:11:07:20 +0700] "GET /css/aprofile.css HTTP/1.1" 304 -
 127.0.0.1 - - [23/Sep/2025:11:07:20 +0700] "GET /js/aprofile.js HTTP/1.1" 200 2307
+=======
+>>>>>>> 2db0ab18b86f36f9a534f7ba90c403f1b336726b

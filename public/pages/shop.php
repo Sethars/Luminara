@@ -53,7 +53,7 @@ $checkAuth = true;
               <div class="reward-icon">
                 <i class="bi bi-coin"></i>
               </div>
-              <h4>100 Chip</h4>
+              <h4 id="dailyAmount">100 Chip</h4>
               <p class="card-text">Klaim hadiah login harian Anda!</p>
               <button
                 class="btn btn-primary-custom btn-exchange"
@@ -97,6 +97,10 @@ $checkAuth = true;
             <div class="vip-price">50.000 Cash</div>
             <div class="vip-benefits">
               <ul>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i> Daily reward lebih
+                  tinggi
+                </li>
                 <li>
                   <i class="bi bi-check-circle-fill"></i> Rate penukaran lebih
                   tinggi
@@ -257,9 +261,11 @@ $checkAuth = true;
                   <div class="exchange-amount">400 Cash</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
+                    id="exchangeVIPtoChip"
                     data-cash="400"
                     data-chip="100"
                     data-type="cash-to-chip-vip"
+                    disabled
                   >
                     Tukar Sekarang
                   </button>
@@ -389,9 +395,11 @@ $checkAuth = true;
                   <div class="exchange-amount">500 Cash</div>
                   <button
                     class="btn btn-success-custom btn-exchange"
+                    id="exchangeVIPtoCash"
                     data-cash="500"
                     data-chip="100"
                     data-type="chip-to-cash-vip"
+                    disabled
                   >
                     Tukar Sekarang
                   </button>

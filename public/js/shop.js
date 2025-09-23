@@ -3,7 +3,6 @@ import { formatMoney } from "../module_js/format_money.js";
 document.addEventListener("DOMContentLoaded", async function () {
   try{
     const res = await fetch('api/getShopData', {
-      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -20,8 +19,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       // Update balance display
       updateBalanceDisplay();
 
-      // Check daily login
+      // Check daily login and amount
       checkDailyLogin();
+      document.getElementById('dailyAmount').textContent = (isVIP ? '500' : '100') + ' ' + 'Chip';
 
       // Check welcome bonus
       checkWelcomeBonus();
@@ -47,18 +47,18 @@ document.addEventListener("DOMContentLoaded", async function () {
           const chip = parseInt(this.getAttribute("data-chip"));
 
           if (type === "cash-to-chip") {
-            exchangeCashToChip(cash, chip);
+            exchangeCashToChip(cash, chip, false);
           } else if (type === "chip-to-cash") {
-            exchangeChipToCash(chip, cash);
+            exchangeChipToCash(chip, cash, false);
           } else if (type === "cash-to-chip-vip") {
             if (isVIP) {
-              exchangeCashToChip(cash, chip);
+              exchangeCashToChip(cash, chip, true);
             } else {
               showNotification("Hanya untuk member VIP!", "error");
             }
           } else if (type === "chip-to-cash-vip") {
             if (isVIP) {
-              exchangeChipToCash(chip, cash);
+              exchangeChipToCash(chip, cash, true);
             } else {
               showNotification("Hanya untuk member VIP!", "error");
             }
@@ -199,32 +199,80 @@ document.addEventListener("DOMContentLoaded", async function () {
         })
       }
 
-      function exchangeCashToChip(cashAmount, chipAmount) {
-        if (cashBalance >= cashAmount) {
-          cashBalance -= cashAmount;
-          chipBalance += chipAmount;
-          updateBalanceDisplay();
-          showNotification(
-            `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
-            "success"
-          );
-        } else {
+      function exchangeCashToChip(cashAmount, chipAmount, needVip) {
+        if (cashBalance < cashAmount) {
           showNotification("Cash Anda tidak mencukupi!", "error");
+          return;
+        } 
+
+        if(needVip){
+          if(!isVIP){
+            showNotification("Hanya untuk member VIP!", "error");
+            return;
+          }
         }
+
+        fetch('api/exchangeCashToChip', {
+          method: "POST",
+          headers: {
+            'Content-Type' : 'application/json',
+            Authorization : `Bearer ${token}`
+          },
+          body: JSON.stringify({cashAmount, chipAmount, needVip})
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.success){
+            cashBalance -= cashAmount;
+            chipBalance += chipAmount;
+            updateBalanceDisplay();
+            showNotification(
+              `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
+              "success"
+            );
+          } else {
+            showNotification(data.message, "error");
+            if(data.error) console.error(data.error);
+          }
+        })
       }
 
-      function exchangeChipToCash(chipAmount, cashAmount) {
-        if (chipBalance >= chipAmount) {
-          chipBalance -= chipAmount;
-          cashBalance += cashAmount;
-          updateBalanceDisplay();
-          showNotification(
-            `Berhasil menukar ${chipAmount} Chip menjadi ${cashAmount} Cash!`,
-            "success"
-          );
-        } else {
-          showNotification("Chip Anda tidak mencukupi!", "error");
+      function exchangeChipToCash(chipAmount, cashAmount, needVip) {
+        if (cashBalance < cashAmount) {
+          showNotification("Cash Anda tidak mencukupi!", "error");
+          return;
+        } 
+
+        if(needVip){
+          if(!isVIP){
+            showNotification("Hanya untuk member VIP!", "error");
+            return;
+          }
         }
+
+        fetch('api/exchangeChipToCash', {
+          method: "POST",
+          headers: {
+            'Content-Type' : 'application/json',
+            Authorization : `Bearer ${token}`
+          },
+          body: JSON.stringify({cashAmount, chipAmount, needVip})
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.success){
+            cashBalance += cashAmount;
+            chipBalance -= chipAmount;
+            updateBalanceDisplay();
+            showNotification(
+              `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
+              "success"
+            );
+          } else {
+            showNotification(data.message, "error");
+            if(data.error) console.error(data.error);
+          }
+        })
       }
 
       function showNotification(message, type) {
@@ -289,6 +337,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (isVIP) {
         document.getElementById("buyVipBtn").textContent = "Anda adalah VIP";
         document.getElementById("buyVipBtn").disabled = true;
+        document.getElementById('exchangeVIPtoChip').disabled = false;
+        document.getElementById('exchangeVIPtoCash').disabled = false;
       }
     } else {
       console.error(data.message);
