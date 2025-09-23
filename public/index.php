@@ -123,6 +123,13 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/usersearch.php';
             usersearch($conn, $jwt_token);
             break;
+
+        //profile orang lain
+        case "api/aprofile":
+            require __DIR__ . '/../includes/aprofile.php';
+            getAprofile($conn);
+            break;
+
         default:
             http_response_code(404);
             echo json_encode(["error" => "API route not found"]);
