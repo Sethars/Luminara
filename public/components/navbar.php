@@ -324,7 +324,7 @@ input.addEventListener("input", () => {
         data.forEach(user => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <a href="/aprofile?id=${user.id}" class="dropdown-item d-flex align-items-center" style="width:350px; border-bottom: 1px dotted gray; margin-bottom:-7px; margin-top:10px;">
+            <a href="/aprofile?id=${user.id}" class="dropdown-item d-flex align-items-center" style="width:350px; border-bottom: 1px dotted gray; margin-bottom:-7.5px; margin-top:-7.5px; padding: 10px">
               <img src="${user.photo ?? "/assets/img/photo_profile/ppkosong.jpg"}" class="rounded-circle me-2" style="width:34px;height:34px;object-fit:cover;">
               
               <div style="display:flex; flex-direction:column;">

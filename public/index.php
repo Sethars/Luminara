@@ -100,7 +100,7 @@ if (str_starts_with($request, "api/")) {
         //Shop Function
         case 'api/getShopData':
             require __DIR__ . '/../includes/shopFunction.php';
-            getData($conn, $jwt_token);
+            getShopData($conn, $jwt_token);
             break;
 
         case 'api/claimDaily':
@@ -135,9 +135,14 @@ if (str_starts_with($request, "api/")) {
             break;
 
         //profile orang lain
-        case "api/aprofile":
+        case "api/getAnotherUserProfileData":
             require __DIR__ . '/../includes/aprofile.php';
-            getAprofile($conn);
+            getAnotherUserData($conn, $jwt_token);
+            break;
+
+        case "api/addComment":
+            require __DIR__ . '/../includes/aprofile.php';
+            addComment($conn, $jwt_token);
             break;
 
         default:
