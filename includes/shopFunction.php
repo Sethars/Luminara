@@ -1,6 +1,6 @@
 <?php 
 
-function getData($conn, $jwt_token){
+function getShopData($conn, $jwt_token){
     $id = auth($jwt_token)->user_id;
 
     try{
@@ -196,8 +196,8 @@ function buyVip($conn, $jwt_token){
 function exchangeCashToChip($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
     $id = auth($jwt_token)->user_id;
-    $cashAmount = $data['cashAmount'];
-    $chipAmount = $data['chipAmount'];
+    $cashAmount = (int)$data['cashAmount'];
+    $chipAmount = (int)$data['chipAmount'];
     $needVip = (bool)$data['needVip'];
 
     if($needVip){
@@ -234,8 +234,8 @@ function exchangeCashToChip($conn, $jwt_token){
 function exchangeChipToCash($conn, $jwt_token){
     $data = json_decode(file_get_contents("php://input"), true);
     $id = auth($jwt_token)->user_id;
-    $cashAmount = $data['cashAmount'];
-    $chipAmount = $data['chipAmount'];
+    $cashAmount = (int)$data['cashAmount'];
+    $chipAmount = (int)$data['chipAmount'];
     $needVip = (bool)$data['needVip'];
 
     if($needVip){

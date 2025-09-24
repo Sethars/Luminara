@@ -155,11 +155,11 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-coin"></i> 5 Chip
+                  <i class="bi bi-cash"></i> 25 Cash
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">5 Cash = 1 Chip</div>
-                  <div class="exchange-amount">25 Cash</div>
+                  <div class="exchange-amount">5 Chip</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
                     data-cash="25"
@@ -174,11 +174,11 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-coin"></i> 10 Chip
+                  <i class="bi bi-cash"></i> 50 Cash
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">5 Cash = 1 Chip</div>
-                  <div class="exchange-amount">50 Cash</div>
+                  <div class="exchange-amount">10 Chip</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
                     data-cash="50"
@@ -193,11 +193,11 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-coin"></i> 25 Chip
+                  <i class="bi bi-cash"></i> 125 Cash
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">5 Cash = 1 Chip</div>
-                  <div class="exchange-amount">125 Cash</div>
+                  <div class="exchange-amount">25 Chip</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
                     data-cash="125"
@@ -212,11 +212,11 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-coin"></i> 50 Chip
+                  <i class="bi bi-cash"></i> 250 Cash
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">5 Cash = 1 Chip</div>
-                  <div class="exchange-amount">250 Cash</div>
+                  <div class="exchange-amount">50 Chip</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
                     data-cash="250"
@@ -235,11 +235,11 @@ $checkAuth = true;
             <div class="col-md-6 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-coin"></i> 100 Chip
+                  <i class="bi bi-cash"></i> 500 Cash
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">5 Cash = 1 Chip</div>
-                  <div class="exchange-amount">500 Cash</div>
+                  <div class="exchange-amount">100 Chip</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
                     data-cash="500"
@@ -254,21 +254,49 @@ $checkAuth = true;
             <div class="col-md-6 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-coin"></i> 100 Chip (VIP)
+                  <i class="bi bi-cash"></i> 450 Cash (VIP)
                 </div>
                 <div class="exchange-body">
-                  <div class="exchange-rate">4 Cash = 1 Chip</div>
-                  <div class="exchange-amount">400 Cash</div>
+                  <div class="exchange-rate">4.5 Cash = 1 Chip</div>
+                  <div class="exchange-amount">100 Chip</div>
                   <button
                     class="btn btn-primary-custom btn-exchange"
                     id="exchangeVIPtoChip"
-                    data-cash="400"
+                    data-cash="450"
                     data-chip="100"
                     data-type="cash-to-chip-vip"
                     disabled
                   >
                     Tukar Sekarang
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="exchange-card">
+                <div class="exchange-header">
+                  <i class="bi bi-cash"></i> Chip to Cash
+                </div>
+                <div class="exchange-body">
+                  <div class="row">
+                    <div class="exchange-rate col-6">5 Cash = 1 Chip</div>
+                    <div class="exchange-rate col-6">4.5 Cash = 1 Chip (VIP)</div>
+                  </div>
+                  <form action="" class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <input type="number" class="w-100 m-4 rounded p-2" style="">
+                    <button
+                      type="submit"
+                      class="btn btn-primary-custom btn-exchange"
+                      data-cash="250"
+                      data-chip="50"
+                      data-type="cash-to-chip"
+                    >
+                      Tukar Sekarang
+                    </button>
+                  </form>
+
                 </div>
               </div>
             </div>
@@ -282,14 +310,14 @@ $checkAuth = true;
           <h3 class="text-white text-center mb-3">
             <i class="bi bi-arrow-down-up"></i> Chip ke Cash
           </h3>
-        <br><br><br>
+          <br><br><br>
 
           <!-- First row: 5, 10, 25, 50 chips -->
           <div class="row mb-3">
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> 5 Chip
+                  <i class="bi bi-coin"></i> 5 Chip
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">1 Chip = 4 Cash</div>
@@ -308,7 +336,7 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> 10 Chip
+                  <i class="bi bi-coin"></i> 10 Chip
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">1 Chip = 4 Cash</div>
@@ -327,7 +355,7 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> 25 Chip
+                  <i class="bi bi-coin"></i> 25 Chip
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">1 Chip = 4 Cash</div>
@@ -346,7 +374,7 @@ $checkAuth = true;
             <div class="col-md-3 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> 50 Chip
+                  <i class="bi bi-coin"></i> 50 Chip
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">1 Chip = 4 Cash</div>
@@ -369,7 +397,7 @@ $checkAuth = true;
             <div class="col-md-6 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> 100 Chip
+                  <i class="bi bi-coin"></i> 100 Chip
                 </div>
                 <div class="exchange-body">
                   <div class="exchange-rate">1 Chip = 4 Cash</div>
@@ -388,21 +416,49 @@ $checkAuth = true;
             <div class="col-md-6 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> 100 Chip (VIP)
+                  <i class="bi bi-coin"></i> 100 Chip (VIP)
                 </div>
                 <div class="exchange-body">
-                  <div class="exchange-rate">1 Chip = 5 Cash</div>
-                  <div class="exchange-amount">500 Cash</div>
+                  <div class="exchange-rate">1 Chip = 4.5 Cash</div>
+                  <div class="exchange-amount">450 Cash</div>
                   <button
                     class="btn btn-success-custom btn-exchange"
                     id="exchangeVIPtoCash"
-                    data-cash="500"
+                    data-cash="450"
                     data-chip="100"
                     data-type="chip-to-cash-vip"
                     disabled
                   >
                     Tukar Sekarang
                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="exchange-card">
+                <div class="exchange-header">
+                  <i class="bi bi-cash"></i> Cash to Chip
+                </div>
+                <div class="exchange-body">
+                  <div class="row">
+                    <div class="exchange-rate col-6">1 Chip = 4 Cash</div>
+                    <div class="exchange-rate col-6">1 Chip = 4.5 Cash (VIP)</div>
+                  </div>
+                  <form action="" class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <input type="number" class="w-100 m-4 rounded p-2" style="">
+                    <button
+                      type="submit"
+                      class="btn btn-primary-custom btn-exchange"
+                      data-cash="250"
+                      data-chip="50"
+                      data-type="cash-to-chip"
+                    >
+                      Tukar Sekarang
+                    </button>
+                  </form>
+
                 </div>
               </div>
             </div>

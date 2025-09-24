@@ -43,7 +43,7 @@ const badgeIcons = {
   Moderator: "fa fa-shield me-2", // shield
   Beta_Tester: "fa fa-flask me-2", // flask
   WS5: "fa fa-fire me-2", // fire
-  Racist: "fas fa-skull-crossbones", // skull
+  Racist: "fas fa-skull-crossbones me-2", // skull
 };
 
 const badgeStyles = {
