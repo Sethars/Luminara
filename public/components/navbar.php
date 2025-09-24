@@ -114,7 +114,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarGambling" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <i class="bi bi-dice-3-fill me-1"></i> Gambling
+            <i class="bi bi-dice-3-fill me-1"></i> Games
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarGambling">
             <li class="dropdown-submenu">

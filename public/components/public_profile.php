@@ -282,6 +282,121 @@ body {
   }
 }
 
+.comment {
+  position: relative;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: #fff;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.comment-user {
+  font-weight: bold;
+  margin-right: auto;
+  margin-left: 8px;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #666;
+  margin-right: 12px;
+}
+
+/* Menu trigger */
+.comment-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.comment-menu i {
+  font-size: 16px;
+  color: #888;
+  transition: color 0.2s;
+}
+
+.comment-menu:hover i {
+  color: #333;
+}
+
+/* Indicator segitiga pointing left */
+.comment-indicator {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #888;
+  transition: border-right-color 0.2s;
+}
+
+.comment-menu:hover .comment-indicator {
+  border-right-color: #333;
+}
+
+/* Actions menu (pojok kanan bawah) */
+.comment-actions {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.comment-actions button {
+  padding: 5px 10px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  background: #f5f5f5;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.comment-actions button:hover {
+  background: #e1e1e1;
+}
+
+/* Hover (desktop) */
+.comment:hover .comment-actions {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.comment-actions button.btn-danger {
+  background: #f44336;   /* merah */
+  color: #fff;
+}
+
+.comment-actions button.btn-danger:hover {
+  background: #d32f2f;   /* merah lebih gelap */
+}
+
+
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -342,34 +457,32 @@ body {
           <textarea placeholder="Tulis komentar Anda di sini..."></textarea>
           <button id="submit-comment">Kirim Komentar</button>
         </div>
-        <div class="comments-list">
-          <div class="comment">
-            <div class="comment-header">
-              <div class="comment-avatar">
-                <i class="fas fa-user"></i>
+          <div class="comments-list">
+            <div class="comment">
+              <div class="comment-header">
+                <div class="comment-avatar">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="comment-user">Siti Nurhaliza</div>
+                <div class="comment-date">1 minggu yang lalu</div>
+
+                <!-- Trigger -->
+                <div class="comment-menu">
+                  <i class="fas fa-ellipsis-v"></i>
+                </div>
               </div>
-              <div class="comment-user">Budi Santoso</div>
-              <div class="comment-date">2 hari yang lalu</div>
-            </div>
-            <div class="comment-text">
-              Pemain yang sangat berbakat! Senang bisa bermain satu tim dengan
-              Anda.
+
+              <div class="comment-text">
+                Strategi yang Anda gunakan di turnamen kemarin sangat mengesankan.
+                Saya belajar banyak dari Anda!
+              </div>
+
+              <!-- Actions -->
+              <div class="comment-actions">
+                <button class="btn-danger">Hapus</button>
+              </div>
             </div>
           </div>
-          <div class="comment">
-            <div class="comment-header">
-              <div class="comment-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="comment-user">Siti Nurhaliza</div>
-              <div class="comment-date">1 minggu yang lalu</div>
-            </div>
-            <div class="comment-text">
-              Strategi yang Anda gunakan di turnamen kemarin sangat mengesankan.
-              Saya belajar banyak dari Anda!
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -425,4 +538,23 @@ const winRateChart = new Chart(ctx, {
     },
   },
 });
+
+document.querySelectorAll('.comment-menu').forEach(menu => {
+  menu.addEventListener('click', () => {
+    const actions = menu.closest('.comment').querySelector('.comment-actions');
+    const isVisible = actions.style.opacity === '1';
+    if (isVisible) {
+      actions.style.opacity = '0';
+      actions.style.transform = 'translateY(10px)';
+      actions.style.pointerEvents = 'none';
+    } else {
+      actions.style.opacity = '1';
+      actions.style.transform = 'translateY(0)';
+      actions.style.pointerEvents = 'auto';
+    }
+  });
+});
+
+
+
   </script>

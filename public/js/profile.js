@@ -258,10 +258,10 @@ document
       if (result.success) {
         msg.textContent = "Berhasil mengganti foto profil Anda";
         msg.classList.add("text-success");
+        updateLocalData("profile", "photo", result.file_url);
         document.getElementById("preview-photo").src = result.file_url;
         document.getElementById("navbar-profile-photo").src = result.file_url;
         document.getElementById("photo-preview-mini").src = photoDefault;
-        updateLocalData("profile", "photo", result.file_url);
       } else {
         msg.textContent = "Upload gagal: " + result.message;
         msg.classList.add("text-danger");
