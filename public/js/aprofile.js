@@ -164,8 +164,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         e.preventDefault();
 
         const comment = document.getElementById('comment');
-        const user = JSON.parse(localStorage.getItem('user'))
-        const profile = JSON.parse(localStorage.getItem('profile'))
         const msg = document.getElementById('comment-message');
 
         msg.textContent = ''

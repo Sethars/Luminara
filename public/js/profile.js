@@ -3,9 +3,8 @@ import { setLoading } from "../module_js/setLoading.js";
 import { updateLocalData } from "../module_js/update_local_data.js";
 import { formatMoney } from "../module_js/format_money.js";
 
+const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
 document.addEventListener("DOMContentLoaded", async function () {
-  const profile = JSON.parse(localStorage.getItem('profile'));
-  const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
   //Cash Money
   fetch("api/getMoneyData", {
     method: "POST",
@@ -31,6 +30,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   //Photo Profile
   document.getElementById("preview-photo").src =
+    profile && profile.photo ? profile.photo : photoDefault;
+  document.getElementById("photo-preview-mini").src = 
     profile && profile.photo ? profile.photo : photoDefault;
 
   //Bio
@@ -109,8 +110,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           msg.textContent = "Berhasil ganti badges";
           msg.classList.add("text-success");
           renderBadges(result.badge);
-          profile.badges = result.badge;
-          localStorage.setItem("profile", JSON.stringify(profile));
+          updateLocalData("profile", "badges",JSON.stringify(result.badge));
         } else {
           msg.textContent = result.message || "Gagal ganti badges";
           msg.classList.add("text-danger");
@@ -224,13 +224,14 @@ document
         msg.classList.add("text-success");
         document.getElementById("preview-photo").src = result.file_url;
         document.getElementById("navbar-profile-photo").src = result.file_url;
-        document.getElementById("photo-preview-mini").src = photoDefault;
         updateLocalData("profile", "photo", result.file_url);
       } else {
         msg.textContent = "Upload gagal: " + result.message;
         msg.classList.add("text-danger");
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error("ERROR: " + err)
+    }
   });
 
 //Change Bio

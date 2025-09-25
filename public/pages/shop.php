@@ -284,14 +284,12 @@ $checkAuth = true;
                     <div class="exchange-rate col-6">5 Cash = 1 Chip</div>
                     <div class="exchange-rate col-6">4.5 Cash = 1 Chip (VIP)</div>
                   </div>
-                  <form action="" class="d-flex flex-column justify-content-center align-items-center w-100">
-                    <input type="number" class="w-100 m-4 rounded p-2" style="">
+                  <form id="customCashToChipForm" class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <input id="customCashToChip" type="number" class="w-100 m-4 rounded p-2">
                     <button
                       type="submit"
                       class="btn btn-primary-custom btn-exchange"
-                      data-cash="250"
-                      data-chip="50"
-                      data-type="cash-to-chip"
+                      data-type="custom-cash-to-chip"
                     >
                       Tukar Sekarang
                     </button>
