@@ -87,7 +87,7 @@
 </style>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" style="">
   <div class="container-fluid">
     <!-- Brand -->
     <a href="/" class="navbar-brand d-flex align-items-center">
@@ -120,7 +120,7 @@
             <li class="dropdown-submenu">
               <a class="dropdown-item dropdown-toggle" href="#" id="bjSubmenu"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="far fa-circle me-2"></i> Black Jack
+                <i class="bi bi-suit-spade me-2"></i> Black Jack
               </a>
               <ul class="dropdown-menu" aria-labelledby="bjSubmenu">
                 <li>
@@ -139,6 +139,11 @@
             <li>
               <a class="dropdown-item" href="devices.php">
                 <i class="far fa-circle me-2"></i> Roulette
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="devices.php">
+                <i class="fa fa-ticket me-2"></i> lottery
               </a>
             </li>
           </ul>
