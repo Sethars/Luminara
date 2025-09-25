@@ -277,24 +277,23 @@ $checkAuth = true;
             <div class="col-md-12 mb-3">
               <div class="exchange-card">
                 <div class="exchange-header">
-                  <i class="bi bi-cash"></i> Chip to Cash
+                  <i class="bi bi-cash"></i> Cash to Chip
                 </div>
                 <div class="exchange-body">
                   <div class="row">
                     <div class="exchange-rate col-6">5 Cash = 1 Chip</div>
                     <div class="exchange-rate col-6">4.5 Cash = 1 Chip (VIP)</div>
                   </div>
-                  <form id="customCashToChipForm" class="d-flex flex-column justify-content-center align-items-center w-100">
-                    <input id="customCashToChip" type="number" class="w-100 m-4 rounded p-2">
+                  <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <input id="custom-cash-to-chip" type="number" class="w-100 m-4 rounded p-2" placeholder="Masukkan jumlah chip yang ingin Anda tukar">
                     <button
                       type="submit"
-                      class="btn btn-primary-custom btn-exchange"
+                      class="btn btn-primary-custom btn-exchange-custom"
                       data-type="custom-cash-to-chip"
                     >
                       Tukar Sekarang
                     </button>
-                  </form>
-
+                  </div>
                 </div>
               </div>
             </div>
@@ -444,19 +443,14 @@ $checkAuth = true;
                     <div class="exchange-rate col-6">1 Chip = 4 Cash</div>
                     <div class="exchange-rate col-6">1 Chip = 4.5 Cash (VIP)</div>
                   </div>
-                  <form action="" class="d-flex flex-column justify-content-center align-items-center w-100">
-                    <input type="number" class="w-100 m-4 rounded p-2" style="">
-                    <button
-                      type="submit"
-                      class="btn btn-primary-custom btn-exchange"
-                      data-cash="250"
-                      data-chip="50"
-                      data-type="cash-to-chip"
-                    >
-                      Tukar Sekarang
-                    </button>
-                  </form>
-
+                  <input id="custom-chip-to-cash" type="number" class="w-100 m-4 rounded p-2">
+                  <button
+                    type="submit"
+                    class="btn btn-primary-custom btn-exchange-custom"
+                    data-type="custom-chip-to-cash"
+                  >
+                    Tukar Sekarang
+                  </button>
                 </div>
               </div>
             </div>

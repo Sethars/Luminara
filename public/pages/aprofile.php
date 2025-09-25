@@ -77,8 +77,6 @@ $checkAuth = true;
         <div class="comments-list"></div>
       </div>
     </div>
-
-
   </body>
 
 

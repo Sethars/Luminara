@@ -28,21 +28,32 @@ document.addEventListener("DOMContentLoaded", async function () {
     : "Demo";
   document.getElementById("newUsername").value = user ? user.username : "";
 
+  document.getElementById("public-preview-username").textContent = user
+    ? user.username
+    : "Demo";
+  document.getElementById("newUsername").value = user ? user.username : "";
+
   //Photo Profile
   document.getElementById("preview-photo").src =
     profile && profile.photo ? profile.photo : photoDefault;
   document.getElementById("photo-preview-mini").src = 
     profile && profile.photo ? profile.photo : photoDefault;
 
+  document.getElementById("public-preview-photo").src =
+    profile && profile.photo ? profile.photo : photoDefault;
+
   //Bio
   if (profile && profile.bio !== null) {
     document.getElementById("preview-bio").textContent = profile.bio;
+    document.getElementById("public-preview-bio").textContent = profile.bio;
+
     document.getElementById("newBio").value = profile.bio;
   } else {
     document.getElementById("preview-bio").textContent =
       "Pengguna belum mengatur bio";
+    document.getElementById("public-preview-bio").textContent =
+      "Pengguna belum mengatur bio";
   }
-
   //Gender
   document.getElementById("preview-gender").textContent = profile
     ? profile.gender
@@ -122,6 +133,31 @@ document.addEventListener("DOMContentLoaded", async function () {
         msg.classList.add("text-danger");
       }
     });
+
+  const btnView = document.getElementById("viewprofile");
+  const backBtn = document.getElementById("backBtn");
+
+  const profileSetting = document.getElementById("profile_setting");
+  const publicProfile = document.getElementById("public_profile");
+
+  function showPublicProfile() {
+    profileSetting.classList.remove("show");
+    setTimeout(() => {
+      publicProfile.classList.add("show");
+    }, 400);
+  }
+
+  function showProfileSetting() {
+    publicProfile.classList.remove("show");
+    setTimeout(() => {
+      profileSetting.classList.add("show");
+    }, 400);
+  }
+
+  btnView.addEventListener("click", showPublicProfile);
+  backBtn.addEventListener("click", showProfileSetting);
+
+  //ujung dom
 });
 
 //Change username
@@ -142,20 +178,20 @@ document
     msg.textContent = "";
     msg.className = "";
 
-  if(!username){
-    msg.textContent = "Form harus diisi";
-    msg.classList.add('text-danger');
-    return;
-  }
-  try{
-    const res = await fetch('api/changeUsername', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({newUsername})
-    });
+    if (!username) {
+      msg.textContent = "Form harus diisi";
+      msg.classList.add("text-danger");
+      return;
+    }
+    try {
+      const res = await fetch("api/changeUsername", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ newUsername }),
+      });
 
       const result = await res.json();
       if (result.success) {
@@ -222,9 +258,9 @@ document
       if (result.success) {
         msg.textContent = "Berhasil mengganti foto profil Anda";
         msg.classList.add("text-success");
+        updateLocalData("profile", "photo", result.file_url);
         document.getElementById("preview-photo").src = result.file_url;
         document.getElementById("navbar-profile-photo").src = result.file_url;
-        updateLocalData("profile", "photo", result.file_url);
       } else {
         msg.textContent = "Upload gagal: " + result.message;
         msg.classList.add("text-danger");
@@ -431,3 +467,24 @@ document
       setLoading(false, "deleteAccountBtn");
     }
   });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btnView = document.querySelector(".btn.btn-success");
+  const profileSetting = document.getElementById("profile_setting");
+  const publicProfile = document.getElementById("public_profile");
+
+  btnView.addEventListener("click", () => {
+    profileSetting.style.display = "none";
+    publicProfile.style.display = "block";
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      document.getElementById("public_profile").style.display = "none";
+      document.getElementById("profile_setting").style.display = "block";
+    });
+  }
+});

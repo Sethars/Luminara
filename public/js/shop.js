@@ -69,6 +69,53 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
       });
 
+      const exchangeButtonsCustom = document.querySelectorAll(
+        ".btn-exchange-custom[data-type]"
+      );
+      exchangeButtonsCustom.forEach(button => {
+        button.addEventListener("click", async function (e) {
+          e.preventDefault();
+          const type = this.getAttribute("data-type");
+          const chip = document.getElementById(type).value;
+
+          try{
+            const res = await fetch('api/exchangeCustom', {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({direction: type, amount: chip})
+            })
+            const result = await res.json();
+            if(result.success){
+              if(type === 'custom-chip-to-cash'){
+                cashBalance += result.cash;
+                chipBalance -= Number(chip);
+                updateBalanceDisplay();
+                showNotification(
+                  `Berhasil menukar ${formatMoney(chip)} Chip menjadi ${formatMoney(result.cash)} Cash!`,
+                  "success"
+                );
+              } else if (type === 'custom-cash-to-chip'){
+                cashBalance -= result.cash;
+                chipBalance += Number(chip);
+                console.log(chipBalance)
+                updateBalanceDisplay();
+                showNotification(
+                  `Berhasil menukar ${formatMoney(result.cash)} Cash menjadi ${formatMoney(chip)} Chip!`,
+                  "success"
+                );
+              }
+            } else {
+              if(result.error) console.error(result.error);
+            }
+          } catch (err){
+            console.error(err);
+          }
+        })
+      })
+
       function updateBalanceDisplay() {
         document.getElementById("chipBalance").textContent =
           formatMoney(chipBalance);
@@ -287,7 +334,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               chipBalance -= chipAmount;
               updateBalanceDisplay();
               showNotification(
-                `Berhasil menukar ${chipAmount} Cash menjadi ${cashAmount} Chip!`,
+                `Berhasil menukar ${chipAmount} Chip menjadi ${cashAmount} Cash!`,
                 "success"
               );
             } else {

@@ -32,17 +32,25 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
 
     <?php include_once __DIR__ . '/../components/header.php'; ?>
 
+
+
+
+
 <div id="main-content">
 
     <?php include_once __DIR__ . '/../components/navbar.php'; ?>
 
-    <div class="container my-4">
+
+    <div class="container my-4 fade-slide show" id="profile_setting" style="display:block;">
         <h2 class="mb-4">Profile</h2>
 
         <!-- Preview Profile -->
         <div class="card mb-4 shadow-sm">
             <div class="card-header bg-light">
-                <strong>Preview Profil Publik</strong>
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <strong>Preview Profil Publik</strong>
+                    <button class="btn btn-success" id="viewprofile">View Profile</button>
+                </div>
             </div>
             <div class="card-body d-flex align-items-center">
                 <?php
@@ -67,7 +75,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             </div>
             <div>
                 <div class="card-footer text-end">
-                    <p class="text-muted small">Cash: $<span id="profile-money"></span></p>
+                    <p class="text-muted">Cash: $<span id="profile-money"></span></p>
                 </div>
             </div>
         </div>
@@ -175,6 +183,16 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             </div>
         </div>
     </div>
+
+    <div id="public_profile" class="container my-4 fade-slide" style="display:none;">
+        <?php include __DIR__ . '/../components/public_profile.php'; ?>
+    </div>
+    
+
+
+
+
+
 
     <?php include_once __DIR__ . '/../components/footer.php'; ?>
 </div>

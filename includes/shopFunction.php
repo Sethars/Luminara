@@ -269,3 +269,48 @@ function exchangeChipToCash($conn, $jwt_token){
         ]);
     }
 }
+
+function exchangeCustom($conn, $jwt_token){
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = auth($jwt_token)->user_id;
+    $direction = $data['direction'];
+    $amount = (int)$data['amount']; 
+
+    // Cek VIP
+    $stmt = $conn->prepare('SELECT isVip FROM economy WHERE user_id = ?');
+    $stmt->execute([$id]);
+    $isVip = (bool)$stmt->fetch(PDO::FETCH_ASSOC)['isVip'];
+
+    try {
+        $conn->beginTransaction();
+
+        if($direction === "custom-chip-to-cash"){
+            $rate = $isVip ? 4.5 : 4;
+            $cash = $amount * $rate;
+
+            $stmt = $conn->prepare('UPDATE profiles 
+                SET cash = cash + ?, chip = chip - ? 
+                WHERE user_id = ? AND chip >= ?');
+            $stmt->execute([$cash, $amount, $id, $amount]);
+
+        } elseif($direction === "custom-cash-to-chip"){
+            $rate = $isVip ? 4.5 : 5;
+            $cash = $amount * $rate;
+
+            $stmt = $conn->prepare('UPDATE profiles 
+                SET chip = chip + ?, cash = cash - ? 
+                WHERE user_id = ? AND cash >= ?');
+            $stmt->execute([$amount, $cash, $id, $cash]);
+
+        } else {
+            throw new Exception("Arah konversi tidak valid!");
+        }
+
+        $conn->commit();
+        echo json_encode(['success' => true, 'message' => 'Tukar berhasil', 'cash' => $cash]);
+
+    } catch (Exception $e) {
+        if ($conn->inTransaction()) $conn->rollBack();
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    }
+}

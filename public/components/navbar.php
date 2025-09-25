@@ -87,7 +87,7 @@
 </style>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" style="">
   <div class="container-fluid">
     <!-- Brand -->
     <a href="/" class="navbar-brand d-flex align-items-center">
@@ -114,7 +114,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarGambling" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <i class="bi bi-dice-3-fill me-1"></i> Gambling
+            <i class="bi bi-dice-3-fill me-1"></i> Games
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarGambling">
             <li class="dropdown-submenu">
