@@ -71,53 +71,43 @@ function underscoreDelete(str) {
 }
 
 // fungsi render
-window.renderBadges = function (badges) {
+function renderBadges (container, badges) {
   if (typeof badges === "string") {
     badges = JSON.parse(badges);
   }
 
-  const usedContainer = document.getElementById("used-badges") || "";
-  if (usedContainer) {
-    usedContainer.innerHTML = "";
-    badges.used.forEach((badge) => {
-      const li = document.createElement("li");
-      li.className = "list-group-item badge-item";
-      li.dataset.badge = badge;
-      li.innerHTML = `<i class="${
-        badgeIcons[badge] || "fa-solid fa-star"
-      } me-1"></i>${underscoreDelete(badge)}`;
-      usedContainer.appendChild(li);
-    });
+  const badgeContainer = document.querySelector(container) || "";
+  if (badgeContainer) {
+    badgeContainer.innerHTML = "";
+    if(badges.length > 0){
+      badges.forEach((badge) => {
+        const li = document.createElement('li');
+        li.className = "list-group-item badge-item";
+        li.dataset.badge = badge;
+        li.innerHTML = `<i class="${
+          badgeIcons[badge] || "fa-solid fa-star"
+        } me-1"></i>${underscoreDelete(badge)}`;
+        badgeContainer.appendChild(li);
+      });
+    }
   }
+};
 
-  const unusedContainer = document.getElementById("unused-badges") || "";
-  if (unusedContainer) {
-    unusedContainer.innerHTML = "";
-    badges.unused.forEach((badge) => {
-      const li = document.createElement("li");
-      li.className = "list-group-item badge-item";
-      li.dataset.badge = badge;
-      li.innerHTML = `<i class="${
-        badgeIcons[badge] || "fa-solid fa-star"
-      } me-1"></i>${underscoreDelete(badge)}`;
-      unusedContainer.appendChild(li);
-    });
-  }
-
-  const previewContainer = document.getElementById("preview-badges") || "";
-  if (previewContainer) {
-    previewContainer.innerHTML = "";
-    if (badges.used.length > 0) {
-      badges.used.forEach((badge) => {
+function renderPreviewBadges(container, badges, defaultText){
+  const badgeContainer = document.querySelector(container) || "";
+  if (badgeContainer) {
+    badgeContainer.innerHTML = "";
+    if (badges.length > 0) {
+      badges.forEach((badge) => {
         const span = document.createElement("span");
         span.className = `badge ${badgeStyles[badge] || "bg-dark text-white"}`;
         span.innerHTML = `<i class="${
           badgeIcons[badge] || "fa-solid fa-star"
         } me-1"></i>${underscoreDelete(badge)}`;
-        previewContainer.appendChild(span);
+        badgeContainer.appendChild(span);
       });
     } else {
-      previewContainer.innerHTML = `<span class="text-muted small">Tidak ada badge yang digunakan</span>`;
+      badgeContainer.innerHTML = `<span class="text-muted small">${defaultText}</span>`;
     }
   }
-};
+}

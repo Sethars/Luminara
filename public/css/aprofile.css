@@ -23,6 +23,25 @@ body {
   line-height: 1.6;
 }
 
+.profile-header {
+  min-height: 200px; /* biar ada ruang buat footer */
+  padding-bottom: 3rem !important; /* kasih space supaya konten nggak nabrak footer */
+}
+
+.profile-footer {
+  border-top: 1px solid #ddd;
+  background-color: #f8f9fa; /* warna abu muda mirip footer */
+  border-bottom-left-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.profile-footer {
+  border-top: 1px solid #ddd;
+  background-color: #f8f9fa;
+  border-radius: 0 0 0.375rem 0.375rem; /* biar nyambung sama header */
+  margin-bottom: 25px;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -36,7 +55,6 @@ body {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 25px;
-  margin-bottom: 25px;
 }
 
 .profile-avatar {
@@ -122,6 +140,16 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 20px;
   margin-bottom: 25px;
+}
+
+.badges-container span {
+  display: inline-block; /* biar bisa dikasih margin/padding */
+  margin: 2px 2px; /* jarak antar badge */
+  padding: 4px 8px; /* ruang di dalam badge */
+  border-radius: 6px; /* sudut melengkung */
+  background-color: #f0f0f0; /* warna latar */
+  color: #333; /* warna teks */
+  font-size: 1rem; /* ukuran font */
 }
 
 .achievements-section h2 {

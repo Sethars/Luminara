@@ -75,7 +75,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             </div>
             <div>
                 <div class="card-footer text-end">
-                    <p class="text-muted">Cash: $<span id="profile-money"></span></p>
+                    <p class="text-muted">Cash: <span id="profile-money" class="text-success fw-bold"></span></p>
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             <div class="card-header">Foto Profile</div>
             <div class="card-body d-flex align-items-center">
                 <img src="/assets/img/photo_profile/ppkosong.jpg" alt="Profile" id="photo-preview-mini"
-                     class="rounded-circle me-3" width="80" height="80">
+                    class="rounded-circle me-3" width="80px" height="80px">
                 <input type="file" id="profilePhoto" class="form-control me-3">
                 <p id="changePPMsg"></p>
                 <button id="changePPBtn" class="btn btn-primary">Simpan Perubahan</button>

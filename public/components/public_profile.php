@@ -72,7 +72,7 @@ body {
   max-width: 600px;
   padding: 12px;
   background-color: var(--light-gray);
-  border-radius: 6px;
+  border-radius: 0 18px 18px 18px;
 }
 
 .stats-container {
@@ -131,36 +131,21 @@ body {
   border-bottom: 1px solid var(--light-gray);
 }
 
-.badges-container {
+.public-badges-container {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   margin-top: 15px;
 }
 
-.badge_aprofile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90px;
-}
-
-.badge_icon_aprofile {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--light-gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  margin-bottom: 6px;
-}
-
-.badge-name {
-  font-size: 12px;
-  text-align: center;
-  color: var(--secondary-gray);
+.public-badges-container span {
+  display: inline-block;   /* biar bisa dikasih margin/padding */
+  margin: 2px 2px;         /* jarak antar badge */
+  padding: 4px 8px;        /* ruang di dalam badge */
+  border-radius: 6px;      /* sudut melengkung */
+  background-color: #f0f0f0; /* warna latar */
+  color: #333;             /* warna teks */
+  font-size: 1rem;      /* ukuran font */
 }
 
 .comments-section {
@@ -297,15 +282,17 @@ body {
   justify-content: space-between;
 }
 
-.comment-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #eee;
+.comment-avatar{
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 8px;
+  background-color: white;
+}
+
+.comment-avatar img{
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 
 .comment-user {
@@ -406,29 +393,39 @@ body {
     <div class="container">
       <!-- Profile Header -->
       <div class="profile-header position-relative p-3 border rounded bg-light">
-          <img id="public-preview-photo" class="rounded-circle me-3" width="100" height="100" alt="Foto Profil">
+        <img id="public-preview-photo" class="rounded-circle me-3" width="100" height="100" alt="Foto Profil">
         <div class="profile-info">
-          <h1 id="public-preview-username">Demo</h1>
-          <p id="">Anggota sejak Januari 2022</p>
-          <div class="profile-bio" id="public-preview-bio">
-          </div>
+          <h1>
+            <span id="public-profile-username"></span>
+            <i id="public-profile-gender" class="bi"></i>
+          </h1>
+          <p>Anggota sejak <span id="created_at"></span></p>
+          <div class="profile-bio" id="public-preview-bio"></div>
         </div>
 
+        <!-- Tombol Back -->
         <button id="backBtn" class="btn btn-secondary position-absolute top-0 end-0 m-2">
           Back
         </button>
+
+        <!-- Footer Cash -->
+        <div class="profile-footer position-absolute bottom-0 end-0 w-100 text-end px-3 py-2">
+          <small class="text-muted">Cash:</small>
+          <span id="public-preview-cash" class="fw-bold text-success"></span>
+        </div>
       </div>
+
 
 
       <!-- Stats Section -->
       <div class="stats-container">
         <div class="stat-card">
-          <h3>Total Kemenangan</h3>
-          <div class="stat-value" id="total-wins">42</div>
+          <h3>Total Matches</h3>
+          <div class="stat-value" id="total-matches">0</div>
         </div>
         <div class="stat-card">
           <h3>Win Rate</h3>
-          <div class="stat-value" id="win-rate">68.25%</div>
+          <div class="stat-value" id="win-rate">0%</div>
         </div>
       </div>
 
@@ -440,104 +437,17 @@ body {
       <!-- Achievements & Badges Section -->
       <div class="achievements-section">
         <h2>Achievements & Badges</h2>
-        <div class="badges-container">
-          <div class="badge_aprofile">
-            <div class="badge_icon_aprofile">
-              <i class="fas fa-trophy" style="color: var(--accent-orange)"></i>
-            </div>
-            <div class="badge-name">Juara 2023</div>
-          </div>
-        </div>
+        <div class="public-badges-container"></div>
       </div>
 
       <!-- Comments Section -->
       <div class="comments-section">
         <h2>Komentar</h2>
-        <div class="comment-form">
-          <textarea placeholder="Tulis komentar Anda di sini..."></textarea>
-          <button id="submit-comment">Kirim Komentar</button>
-        </div>
-          <div class="comments-list">
-            <div class="comment">
-              <div class="comment-header">
-                <div class="comment-avatar">
-                  <i class="fas fa-user"></i>
-                </div>
-                <div class="comment-user">Siti Nurhaliza</div>
-                <div class="comment-date">1 minggu yang lalu</div>
-
-                <!-- Trigger -->
-                <div class="comment-menu">
-                  <i class="fas fa-ellipsis-v"></i>
-                </div>
-              </div>
-
-              <div class="comment-text">
-                Strategi yang Anda gunakan di turnamen kemarin sangat mengesankan.
-                Saya belajar banyak dari Anda!
-              </div>
-
-              <!-- Actions -->
-              <div class="comment-actions">
-                <button class="btn-danger">Hapus</button>
-              </div>
-            </div>
-          </div>
+          <div class="comments-list"></div>
       </div>
     </div>
 
   <script>
-const ctx = document.getElementById("winRateChart").getContext("2d");
-const winRateChart = new Chart(ctx, {
-  type: "doughnut",
-  data: {
-    labels: ["Kemenangan", "Kekalahan"],
-    datasets: [
-      {
-        data: [68.25, 31.75],
-        backgroundColor: [
-          "rgba(52, 152, 219, 0.8)",
-          "rgba(189, 195, 199, 0.8)",
-        ],
-        borderColor: ["rgba(52, 152, 219, 1)", "rgba(189, 195, 199, 1)"],
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "bottom",
-        labels: {
-          font: {
-            size: 14,
-          },
-          padding: 15,
-        },
-      },
-      title: {
-        display: true,
-        text: "Win Rate Diagram",
-        font: {
-          size: 16,
-        },
-        padding: {
-          top: 10,
-          bottom: 15,
-        },
-      },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            return context.label + ": " + context.raw.toFixed(2) + "%";
-          },
-        },
-      },
-    },
-  },
-});
 
 document.querySelectorAll('.comment-menu').forEach(menu => {
   menu.addEventListener('click', () => {

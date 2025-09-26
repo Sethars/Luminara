@@ -2,11 +2,12 @@ import { showModal } from "../module_js/show_modal.js";
 import { setLoading } from "../module_js/setLoading.js";
 import { updateLocalData } from "../module_js/update_local_data.js";
 import { formatMoney } from "../module_js/format_money.js";
+import { renderComments } from "../module_js/render_comments.js";
 
 const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
 document.addEventListener("DOMContentLoaded", async function () {
   //Cash Money
-  fetch("api/getMoneyData", {
+  fetch("api/getProfileData", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -16,9 +17,67 @@ document.addEventListener("DOMContentLoaded", async function () {
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        document.getElementById("profile-money").textContent = formatMoney(
-          data.money
-        );
+        document.getElementById("profile-money").textContent = formatMoney(data.money);
+        document.getElementById("public-preview-cash").textContent = formatMoney(data.money);
+        document.getElementById("created_at").textContent = data.created_at;
+        document.getElementById("total-matches").textContent = data.total_matches;
+        document.getElementById("win-rate").textContent = data.winrate + "%";
+        const ctx = document.getElementById("winRateChart").getContext("2d");
+        const winRateChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: [`Kemenangan: ${data.win}`, `Kekalahan: ${data.lose}`],
+            datasets: [
+              {
+                data: [data.winrate, data.total_matches > 0 ? 100 - data.winrate : 0],
+                backgroundColor: [
+                  "rgba(52, 152, 219, 0.8)",
+                  "rgba(189, 195, 199, 0.8)",
+                ],
+                borderColor: ["rgba(52, 152, 219, 1)", "rgba(189, 195, 199, 1)"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  font: {
+                    size: 14,
+                  },
+                  padding: 15,
+                },
+              },
+              title: {
+                display: true,
+                text: "Win Rate Diagram",
+                font: {
+                  size: 16,
+                },
+                padding: {
+                  top: 10,
+                  bottom: 15,
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + context.raw.toFixed(2) + "%";
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        const commentList = document.querySelector('.comments-list')
+        renderComments(commentList, data.comments, true)
+      } else {
+        console.error(data.error || "")
       }
     });
 
@@ -28,10 +87,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     : "Demo";
   document.getElementById("newUsername").value = user ? user.username : "";
 
-  document.getElementById("public-preview-username").textContent = user
+  document.getElementById("public-profile-username").textContent = user
     ? user.username
     : "Demo";
-  document.getElementById("newUsername").value = user ? user.username : "";
 
   //Photo Profile
   document.getElementById("preview-photo").src =
@@ -60,9 +118,35 @@ document.addEventListener("DOMContentLoaded", async function () {
     : "Dragunov";
   document.getElementById("newGender").value = profile ? profile.gender : "";
 
+  if(profile.gender === "Male"){
+    document.getElementById('public-profile-gender').classList.add('bi-gender-male');
+    document.getElementById('public-profile-gender').style.color = 'blue';
+  } else if(profile.gender === "Female") {
+    document.getElementById('public-profile-gender').classList.add('bi-gender-female');
+    document.getElementById('public-profile-gender').style.color = 'pink';
+  } else {
+    document.getElementById('public-profile-gender').classList.add('bi-crosshair');
+    document.getElementById('public-profile-gender').style.color = 'red';
+  }
+
   //Badges
-  const badges = profile.badges || { used: [], unused: [] };
-  renderBadges(badges);
+  // const badges = profile.badges || { used: [], unused: [] };
+
+  let badges = profile.badges;
+
+  if (typeof badges === "string") {
+    try {
+      badges = JSON.parse(badges);
+    } catch (e) {
+      badges = { used: [], unused: [] };
+    }
+  }
+
+  badges = badges || { used: [], unused: [] };
+  renderBadges("#used-badges", badges.used);
+  renderBadges("#unused-badges", badges.unused);
+  renderPreviewBadges("#preview-badges", badges.used, "Tidak ada badge yang dipasang");
+  renderPreviewBadges(".public-badges-container", [...badges.used, ...badges.unused], "Tidak memiliki badge");
 
   new Sortable(document.getElementById("used-badges"), {
     group: "badges",
@@ -120,8 +204,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (result.success) {
           msg.textContent = "Berhasil ganti badges";
           msg.classList.add("text-success");
-          renderBadges(result.badge);
-          updateLocalData("profile", "badges",JSON.stringify(result.badge));
+          renderBadges("#used-badges", result.badges.used);
+          renderBadges("#unused-badges", result.badges.unused);
+          renderPreviewBadges("#preview-badges", result.badges.used, "Tidak ada badge yang dipasang");
+          renderPreviewBadges(".public-badges-container", [...result.badges.used, ...result.badges.unused], "Tidak memiliki badge");
+          updateLocalData("profile", "badges",JSON.stringify(result.badges));
         } else {
           msg.textContent = result.message || "Gagal ganti badges";
           msg.classList.add("text-danger");
@@ -261,6 +348,7 @@ document
         updateLocalData("profile", "photo", result.file_url);
         document.getElementById("preview-photo").src = result.file_url;
         document.getElementById("navbar-profile-photo").src = result.file_url;
+        document.getElementById("public-preview-photo").src = result.file_url;
       } else {
         msg.textContent = "Upload gagal: " + result.message;
         msg.classList.add("text-danger");
@@ -488,3 +576,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+//Hapus komentar
+document.addEventListener('click', async function(e) {
+  if(e.target.classList.contains("delete-comment")){
+    e.preventDefault();
+
+    const commentId = e.target.dataset.value;
+    const commentElement = e.target.closest(".comment");
+
+    try{
+      const res = await fetch('api/deleteComment', {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({commentId})
+      })
+
+      const result = await res.json();
+      if(result.success){
+        commentElement.remove();
+      } else {
+        console.error(result.message || "Gagal menghapus komentar");
+      }
+    } catch(err){
+      console.error("Error delete:", err);
+    }
+  }
+})

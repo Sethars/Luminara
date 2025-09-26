@@ -30,7 +30,6 @@ function getAnotherUserData($conn, $jwt_token) {
                 u.created_at, 
                 p.bio,
                 p.badges,
-                p.chip,
                 p.cash,
                 p.photo,
                 p.gender,
@@ -56,7 +55,6 @@ function getAnotherUserData($conn, $jwt_token) {
         }
         //Return tipe data
         $user['created_at'] = date("d F Y", strtotime($user['created_at']));
-        $user['chip'] = (int)$user['chip'];
         $user['cash'] = (int)$user['cash'];
         $user['isVip'] = (bool)$user['isVip'];
         $user['win'] = (int)$user['win'];
