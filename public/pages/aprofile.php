@@ -43,6 +43,11 @@ $checkAuth = true;
         </div>
       </div>
 
+      <!-- Cash -->
+      <div>
+        <p id="profile-cash"></p>
+      </div>
+
       <!-- Stats Section -->
       <div class="stats-container">
         <div class="stat-card">

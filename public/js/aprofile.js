@@ -1,4 +1,6 @@
+import { formatMoney } from "../module_js/format_money.js";
 import { getQueryParam } from "../module_js/get_query.js";
+import { renderComments } from "../module_js/render_comments.js";
 
 const id = getQueryParam('id');
 
@@ -14,22 +16,21 @@ document.addEventListener('DOMContentLoaded', async function () {
     const data = await res.json();
     if(data.success){
       //Ambil data
-      const user = data['user'];
-      const username = user.username;
-      const createdAt = user.created_at
-      const bio = user.bio;
-      const badges = user.badges
-      const chip = user.chip
-      const cash = user.cash
-      const photo = user.photo
-      const gender = user.gender
-      const isVip = user.isVip
-      const win = user.win
-      const lose = user.lose
-      const totalMatches = user.total_matches
-      const winRate = user.win_rate
+      const users = data['user'];
+      const username = users.username;
+      const createdAt = users.created_at
+      const bio = users.bio;
+      const badges = users.badges
+      const cash = users.cash
+      const photo = users.photo
+      const gender = users.gender
+      const isVip = users.isVip
+      const win = users.win
+      const lose = users.lose
+      const totalMatches = users.total_matches
+      const winRate = users.win_rate
       const loseRate = totalMatches > 0 ? 100 - winRate : 0;
-      const comments = user.comments;
+      const comments = users.comments;
 
       //Functions
 
@@ -38,6 +39,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       //Username
       document.getElementById('profile-username').textContent = username;
+      
+      //Cash
+      document.getElementById('profile-cash').textContent = formatMoney(cash); 
 
       //Gender
       if(gender === "Male"){
@@ -72,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       const winRateChart = new Chart(ctx, {
         type: "doughnut",
         data: {
-          labels: ["Kemenangan", "Kekalahan"],
+          labels: [`Kemenangan: ${win}`, `Kekalahan: ${lose}`],
           datasets: [
             {
               data: [winRate, loseRate],
@@ -124,40 +128,11 @@ document.addEventListener('DOMContentLoaded', async function () {
       });
 
       //Badges
-      const badgesContainer = document.querySelector('.badges-container');
-      badgesContainer.innerHTML = "";
-
-      const allBadges = [...badges.used, ...badges.unused];
-
-      allBadges.forEach(badgeName => {
-        const span = document.createElement("span");
-        span.className = `badge ${badgeStyles[badgeName] || "bg-dark text-white"} px-2 py-1`;
-        span.innerHTML = `<i class="${
-          badgeIcons[badgeName] || "fa-solid fa-star"
-        } me-1"></i>${underscoreDelete(badgeName)}`;
-        span.style.fontSize = '1rem'
-        badgesContainer.appendChild(span);
-      })
+      renderPreviewBadges('.badges-container', [...badges.used, ...badges.unused], "Tidak memiliki badge")
 
       //Comments List
       const commentList = document.querySelector('.comments-list');
-
-      comments.forEach(data => {
-        commentList.innerHTML +=`
-          <div class="comment">
-            <div class="comment-header">
-              <div class="comment-avatar">
-                <img src="${data.commenter_photo}">
-              </div>
-              <div class="comment-user">${data.commenter_username}</div>
-              <div class="comment-date">${data.created_at}</div>
-            </div>
-            <div class="comment-text">
-              ${data.comment}
-            </div>
-          </div>
-        `
-      });
+      renderComments(commentList, comments, false)
 
       //Add Comment
       document.getElementById('submit-comment').addEventListener('click', async function (e) {

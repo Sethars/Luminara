@@ -177,3 +177,18 @@ Stack trace:
 #1 C:\laragon\www\luminara\public\index.php(140): getAnotherUserData(Object(PDO), 'furinacyrenehut...')
 #2 {main}
   thrown in C:\laragon\www\luminara\includes\aprofile.php on line 44
+[26-Sep-2025 05:52:19 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function timeAgo() in C:\laragon\www\luminara\includes\profileData.php:53
+Stack trace:
+#0 C:\laragon\www\luminara\public\index.php(73): getProfileData(Object(PDO), 'furinacyrenehut...')
+#1 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 53
+[26-Sep-2025 05:52:59 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function timeAgo() in C:\laragon\www\luminara\includes\profileData.php:53
+Stack trace:
+#0 C:\laragon\www\luminara\public\index.php(73): getProfileData(Object(PDO), 'furinacyrenehut...')
+#1 {main}
+  thrown in C:\laragon\www\luminara\includes\profileData.php on line 53
+[26-Sep-2025 06:05:02 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58
+[26-Sep-2025 06:05:15 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58
+[26-Sep-2025 06:05:26 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58
+[26-Sep-2025 06:05:30 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58
+[26-Sep-2025 06:05:39 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58

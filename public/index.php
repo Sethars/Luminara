@@ -67,9 +67,10 @@ if (str_starts_with($request, "api/")) {
             getLeaderboard($conn);
             break;
 
-        case 'api/getMoneyData':
+        //Profile Function
+        case 'api/getProfileData':
             require __DIR__ . '/../includes/profileData.php';
-            getMoneyData($conn, $jwt_token);
+            getProfileData($conn, $jwt_token);
             break;
 
         case 'api/changeBio':
@@ -95,6 +96,11 @@ if (str_starts_with($request, "api/")) {
         case 'api/updateBadges':
             require __DIR__ . '/../includes/profileData.php';
             updateBadges($conn, $jwt_token);
+            break;
+
+        case 'api/deleteComment':
+            require __DIR__ . '/../includes/profileData.php';
+            deleteComment($conn, $jwt_token);
             break;
 
         //Shop Function
