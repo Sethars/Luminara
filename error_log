@@ -177,3 +177,115 @@ Stack trace:
 #1 C:\laragon\www\luminara\public\index.php(140): getAnotherUserData(Object(PDO), 'furinacyrenehut...')
 #2 {main}
   thrown in C:\laragon\www\luminara\includes\aprofile.php on line 44
+[26-Sep-2025 03:41:05 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:41:05 UTC] PHP Stack trace:
+[26-Sep-2025 03:41:05 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:41:05 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:42:06 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:42:06 UTC] PHP Stack trace:
+[26-Sep-2025 03:42:06 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:42:06 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:43:57 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:43:57 UTC] PHP Stack trace:
+[26-Sep-2025 03:43:57 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:43:57 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:43:58 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:43:58 UTC] PHP Stack trace:
+[26-Sep-2025 03:43:58 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:43:58 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:43:59 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:43:59 UTC] PHP Stack trace:
+[26-Sep-2025 03:43:59 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:43:59 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:00 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:00 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:00 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:00 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:01 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:01 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:01 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:01 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:02 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:02 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:02 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:02 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:03 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:03 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:03 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:03 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:04 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:04 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:04 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:04 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:14 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:14 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:14 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:14 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:24 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:24 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:24 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:24 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:35 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:44:35 UTC] PHP Stack trace:
+[26-Sep-2025 03:44:35 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:44:35 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:45:28 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:45:28 UTC] PHP Stack trace:
+[26-Sep-2025 03:45:28 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:45:28 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:45:39 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:45:39 UTC] PHP Stack trace:
+[26-Sep-2025 03:45:39 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:45:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:45:49 UTC] PHP Warning:  require(D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php): Failed to open stream: No such file or directory in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148
+[26-Sep-2025 03:45:49 UTC] PHP Stack trace:
+[26-Sep-2025 03:45:49 UTC] PHP   1. {main}() D:\localweb\WEB_LOCAL\Luminara\public\index.php:0
+[26-Sep-2025 03:45:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\localweb\WEB_LOCAL\Luminara\public/../includes/updateTopRank.php' (include_path='.;C:\php\pear') in D:\localweb\WEB_LOCAL\Luminara\public\index.php:148
+Stack trace:
+#0 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\public\index.php on line 148

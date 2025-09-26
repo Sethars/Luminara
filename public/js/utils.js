@@ -44,15 +44,23 @@ const badgeIcons = {
   Beta_Tester: "fa fa-flask me-2", // flask
   WS5: "fa fa-fire me-2", // fire
   Racist: "fas fa-skull-crossbones me-2", // skull
+  Lottery_Winner: "fa fa-ticket",
+  TOP_1: "fa fa-trophy",
+  TOP_2: "fa fa-trophy",
+  TOP_3: "fa fa-trophy",
 };
 
 const badgeStyles = {
-  VIP: "bg-warning text-dark fw-bold border border-warning", // emas mewah
+  VIP: "bg-gradient bg-warning text-dark fw-bold border border-dark", // emas mewah
   Developer: "bg-success text-white",
-  Moderator: "bg-info text-white",
+  Moderator: "bg-primary text-white border border-primary",
   Beta_Tester: "bg-secondary text-white",
-  WS5: "bg-warning text-dark", // win streak 5
-  Racist: "bg-dark text-white", // hitam
+  WS5: "bg-orange text-dark fw-bold border border-orange shadow-sm",
+  Racist: "bg-dark text-white border border-danger", // hitam
+  Lottery_Winner: "bg-warning text-white border border-danger fw-bold shadow",
+  TOP_1: "bg-warning text-dark fw-bold border border-warning shadow-sm",
+  TOP_2: "bg-secondary text-white fw-bold border border-secondary shadow-sm",
+  TOP_3: "bg-orange text-dark fw-bold border border-orange shadow-sm",
 };
 
 //fungsi hapus _

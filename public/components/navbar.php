@@ -138,12 +138,17 @@
             </li>
             <li>
               <a class="dropdown-item" href="devices.php">
-                <i class="far fa-circle me-2"></i> Roulette
+                <i class="bi bi-chevron-bar-contract me-2"></i> Roulette
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="devices.php">
+              <a class="dropdown-item" href="/lottery">
                 <i class="fa fa-ticket me-2"></i> lottery
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/lottery">
+                <i class="bi bi-coin me-2"></i> Coin Flip
               </a>
             </li>
           </ul>
