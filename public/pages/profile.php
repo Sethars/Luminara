@@ -75,7 +75,7 @@ $photoPath = !empty($photo) ? "/assets/img/photo_profile/" . htmlspecialchars($p
             </div>
             <div>
                 <div class="card-footer text-end">
-                    <p class="text-muted">Cash: $<span id="profile-money"></span></p>
+                    <p class="text-muted">Cash: <span id="profile-money" class="text-success fw-bold"></span></p>
                 </div>
             </div>
         </div>

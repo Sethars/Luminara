@@ -138,6 +138,16 @@ body {
   margin-top: 15px;
 }
 
+.public-badges-container span {
+  display: inline-block;   /* biar bisa dikasih margin/padding */
+  margin: 2px 2px;         /* jarak antar badge */
+  padding: 4px 8px;        /* ruang di dalam badge */
+  border-radius: 6px;      /* sudut melengkung */
+  background-color: #f0f0f0; /* warna latar */
+  color: #333;             /* warna teks */
+  font-size: 1rem;      /* ukuran font */
+}
+
 .comments-section {
   background: var(--white);
   border-radius: 10px;
@@ -383,26 +393,28 @@ body {
     <div class="container">
       <!-- Profile Header -->
       <div class="profile-header position-relative p-3 border rounded bg-light">
-          <img id="public-preview-photo" class="rounded-circle me-3" width="100" height="100" alt="Foto Profil">
+        <img id="public-preview-photo" class="rounded-circle me-3" width="100" height="100" alt="Foto Profil">
         <div class="profile-info">
           <h1>
             <span id="public-profile-username"></span>
             <i id="public-profile-gender" class="bi"></i>
           </h1>
-          <p id="">Anggota sejak <span id="created_at"></span></p>
-          <div class="profile-bio" id="public-preview-bio">
-          </div>
+          <p>Anggota sejak <span id="created_at"></span></p>
+          <div class="profile-bio" id="public-preview-bio"></div>
         </div>
 
+        <!-- Tombol Back -->
         <button id="backBtn" class="btn btn-secondary position-absolute top-0 end-0 m-2">
           Back
         </button>
+
+        <!-- Footer Cash -->
+        <div class="profile-footer position-absolute bottom-0 end-0 w-100 text-end px-3 py-2">
+          <small class="text-muted">Cash:</small>
+          <span id="public-preview-cash" class="fw-bold text-success"></span>
+        </div>
       </div>
 
-      <!-- Cash -->
-       <div>
-        <p id="public-preview-cash"></p>
-       </div>
 
 
       <!-- Stats Section -->

@@ -155,7 +155,10 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/aprofile.php';
             addComment($conn, $jwt_token);
             break;
-
+        case "api/updateTopRank":
+            require __DIR__ . '/../includes/leaderboard.php';
+            updateTopRank($conn);
+            break;
         default:
             http_response_code(404);
             echo json_encode(["error" => "API route not found"]);
@@ -207,6 +210,9 @@ switch ($request) {
         break;
     case 'aprofile':
         require __DIR__ . '/pages/aprofile.php';
+        break;
+    case 'lottery':
+        require __DIR__. '/pages/lottery.php';
         break;
     default:
         require __DIR__ . '/pages/not_found.php';

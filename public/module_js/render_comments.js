@@ -1,19 +1,19 @@
-export function renderComments(container, comments, canDelete){
-    container.innerHTML = "";
+export function renderComments(container, comments, canDelete) {
+  container.innerHTML = "";
 
-    if(comments.length == 0){
-        container.innerHTML = `
+  if (comments.length == 0) {
+    container.innerHTML = `
             <div class="comment">
-                <div class="comment-text">
-                    <h1>Tidak ada komentar</h1>
+                <div class="comment-text d-flex justify-content-center text-muted">
+                    <strong>Tidak ada komentar</strong>
                 </div>
             </div>
         `;
-        return;
-    }
+    return;
+  }
 
-    comments.forEach(data => {
-        container.innerHTML +=`
+  comments.forEach((data) => {
+    container.innerHTML += `
             <div class="comment">
                 <div class="comment-header">
                     <div class="comment-avatar">
@@ -21,21 +21,31 @@ export function renderComments(container, comments, canDelete){
                     </div>
                     <div class="comment-user">${data.commenter_username}</div>
                     <div class="comment-date">${data.created_at}</div>
-                    ${canDelete ? `
+                    ${
+                      canDelete
+                        ? `
                         <div class="comment-menu">
                             <i class="fas fa-ellipsis-v"></i>
                         </div>
-                    ` : ""}
+                    `
+                        : ""
+                    }
                 </div>
                 <div class="comment-text">
                     ${data.comment}
                 </div>
-                ${canDelete ? `
+                ${
+                  canDelete
+                    ? `
                     <div class="comment-actions">
-                        <button class="btn-danger delete-comment" data-value="${data.id || ''}">Hapus</button>
+                        <button class="btn-danger delete-comment" data-value="${
+                          data.id || ""
+                        }">Hapus</button>
                     </div>
-                ` : ""}
+                `
+                    : ""
+                }
             </div>
-        `
-    });
+        `;
+  });
 }

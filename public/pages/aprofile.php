@@ -29,9 +29,9 @@ $checkAuth = true;
   <body>
     <div class="container">
       <!-- Profile Header -->
-      <div class="profile-header">
-        <div class="profile-avatar">
-          <img id="profile-photo" src="" alt="Photo Profile">
+      <div class="profile-header border rounded bg-light p-3">
+        <div class="profile-avatar me-3">
+          <img id="profile-photo" src="" alt="Photo Profile" class="rounded-circle" width="100" height="100">
         </div>
         <div class="profile-info">
           <h1>
@@ -43,10 +43,12 @@ $checkAuth = true;
         </div>
       </div>
 
-      <!-- Cash -->
-      <div>
-        <p id="profile-cash"></p>
+      <!-- Cash Footer -->
+      <div class="profile-footer d-flex justify-content-end align-items-center px-3 py-2">
+        <small class="text-muted me-2">Cash:</small>
+        <span id="profile-cash" class="fw-bold text-success"></span>
       </div>
+
 
       <!-- Stats Section -->
       <div class="stats-container">

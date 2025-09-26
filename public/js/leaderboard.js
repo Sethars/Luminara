@@ -1,4 +1,4 @@
-import { addBadge  } from "../module_js/add_badges.js";
+import { addBadge } from "../module_js/add_badges.js";
 import { formatMoney } from "../module_js/format_money.js";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </tr>
       `;
 
-      addBadge('Racist');
+      addBadge("Racist");
       return;
     }
 
@@ -124,3 +124,18 @@ document.addEventListener("DOMContentLoaded", function () {
     searchUsers(this.value);
   });
 });
+
+setInterval(async () => {
+  try {
+    const res = await fetch("api/updateTopRank");
+    const text = await res.text(); // ambil raw
+    try {
+      const data = JSON.parse(text);
+      console.log("Update badge:", data.message);
+    } catch (e) {
+      console.error("Response bukan JSON:", text);
+    }
+  } catch (err) {
+    console.error("Fetch error:", err);
+  }
+}, 1000);
