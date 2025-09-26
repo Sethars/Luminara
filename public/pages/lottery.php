@@ -15,7 +15,7 @@ $checkAuth = true;
     <div id="main-content" style="">
 
 
-        <div class="lottery-container position-absolute top-50 start-50 translate-middle" style="margin-top:60px;">
+        <div class="lottery-container position-absolute top-50 start-50 translate-middle">
             <h1 class="lottery-title">Luminara Money Jumpscare</h1>
 
             <div class="jackpot-display floating" id="jackpot-display">

@@ -1,5 +1,6 @@
-// ambil data user dari localStorage
+// ambil data user dan profile dari localStorage
 const user = JSON.parse(localStorage.getItem("user"));
+const profile = JSON.parse(localStorage.getItem('profile'));
 
 const token = localStorage.getItem("token");
 window.token = token;

@@ -9,7 +9,7 @@
 body {
   background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
   background-size: 400% 400%;
-  animation: gradientBG 1s ease infinite;
+  animation: gradientBG 10s ease infinite;
   color: #fff;
   overflow-x: hidden; /* Mencegah scroll horizontal */
 }
@@ -30,6 +30,7 @@ body {
   width: 75%;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 20px;
+  margin-top: 200px;
   padding: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 215, 0, 0.2);
@@ -519,14 +520,12 @@ body {
 /* Responsif untuk mobile */
 @media (max-width: 768px) {
   body {
-    padding: 5px;
-    /* Gradient tetap untuk mobile */
-    background: linear-gradient(135deg, #1a2a6c, #b21f1f);
-    animation: none;
+    animation: gradientBG 5s ease infinite;
   }
 
   .lottery-container {
     padding: 15px;
+    margin-top: 75px;
   }
 
   .lottery-title {

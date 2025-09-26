@@ -46,7 +46,10 @@
   .dropdown-back:hover {
     background-color: #f8f9fa;
   }
+
+  
 }
+
 
 .search {
   display: flex;
@@ -136,10 +139,23 @@
                 </li>
               </ul>
             </li>
-            <li>
-              <a class="dropdown-item" href="devices.php">
-                <i class="bi bi-chevron-bar-contract me-2"></i> Roulette
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#" id="bjSubmenu"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-chevron-bar-contract me-2"></i> Roulatte
               </a>
+              <ul class="dropdown-menu" aria-labelledby="bjSubmenu">
+                <li>
+                  <a class="dropdown-item" href="/BJLobbyCS">
+                    <i class="fas fa-skull-crossbones me-2"></i> Russian Roulette
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/BJLobby">
+                    <i class="bi bi-gem"></i> Roulatte
+                  </a>
+                </li>
+              </ul>
             </li>
             <li>
               <a class="dropdown-item" href="/lottery">
@@ -173,12 +189,12 @@
           <ul class="dropdown-menu" aria-labelledby="navbarGambling">
             <li>
               <a class="dropdown-item" href="/moneyboard">
-                <i class="far fa-circle me-2"></i> Money 
+                <i class="bi bi-cash-stack"></i> Cash
               </a>
             </li>
             <li>
               <a class="dropdown-item" href="devices.php">
-                <i class="far fa-circle me-2"></i> Win Rate
+                <i class="bi bi-percent"></i> Win Rate
               </a>
             </li>
             <li>
