@@ -1,15 +1,3 @@
-// Data lotre
-const lotteryData = {
-  ticketPrice: 5000,
-  jackpotPercentage: 0.5, // Diubah menjadi 50%
-  initialJackpot: 50000,
-  currentJackpot: 50000,
-  ticketsSold: 0,
-  purchaseHistory: [],
-  isLotteryEnded: false,
-  winnerTicket: null,
-};
-
 // Elemen DOM
 const jackpotDisplayEl = document.getElementById("jackpot-display");
 const jackpotAmountEl = document.getElementById("jackpot-amount");
@@ -27,6 +15,49 @@ const winnerNameEl = document.getElementById("winner-name");
 const rulesButton = document.getElementById("rules-button");
 const rulesModal = document.getElementById("rules-modal");
 const closeModal = document.getElementById("close-modal");
+
+let lotteryData = {};
+
+//Ambil data lotre
+document.addEventListener('DOMContentLoaded', async function(){
+  const res = await fetch('api/getLotteryData')
+  const data = await res.json();
+
+  if(data.success){
+    lotteryData = {
+      ticketPrice: 5000,
+      jackpotPercentage: 0.5, // Diubah menjadi 50%
+      initialJackpot: 50000,
+      currentJackpot: data.lottery.reward,
+      ticketsSold: 0,
+      purchaseHistory: [],
+      isLotteryEnded: false,
+      winnerTicket: null,
+    }
+  } else {
+    if(data.message === "Event belum dimulai"){
+      lotteryData = {
+        isLotteryEnded: true
+      }
+      showNotification(data.message)
+    }
+    console.error(data.message);
+    if(data.error) console.error(data.error)
+  }
+
+  // Event listener untuk tombol beli
+  buyButtonEl.addEventListener("click", buyTicket);
+
+  // Buat sparkles setiap 300ms
+  setInterval(createSparkle, 300);
+
+  // Update countdown setiap detik
+  setInterval(updateCountdown, 1000);
+
+  // Inisialisasi tampilan
+  updateJackpotDisplay();
+  updateCountdown();
+})
 
 // Format angka dengan pemisah ribuan
 function formatNumber(amount) {
@@ -50,36 +81,6 @@ function generateRandomNumbers() {
 // Generate ID tiket unik
 function generateTicketId() {
   return "TIX-" + Math.random().toString(36).substr(2, 9).toUpperCase();
-}
-
-// Generate username acak
-function generateRandomUsername() {
-  const adjectives = [
-    "Cool",
-    "Super",
-    "Mega",
-    "Ultra",
-    "Hyper",
-    "Great",
-    "Fast",
-    "Quick",
-  ];
-  const nouns = [
-    "Player",
-    "Gamer",
-    "Winner",
-    "Champ",
-    "Hero",
-    "Star",
-    "Legend",
-    "Master",
-  ];
-  const numbers = Math.floor(Math.random() * 1000);
-
-  const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-  const noun = nouns[Math.floor(Math.random() * nouns.length)];
-
-  return adjective + noun + numbers;
 }
 
 // Tampilkan notifikasi
@@ -143,8 +144,8 @@ function updatePurchaseHistory() {
   });
 }
 
-// Event listener untuk tombol beli
-buyButtonEl.addEventListener("click", function () {
+//Beli tiket
+function buyTicket() {
   // Cek apakah lotre sudah berakhir
   if (lotteryData.isLotteryEnded) {
     showNotification("Lotre sudah berakhir! Tunggu lotre berikutnya.");
@@ -161,14 +162,13 @@ buyButtonEl.addEventListener("click", function () {
     id: ticketId,
     numbers: numbers,
     date: currentDate,
-    username: generateRandomUsername(),
   };
 
   lotteryData.purchaseHistory.unshift(newTicket);
 
   // Update jackpot
   const jackpotIncrease =
-    lotteryData.ticketPrice * lotteryData.jackpotPercentage;
+  lotteryData.ticketPrice * lotteryData.jackpotPercentage;
   lotteryData.currentJackpot += jackpotIncrease;
   lotteryData.ticketsSold += 1;
 
@@ -199,59 +199,12 @@ buyButtonEl.addEventListener("click", function () {
 
   // Tampilkan notifikasi
   showNotification(
-    `Tiket berhasil dibeli! Jackpot bertambah ${formatNumber(jackpotIncrease)}`
+    `Tiket berhasil dibeli!`
   );
-});
-
-// Event listener untuk modal
-rulesButton.addEventListener("click", function () {
-  rulesModal.style.display = "block";
-  document.body.style.overflow = "hidden"; // Mencegah scrolling di background
-});
-
-closeModal.addEventListener("click", function () {
-  rulesModal.style.display = "none";
-  document.body.style.overflow = "auto"; // Mengembalikan scrolling
-});
-
-// Tutup modal jika klik di luar konten
-window.addEventListener("click", function (event) {
-  if (event.target === rulesModal) {
-    rulesModal.style.display = "none";
-    document.body.style.overflow = "auto";
-  }
-});
-
-// Membuat efek sparkles
-function createSparkle() {
-  const sparkle = document.createElement("div");
-  sparkle.classList.add("sparkle");
-
-  // Posisi acak
-  const posX = Math.random() * window.innerWidth;
-  const posY = Math.random() * window.innerHeight;
-
-  sparkle.style.left = `${posX}px`;
-  sparkle.style.top = `${posY}px`;
-
-  // Ukuran acak
-  const size = Math.random() * 5 + 2;
-  sparkle.style.width = `${size}px`;
-  sparkle.style.height = `${size}px`;
-
-  document.body.appendChild(sparkle);
-
-  // Hapus sparkle setelah animasi selesai
-  setTimeout(() => {
-    sparkle.remove();
-  }, 3000);
 }
 
-// Buat sparkles setiap 300ms
-setInterval(createSparkle, 300);
-
-// Fungsi untuk memilih pemenang secara acak
-function selectRandomWinner() {
+// Fungsi untuk memilih pemenang
+function selectWinner() {
   // ========== FUNGSI UNTUK MEMILIH PEMENANG SECARA ACAK ==========
   // Jika tidak ada tiket yang terjual, tidak ada pemenang
   if (lotteryData.purchaseHistory.length === 0) {
@@ -289,7 +242,6 @@ function selectRandomWinner() {
   // ========== AKHIR FUNGSI PEMILIH PEMENANG ==========
 }
 
-// Hitung mundur untuk 3 hari
 function updateCountdown() {
   // Waktu sekarang dalam GMT+7
   const now = new Date();
@@ -318,7 +270,7 @@ function updateCountdown() {
     // Jika lotre belum berakhir, akhiri lotre dan pilih pemenang
     if (!lotteryData.isLotteryEnded) {
       lotteryData.isLotteryEnded = true;
-      selectRandomWinner();
+      selectWinner();
     }
 
     return;
@@ -345,9 +297,46 @@ function updateCountdown() {
     .padStart(2, "0");
 }
 
-// Update countdown setiap detik
-setInterval(updateCountdown, 1000);
+// Membuat efek sparkles
+function createSparkle() {
+  const sparkle = document.createElement("div");
+  sparkle.classList.add("sparkle");
 
-// Inisialisasi tampilan
-updateJackpotDisplay();
-updateCountdown();
+  // Posisi acak
+  const posX = Math.random() * window.innerWidth;
+  const posY = Math.random() * window.innerHeight;
+
+  sparkle.style.left = `${posX}px`;
+  sparkle.style.top = `${posY}px`;
+
+  // Ukuran acak
+  const size = Math.random() * 5 + 2;
+  sparkle.style.width = `${size}px`;
+  sparkle.style.height = `${size}px`;
+
+  document.body.appendChild(sparkle);
+
+  // Hapus sparkle setelah animasi selesai
+  setTimeout(() => {
+    sparkle.remove();
+  }, 3000);
+}
+
+// Event listener untuk modal
+rulesButton.addEventListener("click", function () {
+  rulesModal.style.display = "block";
+  document.body.style.overflow = "hidden"; // Mencegah scrolling di background
+});
+
+closeModal.addEventListener("click", function () {
+  rulesModal.style.display = "none";
+  document.body.style.overflow = "auto"; // Mengembalikan scrolling
+});
+
+// Tutup modal jika klik di luar konten
+window.addEventListener("click", function (event) {
+  if (event.target === rulesModal) {
+    rulesModal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+});

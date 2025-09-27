@@ -159,6 +159,18 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/leaderboard.php';
             updateTopRank($conn);
             break;
+
+        //Lottery
+        case "api/createEventLottery":
+            require __DIR__ . '/../includes/lottery.php';
+            createEventLottery($conn, $jwt_token);
+            break;
+
+        case "api/getLotteryData":
+            require __DIR__ . '/../includes/lottery.php';
+            getLotteryData($conn);
+            break;
+
         default:
             http_response_code(404);
             echo json_encode(["error" => "API route not found"]);

@@ -13,6 +13,23 @@ window.isDemo = function () {
   }
 };
 
+//SEMENTARA
+// const formData = { started_at: document.getElementById("lottery_date").value };
+window.makeEvent = function(day) {
+  const formData = { started_at: day };
+  
+  fetch("/api/createEventLottery", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token // <-- pastikan token valid ya
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(res => res.json())
+  .then(data => console.log(data));
+}
+
 // Tampilkan username
 window.showUsernameAndPp = function () {
   const el = document.getElementById("username");
@@ -111,3 +128,5 @@ function renderPreviewBadges(container, badges, defaultText){
     }
   }
 }
+
+

@@ -161,7 +161,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Simpan hasil perubahan ke JSON
   document
     .getElementById("saveBadgesBtn")
-    .addEventListener("click", updateBadges());
+    .addEventListener("click", async () => {
+      await updateBadges();
+    });
 
   const btnView = document.getElementById("viewprofile");
   const backBtn = document.getElementById("backBtn");
