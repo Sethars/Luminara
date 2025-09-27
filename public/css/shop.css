@@ -329,24 +329,34 @@ body {
 }
 
 .balance-display {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
   padding: 15px 25px;
-  margin-bottom: 20px;
   display: flex;
+  gap: 25px; /* kasih jarak antar kotak */
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
 
 .balance-item {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .balance-value {
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 6px; /* jarak antara angka dan icon */
 }
 
 .balance-label {
@@ -419,5 +429,47 @@ body {
 
   .vip-price {
     font-size: 1.5rem;
+  }
+}
+
+/* bikin input lebih nyaman di mobile */
+.exchange-body input[type="number"] {
+  width: 100%;
+  max-width: 400px; /* biar di desktop nggak kepanjangan */
+  font-size: 1rem;
+  padding: 12px 14px;
+  margin: 15px 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+/* fokus lebih jelas */
+.exchange-body input[type="number"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+/* hilangkan spinner input number */
+.exchange-body input::-webkit-outer-spin-button,
+.exchange-body input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.exchange-body input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* responsif untuk layar kecil */
+@media (max-width: 576px) {
+  .exchange-body input[type="number"] {
+    font-size: 1.1rem;
+    padding: 14px 16px;
+  }
+  .btn-exchange-custom {
+    width: 100%; /* tombol full width di mobile */
+    font-size: 1rem;
+    padding: 12px;
   }
 }

@@ -250,6 +250,11 @@
               </a>
             </li>
             <li><hr class="dropdown-divider"></li>
+              <a href="/admin_panel" class="dropdown-item">
+                <i class="fa fa-user-secret"></i> Admin Panel
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
             <li>
               <form id="logoutForm" method="POST" action="logout.php" style="margin:0;">
                 <button type="submit" class="dropdown-item text-danger">

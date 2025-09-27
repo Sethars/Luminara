@@ -214,6 +214,9 @@ switch ($request) {
     case 'lottery':
         require __DIR__. '/pages/lottery.php';
         break;
+    case 'admin_panel':
+        require __DIR__. '/pages/admin_panel.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;

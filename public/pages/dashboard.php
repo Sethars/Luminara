@@ -16,7 +16,6 @@ $checkAuth = true;
 
 <div id="main-content">
 
-
     <?php
     include_once __DIR__ . '/../components/navbar.php';
     ?>

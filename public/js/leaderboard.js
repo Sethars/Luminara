@@ -70,7 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
       renderLeaderboard(allUsers);
       return;
     }
-
+    // normal search
+    const filtered = allUsers.filter((user) =>
+      user.name.toLowerCase().includes(query.toLowerCase())
+    );
+    renderLeaderboard(filtered);
     // Easter Egg: deteksi kata "istereg"
     if (
       query.toLowerCase().includes("ireng") ||
@@ -81,25 +85,22 @@ document.addEventListener("DOMContentLoaded", function () {
       const noResults = document.getElementById("noResults");
       noResults.style.display = "none";
 
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="3" class="text-center easter-egg">
-            <div class="easter-egg-box">
-              <p>🎉 Badges Rahasia Unlocked!</p>
-            </div>
-          </td>
-        </tr>
-      `;
+      tbody.insertAdjacentHTML(
+        "afterbegin",
+        `
+      <tr style="animation-delay: 0s">
+        <td></td>
+        <td colspan="3" class="text-center easter-egg">
+          <div class="easter-egg-box">
+            <p>🎉 Badges Rahasia Unlocked!</p>
+          </div>
+        </td>
+      </tr>
+      `
+      );
 
       addBadge("Racist");
-      return;
     }
-
-    // normal search
-    const filtered = allUsers.filter((user) =>
-      user.name.toLowerCase().includes(query.toLowerCase())
-    );
-    renderLeaderboard(filtered);
   }
 
   // Fetch leaderboard

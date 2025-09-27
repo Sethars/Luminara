@@ -307,3 +307,38 @@ Stack trace:
 [26-Sep-2025 06:05:30 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58
 [26-Sep-2025 06:05:39 UTC] PHP Warning:  Undefined array key "chip" in C:\laragon\www\luminara\includes\aprofile.php on line 58
 >>>>>>> 9b61a612dbbb1b23e14059db2fa86c01848bebdb
+[26-Sep-2025 08:26:24 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('hVdPLxUtAo8BqdV...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php(4): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(145): usersearch(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[26-Sep-2025 08:26:25 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('hVdPLxUtAo8BqdV...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php(4): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(145): usersearch(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[26-Sep-2025 08:26:54 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('hVdPLxUtAo8BqdV...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\usersearch.php(4): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(145): usersearch(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[26-Sep-2025 08:27:08 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('hVdPLxUtAo8BqdV...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\profileData.php(29): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(73): getProfileData(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109
+[26-Sep-2025 08:27:18 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
+Stack trace:
+#0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('hVdPLxUtAo8BqdV...', Object(Firebase\JWT\Key))
+#1 D:\localweb\WEB_LOCAL\Luminara\includes\shopFunction.php(4): auth('furinacyrenehut...')
+#2 D:\localweb\WEB_LOCAL\Luminara\public\index.php(109): getShopData(Object(PDO), 'furinacyrenehut...')
+#3 {main}
+  thrown in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php on line 109

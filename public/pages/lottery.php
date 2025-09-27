@@ -81,10 +81,10 @@ $checkAuth = true;
 
         <!-- Modal peraturan -->
         <div id="rules-modal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content" style="margin-top:100px;">
                 <span class="close-modal" id="close-modal">&times;</span>
                 <h2 class="modal-title">Peraturan Lotre</h2>
-                <div class="modal-text">
+                <div class="modal-text text-white">
                     <p>Selamat datang di Luminara Money Jumpscare! Berikut adalah peraturan yang berlaku:</p>
                     <ul>
                         <li>Setiap tiket berharga 5000Cash</li>
