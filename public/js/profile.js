@@ -130,8 +130,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   //Badges
-  // const badges = profile.badges || { used: [], unused: [] };
-
   let badges = profile.badges;
 
   if (typeof badges === "string") {
@@ -163,63 +161,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Simpan hasil perubahan ke JSON
   document
     .getElementById("saveBadgesBtn")
-    .addEventListener("click", async function (e) {
-      e.preventDefault();
-
-      const msg = document.getElementById("changeBadgeMsg");
-
-      msg.textContent = "";
-      msg.className = "";
-
-      const used = [];
-      const unused = [];
-      let totalUsed = 0;
-
-      document.querySelectorAll("#used-badges .badge-item").forEach((el) => {
-        used.push(el.dataset.badge);
-        totalUsed++;
-      });
-
-      if (totalUsed > 3) {
-        msg.textContent = "Maksimal badge yang digunakan hanya 3";
-        msg.classList.add("text-danger");
-        return;
-      }
-
-      document.querySelectorAll("#unused-badges .badge-item").forEach((el) => {
-        unused.push(el.dataset.badge);
-      });
-
-      try {
-        const res = await fetch("api/updateBadges", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ used, unused }),
-        });
-
-        const result = await res.json();
-        if (result.success) {
-          msg.textContent = "Berhasil ganti badges";
-          msg.classList.add("text-success");
-          renderBadges("#used-badges", result.badges.used);
-          renderBadges("#unused-badges", result.badges.unused);
-          renderPreviewBadges("#preview-badges", result.badges.used, "Tidak ada badge yang dipasang");
-          renderPreviewBadges(".public-badges-container", [...result.badges.used, ...result.badges.unused], "Tidak memiliki badge");
-          updateLocalData("profile", "badges",JSON.stringify(result.badges));
-        } else {
-          msg.textContent = result.message || "Gagal ganti badges";
-          msg.classList.add("text-danger");
-          if (result.error) console.error("Server error:", result.error);
-        }
-      } catch (err) {
-        console.error(err);
-        msg.textContent = "Terjadi kesalahan koneksi atau server.";
-        msg.classList.add("text-danger");
-      }
-    });
+    .addEventListener("click", updateBadges());
 
   const btnView = document.getElementById("viewprofile");
   const backBtn = document.getElementById("backBtn");
@@ -243,8 +185,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   btnView.addEventListener("click", showPublicProfile);
   backBtn.addEventListener("click", showProfileSetting);
-
-  //ujung dom
 });
 
 //Change username
@@ -606,3 +546,64 @@ document.addEventListener('click', async function(e) {
     }
   }
 })
+
+async function updateBadges () {
+
+  const msg = document.getElementById("changeBadgeMsg");
+
+  msg.textContent = "";
+  msg.className = "";
+
+  const used = [];
+  const unused = [];
+  let totalUsed = 0;
+
+  document.querySelectorAll("#used-badges .badge-item").forEach((el) => {
+    used.push(el.dataset.badge);
+    totalUsed++;
+  });
+
+  if (totalUsed > 3) {
+    msg.textContent = "Maksimal badge yang digunakan hanya 3";
+    msg.classList.add("text-danger");
+    return;
+  }
+
+  document.querySelectorAll("#unused-badges .badge-item").forEach((el) => {
+    unused.push(el.dataset.badge);
+  });
+
+  try {
+    const res = await fetch("api/updateBadges", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ used, unused }),
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      msg.textContent = "Berhasil ganti badges";
+      msg.classList.add("text-success");
+      renderBadges("#used-badges", result.badges.used);
+      renderBadges("#unused-badges", result.badges.unused);
+      renderPreviewBadges("#preview-badges", result.badges.used, "Tidak ada badge yang dipasang");
+      renderPreviewBadges(".public-badges-container", [...result.badges.used, ...result.badges.unused], "Tidak memiliki badge");
+      updateLocalData("profile", "badges",JSON.stringify(result.badges));
+    } else {
+      msg.textContent = result.message || "Gagal ganti badges";
+      msg.classList.add("text-danger");
+      if (result.error) console.error("Server error:", result.error);
+    }
+  } catch (err) {
+    console.error(err);
+    msg.textContent = "Terjadi kesalahan koneksi atau server.";
+    msg.classList.add("text-danger");
+  }
+}
+
+setInterval(async () => {
+  await updateBadges();
+}, 10 * 60 * 1000);
