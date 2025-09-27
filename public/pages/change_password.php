@@ -2,10 +2,6 @@
 
 $title = "Change Password";
 $css = "change_password"; 
-$modules = [
-  "show_modal",
-  "get_query"
-];
 $script = "changeResetPassword";
 $type = "text/javascript";
 $checkAuth = false; 

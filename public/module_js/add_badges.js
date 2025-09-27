@@ -1,3 +1,5 @@
+import { fetchWithAuth } from "./fetch_with_auth.js";
+
 export async function addBadge (newBadge) {
   const profile = JSON.parse(localStorage.getItem('profile'));
   if (!profile) {
@@ -26,11 +28,10 @@ export async function addBadge (newBadge) {
   profile.badges = badges;
 
   try {
-    const res = await fetch("api/addBadges", {
+    const res = await fetchWithAuth("api/addBadges", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         badgeName: newBadge

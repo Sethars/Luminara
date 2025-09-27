@@ -305,6 +305,11 @@ function exchangeCustom($conn, $jwt_token){
         } else {
             throw new Exception("Arah konversi tidak valid!");
         }
+        
+        if ($stmt->rowCount() === 0) {
+            echo json_encode(['success' => false, 'message' => 'Saldo tidak mencukupi']);
+            exit;
+        }
 
         $conn->commit();
         echo json_encode(['success' => true, 'message' => 'Tukar berhasil', 'cash' => $cash]);

@@ -33,14 +33,22 @@ $checkAuth = true;
       <!-- Balance Display -->
       <div class="balance-display">
         <div class="balance-item">
-          <div class="balance-value" id="chipBalance">0</div>
+          <div class="balance-value">
+            <i class="fas fa-coins"></i>
+            <span id="chipBalance"></span>
+          </div>
           <div class="balance-label">Chip</div>
         </div>
         <div class="balance-item">
-          <div class="balance-value" id="cashBalance">0</div>
+          <div class="balance-value" id="">
+            <i class="fas fa-money-bill-wave"></i>
+            <span id="cashBalance"></span>
+          </div>
           <div class="balance-label">Cash</div>
         </div>
       </div>
+
+
 
       <!-- Top Cards -->
       <div class="row mb-4">
@@ -284,11 +292,16 @@ $checkAuth = true;
                     <div class="exchange-rate col-6">5 Cash = 1 Chip</div>
                     <div class="exchange-rate col-6">4.5 Cash = 1 Chip (VIP)</div>
                   </div>
-                  <div class="d-flex flex-column justify-content-center align-items-center w-100">
-                    <input id="custom-cash-to-chip" type="number" class="w-100 m-4 rounded p-2" placeholder="Masukkan jumlah chip yang ingin Anda tukar">
+                  <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                    <input 
+                      id="custom-cash-to-chip" 
+                      type="number" 
+                      class="rounded p-2" 
+                      placeholder="Masukkan jumlah chip yang ingin Anda tukar"
+                    >
                     <button
                       type="submit"
-                      class="btn btn-primary-custom btn-exchange-custom"
+                      class="btn btn-primary-custom btn-exchange-custom mt-2"
                       data-type="custom-cash-to-chip"
                     >
                       Tukar Sekarang
@@ -438,21 +451,24 @@ $checkAuth = true;
                 <div class="exchange-header">
                   <i class="bi bi-coin"></i> Chip to Cash
                 </div>
-                <div class="exchange-body">
-                  <div class="row">
+                <div class="exchange-body d-flex flex-column justify-content-center align-items-center w-100">
+                  <div class="row w-100">
                     <div class="exchange-rate col-6">1 Chip = 4 Cash</div>
                     <div class="exchange-rate col-6">1 Chip = 4.5 Cash (VIP)</div>
                   </div>
-                  <div class="d-flex flex-column justify-content-center align-items-center w-100">
-                    <input id="custom-chip-to-cash" type="number" class="w-100 m-4 rounded p-2" placeholder="Masukkan jumlah chip yang ingin Anda tukar">
-                    <button
-                      type="submit"
-                      class="btn btn-primary-custom btn-exchange-custom"
-                      data-type="custom-chip-to-cash"
-                    >
-                      Tukar Sekarang
-                    </button>
-                  </div>
+                  <input 
+                    id="custom-chip-to-cash" 
+                    type="number" 
+                    class="rounded p-2" 
+                    placeholder="Masukkan jumlah chip yang ingin Anda tukar"
+                  >
+                  <button
+                    type="submit"
+                    class="btn btn-primary-custom btn-exchange-custom mt-2"
+                    data-type="custom-chip-to-cash"
+                  >
+                    Tukar Sekarang
+                  </button>
                 </div>
               </div>
             </div>
@@ -460,6 +476,7 @@ $checkAuth = true;
         </div>
       </div>
     </div>
+    <br><br><br><br><br>
 
     <!-- Notification -->
     <div class="notification" id="notification"></div>

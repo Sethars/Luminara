@@ -2,9 +2,6 @@
 const user = JSON.parse(localStorage.getItem("user"));
 const profile = JSON.parse(localStorage.getItem('profile'));
 
-const token = localStorage.getItem("token");
-window.token = token;
-
 window.isDemo = function () {
   const isDemo = JSON.parse(localStorage.getItem("demo"));
 
@@ -117,7 +114,7 @@ function renderPreviewBadges(container, badges, defaultText){
     if (badges.length > 0) {
       badges.forEach((badge) => {
         const span = document.createElement("span");
-        span.className = `badge ${badgeStyles[badge] || "bg-dark text-white"}`;
+        span.className = `badge ${badgeStyles[badge] || "bg-dark text-white"} me-1`;
         span.innerHTML = `<i class="${
           badgeIcons[badge] || "fa-solid fa-star"
         } me-1"></i>${underscoreDelete(badge)}`;

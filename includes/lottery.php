@@ -40,7 +40,7 @@ function createEventLottery($conn, $jwt_token){
 
     try{
         $startedAt = date("Y-m-d 00:00:00", strtotime($data['started_at']));
-        $endedAt = date("Y-m-d 00:00:00", strtotime($data['started_at'] . " +3 days"));
+        $endedAt   = date("Y-m-d 00:00:00", strtotime($data['ended_at']));
 
         $conn->beginTransaction();
 

@@ -2,10 +2,6 @@
 
 $title = "Leaderboard";
 $css = "leaderboard"; 
-$modules = [
-    "add_badges",
-    "format_money"
-];
 $script = [
     "logout",
     "leaderboard"
@@ -41,7 +37,7 @@ $checkAuth = true;
 
             <div class="leaderboard-container">
                 <div class="leaderboard-header">
-                    <h2><i class="fas fa-crown"></i> Top Pemain</h2>
+                    <h2><i class="fas fa-crown"></i> Top Gambler Terkaya</h2>
                 </div>
 
                 <div class="table-responsive">
@@ -62,6 +58,7 @@ $checkAuth = true;
                 <div class="no-results" id="noResults" style="display: none;">
                     <i class="fas fa-search"></i>
                     <h3>Tidak ada hasil ditemukan</h3>
+                    <h3>atau kurang jago</h3>
                     <p>Coba kata kunci lain</p>
                 </div>
             </div>

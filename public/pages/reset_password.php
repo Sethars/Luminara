@@ -2,7 +2,6 @@
 
 $title = "Reset Password";
 $css = "change_password"; 
-$modules = "setLoading";
 $script = "resetPassword";
 $checkAuth = false; 
 

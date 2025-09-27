@@ -1,17 +1,25 @@
+import { decode } from "../module_js/encrypt.js";
 import { showModal } from "../module_js/show_modal.js";
 import { setLoading } from "../module_js/setLoading.js";
 import { updateLocalData } from "../module_js/update_local_data.js";
 import { formatMoney } from "../module_js/format_money.js";
 import { renderComments } from "../module_js/render_comments.js";
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 const photoDefault = "/assets/img/photo_profile/ppkosong.jpg";
+const genderIcon = document.getElementById('public-profile-gender');
+
+const genderMap = {
+  Male:       { icon: "bi-gender-male",   color: "blue" },
+  Female:     { icon: "bi-gender-female", color: "pink" },
+  Dragunov:   { icon: "bi-crosshair",     color: "red"  },
+};
 document.addEventListener("DOMContentLoaded", async function () {
   //Cash Money
-  fetch("api/getProfileData", {
+  fetchWithAuth("api/getProfileData", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
   })
     .then((res) => res.json())
@@ -118,16 +126,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     : "Dragunov";
   document.getElementById("newGender").value = profile ? profile.gender : "";
 
-  if(profile.gender === "Male"){
-    document.getElementById('public-profile-gender').classList.add('bi-gender-male');
-    document.getElementById('public-profile-gender').style.color = 'blue';
-  } else if(profile.gender === "Female") {
-    document.getElementById('public-profile-gender').classList.add('bi-gender-female');
-    document.getElementById('public-profile-gender').style.color = 'pink';
-  } else {
-    document.getElementById('public-profile-gender').classList.add('bi-crosshair');
-    document.getElementById('public-profile-gender').style.color = 'red';
-  }
+  const genderData = genderMap[profile.gender] || genderMap.Dragunov;
+
+  genderIcon.className = genderData.icon;
+  genderIcon.style.color = genderData.color;
 
   //Badges
   let badges = profile.badges;
@@ -162,8 +164,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   document
     .getElementById("saveBadgesBtn")
     .addEventListener("click", async () => {
-      await updateBadges();
+      await updateBadges(true);
     });
+
+  updateBadges(false);
 
   const btnView = document.getElementById("viewprofile");
   const backBtn = document.getElementById("backBtn");
@@ -213,11 +217,10 @@ document
       return;
     }
     try {
-      const res = await fetch("api/changeUsername", {
+      const res = await fetchWithAuth("api/changeUsername", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ newUsername }),
       });
@@ -229,6 +232,7 @@ document
         updateLocalData("user", "username", newUsername);
         document.getElementById("username").textContent = newUsername;
         document.getElementById("preview-username").textContent = newUsername;
+        document.getElementById("public-profile-username").textContent = newUsername;
       } else {
         msg.textContent = result.message || "Gagal ganti username";
         msg.classList.add("text-danger");
@@ -275,11 +279,8 @@ document
     formData.append("pp", file);
 
     try {
-      const res = await fetch("api/changePhotoProfile", {
+      const res = await fetchWithAuth("api/changePhotoProfile", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         body: formData,
       });
 
@@ -320,11 +321,10 @@ document
     msg.className = "";
 
     try {
-      const res = await fetch("api/changeBio", {
+      const res = await fetchWithAuth("api/changeBio", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ newBio }),
       });
@@ -335,6 +335,7 @@ document
         msg.classList.add("text-success");
         updateLocalData("profile", "bio", newBio);
         bio.textContent = newBio;
+        document.getElementById("public-preview-bio").textContent = newBio;
       }
     } catch (err) {
       console.error(err);
@@ -361,11 +362,10 @@ document
     }
 
     try {
-      const response = await fetch("api/changeGender", {
+      const response = await fetchWithAuth("api/changeGender", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ newGender }),
       });
@@ -377,6 +377,10 @@ document
         msg.classList.add("text-success");
         updateLocalData("profile", "gender", newGender);
         gender.textContent = newGender;
+        const genderData = genderMap[newGender] || genderMap.Dragunov;
+
+        genderIcon.className = genderData.icon;
+        genderIcon.style.color = genderData.color;
       }
     } catch (err) {
       console.error("Error:", err);
@@ -425,11 +429,10 @@ document
     try {
       setLoading(true, "changePasswordBtn");
 
-      const response = await fetch("api/changePassword", {
+      const response = await fetchWithAuth("api/changePassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ oldPassword, newPassword }),
       });
@@ -471,11 +474,10 @@ document
     }
 
     try {
-      const response = await fetch("/api/deleteAccount", {
+      const response = await fetchWithAuth("/api/deleteAccount", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ password }),
       });
@@ -528,11 +530,10 @@ document.addEventListener('click', async function(e) {
     const commentElement = e.target.closest(".comment");
 
     try{
-      const res = await fetch('api/deleteComment', {
+      const res = await fetchWithAuth('api/deleteComment', {
         method: "POST",
         headers: {
           "Content-Type" : "application/json",
-          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({commentId})
       })
@@ -549,7 +550,7 @@ document.addEventListener('click', async function(e) {
   }
 })
 
-async function updateBadges () {
+async function updateBadges (displayMessage) {
 
   const msg = document.getElementById("changeBadgeMsg");
 
@@ -576,11 +577,10 @@ async function updateBadges () {
   });
 
   try {
-    const res = await fetch("api/updateBadges", {
+    const res = await fetchWithAuth("api/updateBadges", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ used, unused }),
     });
@@ -603,9 +603,10 @@ async function updateBadges () {
     console.error(err);
     msg.textContent = "Terjadi kesalahan koneksi atau server.";
     msg.classList.add("text-danger");
+  } finally {
+    if(!displayMessage){
+      msg.textContent = "";
+      msg.className = "";
+    }
   }
-}
-
-setInterval(async () => {
-  await updateBadges();
-}, 10 * 60 * 1000);
+} 

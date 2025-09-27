@@ -8,10 +8,6 @@
 
 <!-- drag drop -->
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
-  
-
-
   
   <?php if (!empty($script)): ?>
     <?php if (is_array($script)): ?>
@@ -24,7 +20,26 @@
   <?php endif; ?>
 
   <?php if (!empty($checkAuth) && $checkAuth === true): ?>
-    <script src="/../js/auth.js"></script>
+    <script type="module">
+      import { checkAuth  } from "../js/auth.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const user = localStorage.getItem("user");
+        const isDemo = JSON.parse(localStorage.getItem("demo") || "false");
+        if (isDemo) {
+          await checkAuth();
+          return;
+        }
+
+        if (!user) {
+          const user = await checkAuth();
+          if(user){
+            window.location.reload();
+          }
+          return;
+        }
+      });
+    </script>
   <?php else: ?>
     <script>
       window.checkAuth = false;

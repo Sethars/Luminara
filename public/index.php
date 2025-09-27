@@ -13,6 +13,10 @@ if (str_starts_with($request, "api/")) {
         case "api/login":
             login($conn, $jwt_token);
             break;
+
+        case "api/refreshToken":
+            refreshToken($conn, $jwt_token);
+            break;
         
         case "api/sendOTP":
             require __DIR__ . '/../includes/register.php';
@@ -225,6 +229,9 @@ switch ($request) {
         break;
     case 'lottery':
         require __DIR__. '/pages/lottery.php';
+        break;
+    case 'admin_panel':
+        require __DIR__. '/pages/admin_panel.php';
         break;
     default:
         require __DIR__ . '/pages/not_found.php';

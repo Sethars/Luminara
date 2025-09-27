@@ -4,7 +4,7 @@ $title = "Profile";
 $css = "aprofile"; 
 $script = [
     "logout",
-    "aprofile"
+    "aprofile",
 ];
 $checkAuth = true;
 

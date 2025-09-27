@@ -4,29 +4,6 @@ import { formatMoney } from "../module_js/format_money.js";
 document.addEventListener("DOMContentLoaded", function () {
   let allUsers = []; // simpan semua data leaderboard
 
-  // Fungsi render badges hanya tampilkan yg "used"
-  function renderBadges(badges) {
-    if (!badges) return "";
-    if (typeof badges === "string") {
-      try {
-        badges = JSON.parse(badges);
-      } catch (e) {
-        return "";
-      }
-    }
-    if (!badges.used || badges.used.length === 0) return "";
-
-    return badges.used
-      .map(
-        (badge) => `
-        <span class="badge ${badgeStyles[badge] || "bg-dark text-white"} me-1">
-          <i class="${badgeIcons[badge] || "fa-solid fa-star"}"></i> ${badge}
-        </span>
-      `
-      )
-      .join("");
-  }
-
   function renderLeaderboard(data) {
     const tbody = document.getElementById("leaderboardBody");
     const noResults = document.getElementById("noResults");
@@ -41,27 +18,29 @@ document.addEventListener("DOMContentLoaded", function () {
     tbody.innerHTML = data
       .map(
         (user, index) => `
-        <tr style="animation-delay: ${index * 0.1}s">
-          <td class="rank rank-${user.rank <= 3 ? user.rank : ""}">#${
-          user.rank
-        }</td>
-          <td>
-            <div class="user-info">
-              <img src="${user.avatar}" alt="${user.name}" class="user-avatar">
-              <div class="user-details">
-                <h3>${user.name}</h3>
-                <div class="badges">${renderBadges(user.badges)}</div>
+          <tr style="animation-delay: ${index * 0.1}s">
+            <td class="rank rank-${user.rank <= 3 ? user.rank : ""}">#${user.rank}</td>
+            <td>
+              <div class="user-info">
+                <img src="${user.avatar}" alt="${user.name}" class="user-avatar">
+                <div class="user-details">
+                  <h3>${user.name}</h3>
+                  <div class="badges" id="badges-${user.id}"></div>
+                </div>
               </div>
-            </div>
-          </td>
-          <td class="money">
-            <i class="fas fa-dollar-sign money-icon"></i>
-            ${formatMoney(user.money)}
-          </td>
-        </tr>
-      `
+            </td>
+            <td class="money">
+              <i class="fas fa-dollar-sign money-icon"></i>
+              ${formatMoney(user.money)}
+            </td>
+          </tr>
+        `
       )
       .join("");
+
+    data.forEach(user => {
+      renderPreviewBadges(`#badges-${user.id}`, user.badges?.used || []);
+    });
   }
 
   // Fungsi pencarian + Easter Egg
@@ -70,7 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
       renderLeaderboard(allUsers);
       return;
     }
-
+    // normal search
+    const filtered = allUsers.filter((user) =>
+      user.name.toLowerCase().includes(query.toLowerCase())
+    );
+    renderLeaderboard(filtered);
     // Easter Egg: deteksi kata "istereg"
     if (
       query.toLowerCase().includes("ireng") ||
@@ -81,25 +64,22 @@ document.addEventListener("DOMContentLoaded", function () {
       const noResults = document.getElementById("noResults");
       noResults.style.display = "none";
 
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="3" class="text-center easter-egg">
-            <div class="easter-egg-box">
-              <p>🎉 Badges Rahasia Unlocked!</p>
-            </div>
-          </td>
-        </tr>
-      `;
+      tbody.insertAdjacentHTML(
+        "afterbegin",
+        `
+      <tr style="animation-delay: 0s">
+        <td></td>
+        <td colspan="3" class="text-center easter-egg">
+          <div class="easter-egg-box">
+            <p>🎉 Badges Rahasia Unlocked!</p>
+          </div>
+        </td>
+      </tr>
+      `
+      );
 
       addBadge("Racist");
-      return;
     }
-
-    // normal search
-    const filtered = allUsers.filter((user) =>
-      user.name.toLowerCase().includes(query.toLowerCase())
-    );
-    renderLeaderboard(filtered);
   }
 
   // Fetch leaderboard
