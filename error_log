@@ -459,3 +459,11 @@ Stack trace:
   thrown in C:\laragon\www\luminara\vendor\firebase\php-jwt\src\JWT.php on line 176
 [27-Sep-2025 13:15:39 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\profileData.php on line 206
 [27-Sep-2025 14:00:46 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\profileData.php on line 6
+[28-Sep-2025 09:31:31 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\profileData.php on line 29
+[28-Sep-2025 09:31:31 UTC] PHP Deprecated:  Automatic conversion of false to array is deprecated in C:\laragon\www\luminara\includes\profileData.php on line 58
+[28-Sep-2025 09:31:31 UTC] PHP Warning:  Undefined array key "created_at" in C:\laragon\www\luminara\includes\profileData.php on line 68
+[28-Sep-2025 09:31:31 UTC] PHP Deprecated:  strtotime(): Passing null to parameter #1 ($datetime) of type string is deprecated in C:\laragon\www\luminara\includes\profileData.php on line 68
+[28-Sep-2025 09:31:31 UTC] PHP Warning:  Undefined array key "cash" in C:\laragon\www\luminara\includes\profileData.php on line 69
+[28-Sep-2025 09:31:31 UTC] PHP Warning:  Undefined array key "win" in C:\laragon\www\luminara\includes\profileData.php on line 70
+[28-Sep-2025 09:31:31 UTC] PHP Warning:  Undefined array key "lose" in C:\laragon\www\luminara\includes\profileData.php on line 71
+[28-Sep-2025 09:31:31 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\profileData.php on line 206
