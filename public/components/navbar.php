@@ -51,14 +51,19 @@
 }
 
 
-.search {
+.navbar-search {
+  background-color:white !important;
+  color: #000 !important;
   display: flex;
   align-items: center;
-  margin-left: 1rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-
 }
+
+.navbar-search:focus {
+  border-color: var(--bs-blue-600) !important;
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25) !important;
+}
+
+
 </style>
 <style>
 /* Submenu style */
@@ -146,7 +151,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="bjSubmenu">
                 <li>
-                  <a class="dropdown-item" href="/BJLobbyCS">
+                  <a class="dropdown-item" href="/RRLobby_list">
                     <i class="fas fa-skull-crossbones me-2"></i> Russian Roulette
                   </a>
                 </li>
@@ -214,8 +219,9 @@
 
         <!-- Search -->
         <li class="nav-item position-relative">
-          <div class="search">
-            <input id="userSearchInput" class="form-control form-control-sm me-2" style="" 
+          <div class="d-flex align-items-center">
+            <input id="userSearchInput" 
+                  class="form-control form-control-sm me-2 navbar-search"
                   type="search" placeholder="Cari username..." aria-label="Search">
             <button class="btn btn-sm btn-outline-primary" type="button" id="searchBtn">
               <i class="bi bi-search"></i>
@@ -224,6 +230,7 @@
           <!-- Container hasil search -->
           <ul id="searchResults" class="dropdown-menu" style="position:absolute; top:100%; left:0; width:auto;"></ul>
         </li>
+
 
 
       </ul>

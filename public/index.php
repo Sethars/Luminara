@@ -217,6 +217,9 @@ switch ($request) {
     case 'admin_panel':
         require __DIR__. '/pages/admin_panel.php';
         break;
+    case 'RRLobby_list':
+        require __DIR__. '/pages/RRLobby_list.php';
+        break;
     default:
         require __DIR__ . '/pages/not_found.php';
         break;

@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
           </td>
           <td class="money">
-            <i class="fas fa-dollar-sign money-icon"></i>
             ${formatMoney(user.money)}
           </td>
         </tr>
