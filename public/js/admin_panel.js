@@ -1,8 +1,9 @@
-import { decode } from "../module_js/encrypt";
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
+import { debounce } from "../module_js/debounce.js";
 
-const token = decode(localStorage.getItem('token'));
-
-
+// element DOM
+const tableUser = document.getElementById("recentUsersTableBody");
+const tableLottery = document.getElementById("recentLotteryTableBody");
 
 // Toggle open
 document
@@ -16,120 +17,156 @@ document.getElementById("closeSidebar").addEventListener("click", function () {
   document.getElementById("sidebar").classList.remove("active");
 });
 
-// Sidebar menu active state
-const menuItems = document.querySelectorAll(".menu-item");
-menuItems.forEach((item) => {
-  item.addEventListener("click", function () {
-    menuItems.forEach((i) => i.classList.remove("active"));
-    this.classList.add("active");
-  });
-});
 
 // admin_panel.js
-document.addEventListener("DOMContentLoaded", () => {
-  // hanya pilih menu-item yang punya data-section (exclude logout/link eksternal)
-  const menuItems = document.querySelectorAll(
-    ".sidebar-menu .menu-item[data-section]"
-  );
-  const sections = {
-    dashboard: document.getElementById("admin_dashboard"),
-    users: document.getElementById("admin_users_dashboard"),
-    lottery: document.getElementById("admin_lottery_dashboard"),
-  };
+document.addEventListener("DOMContentLoaded", async function () {
+  try{
+    const res = await fetchWithAuth('api/getAdminData');
+    const data = await res.json();
+    if(!data.success){
+      console.error(data.message || "Gagal mengambil data")
+    }
 
-  function showSection(section) {
-    Object.values(sections).forEach((el) => el && (el.style.display = "none"));
-    if (sections[section]) sections[section].style.display = "block";
+    // render total user
+    document.getElementById("total-user").textContent = data.totalUser;
 
-    // update active class hanya untuk yang punya data-section
-    document
-      .querySelectorAll(".sidebar-menu .menu-item")
-      .forEach((item) => item.classList.remove("active"));
-    const activeItem = document.querySelector(
-      `.sidebar-menu .menu-item[data-section="${section}"]`
+    // render table users
+    renderTable(data.users, tableUser);
+
+    // render table lottery
+    renderTable(data.lottery, tableLottery, false);
+
+    // hitung harga tiket
+    const inputPrizes = document.getElementById("prizes").addEventListener("input", 
+      debounce((e) => {
+        calcTicketPrice(e);
+      }, 300)
     );
-    if (activeItem) activeItem.classList.add("active");
-  }
 
-  menuItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sec = item.getAttribute("data-section");
-      if (sec) showSection(sec);
+    // tambah event lottery
+    document.getElementById("lottery-form").addEventListener('submit', addLotteryEvent)
+
+    menuItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        const sec = item.getAttribute("data-section");
+        if (sec) showSection(sec);
+      });
     });
-  });
 
-  // default
-  showSection("dashboard");
+    // default
+    showSection("dashboard");
+  } catch(err){
+    console.error(err)
+  }
 });
 
-// contoh data dummy 5 user
-const recentUsers = [
-  {
-    name: "Robert Wilson",
-    email: "robert@example.com",
-    role: "Customer",
-    joined: "May 22, 2023",
-  },
-  {
-    name: "Emily Johnson",
-    email: "emily@example.com",
-    role: "Moderator",
-    joined: "Jun 5, 2023",
-  },
-  {
-    name: "Michael Smith",
-    email: "michael@example.com",
-    role: "Customer",
-    joined: "Jul 12, 2023",
-  },
-  {
-    name: "Sophia Brown",
-    email: "sophia@example.com",
-    role: "Admin",
-    joined: "Aug 19, 2023",
-  },
-  {
-    name: "Daniel Lee",
-    email: "daniel@example.com",
-    role: "Customer",
-    joined: "Sep 3, 2023",
-  },
-];
+// hanya pilih menu-item yang punya data-section (exclude logout/link eksternal)
+const menuItems = document.querySelectorAll(
+  ".sidebar-menu .menu-item[data-section]"
+);
+const sections = {
+  dashboard: document.getElementById("admin_dashboard"),
+  users: document.getElementById("admin_users_dashboard"),
+  lottery: document.getElementById("admin_lottery_dashboard"),
+};
 
-const tableBody = document.getElementById("recentUsersTableBody");
+function showSection(section) {
+  Object.values(sections).forEach((el) => el && (el.style.display = "none"));
+  if (sections[section]) sections[section].style.display = "block";
 
-function renderTable(users) {
-  tableBody.innerHTML = ""; // reset isi
-  users.forEach((user) => {
+  // update active class hanya untuk yang punya data-section
+  document
+    .querySelectorAll(".sidebar-menu .menu-item")
+    .forEach((item) => item.classList.remove("active"));
+  const activeItem = document.querySelector(
+    `.sidebar-menu .menu-item[data-section="${section}"]`
+  );
+  if (activeItem) activeItem.classList.add("active");
+}
+
+function renderTable(items, tableBody, action = true) {
+  tableBody.innerHTML = "";
+
+  items.forEach((item) => {
     const row = document.createElement("tr");
-    row.innerHTML = `
-          <td>${user.name}</td>
-          <td>${user.email}</td>
-          <td>${user.role}</td>
-          <td>${user.joined}</td>
-          <td>
-            <div class="table-actions">
-              <button class="action-btn edit" title="Edit">
-                <i class="fas fa-edit"></i>
-              </button>
-            </div>
-          </td>
-        `;
+
+    // Loop semua key dalam object user
+    Object.entries(item).forEach(([key, value]) => {
+      const cell = document.createElement("td");
+      const span = document.createElement("span");
+
+      span.classList.add(key);
+
+      if (typeof value === "string") {
+        const safeValue = value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "");
+        if (safeValue) {
+          span.classList.add(`${key}-${safeValue}`);
+        }
+      }
+
+      span.textContent = value;
+      
+      cell.appendChild(span);
+      row.appendChild(cell);
+    });
+
+    if(action){
+      // Tambahin kolom actions di ujung
+      const actionCell = document.createElement("td");
+      actionCell.innerHTML = `
+        <div class="table-actions">
+          <button class="action-btn edit" title="Edit">
+            <i class="fas fa-edit"></i>
+          </button>
+        </div>
+      `;
+      row.appendChild(actionCell);
+    }
+
     tableBody.appendChild(row);
   });
 }
 
-// render pertama
-renderTable(recentUsers);
+// hitung harga tiket
+function calcTicketPrice(e){
+  const ticketPrice = parseInt(e.target.value) / 10;
 
-// debounce helper
-function debounce(fn, delay = 300) {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => fn(...args), delay);
-  };
+  const ticketPriceInput = document.getElementById("ticketPrice")
+  ticketPriceInput.placehorder = ticketPrice
+  ticketPriceInput.value = ticketPrice
+}
+
+// tambah event lottery
+function addLotteryEvent(e){
+  e.preventDefault();
+  
+  const form = e.target;
+  const fd = new FormData(form);
+
+  const prizes = parseInt(fd.get("prizes"))
+  const ticketPrice = prizes / 10;
+
+  fd.append("ticketPrice", ticketPrice)
+
+  const obj = {};
+  fd.forEach((value, key) => {
+    obj[key] = value;
+  });
+
+  console.log(obj)
+
+  fetchWithAuth("api/addLotteryEvent", {
+    method: "POST",
+    headers: {"Content-Type" : "application/json"},
+    body: JSON.stringify(obj)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      renderTable(data.lottery, tableLottery, false)
+    }
+  })
 }
 
 // fungsi search

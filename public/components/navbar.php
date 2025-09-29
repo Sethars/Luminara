@@ -250,19 +250,18 @@
               <a class="dropdown-item" href="/profile">
                 <i class="fas fa-user me-2"></i> Profile
               </a>
-            <li class="nav-item">
-            <li><hr class="dropdown-divider"></li>
+            </li>
+            <li><hr class="dropdown-divider">
               <a href="/contact" class="dropdown-item">
                 <i class="fas fa-envelope me-2"></i> Contact
               </a>
             </li>
-            <li><hr class="dropdown-divider"></li>
+            <li id="admin-panel" class="d-none"><hr class="dropdown-divider">
               <a href="/admin_panel" class="dropdown-item">
                 <i class="fa fa-user-secret"></i> Admin Panel
               </a>
             </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
+            <li><hr class="dropdown-divider">
               <form id="logoutForm" method="POST" action="logout.php" style="margin:0;">
                 <button type="submit" class="dropdown-item text-danger">
                   <i class="fas fa-sign-out-alt me-2"></i> Logout
@@ -281,6 +280,18 @@ import { getQueryParam } from "../module_js/get_query.js";
 import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 document.addEventListener('DOMContentLoaded', function() {
+  //cek role user
+  fetchWithAuth('api/checkRole', {})
+    .then(res => res.json())
+    .then(result => {
+        if (result.role !== "member") {
+            document.getElementById('admin-panel').classList.remove('d-none');
+        }
+    })
+    .catch(err => {
+        console.error(err);
+    });
+
   // Handle submenu toggle on mobile
   const submenuToggles = document.querySelectorAll('.dropdown-submenu > .dropdown-toggle');
   

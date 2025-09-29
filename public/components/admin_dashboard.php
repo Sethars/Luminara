@@ -17,7 +17,7 @@
                         <i class="fas fa-users"></i>
                     </div>
                 </div>
-                <div class="card-value">1</div>
+                <div class="card-value"><span id="total-user"></span></div>
             </div>
             <div class="card">
                 <div class="card-header">

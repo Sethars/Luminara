@@ -3,7 +3,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 function createAccessToken($userId, $secret) {
-    $ACCESS_EXPIRE = 60 * 15;
+    $ACCESS_EXPIRE = 60 * 5;
     $payload = [
         "iss" => "luminara-app",
         "iat" => time(),

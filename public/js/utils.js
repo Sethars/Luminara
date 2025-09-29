@@ -38,7 +38,7 @@ window.showUsernameAndPp = function () {
       ? isEpp.photo
       : "/assets/img/photo_profile/ppkosong.jpg";
   } else {
-    console.error("Element #username not found.");
+    // console.error("Element #username not found.");
   }
 };
 
