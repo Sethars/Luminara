@@ -58,7 +58,7 @@
 
         <!-- Form Buat Event -->
         <div class="card form-card">
-          <form id="lotteryForm">
+          <form id="lottery-form">
             <div class="form-group">
               <label for="eventName">Nama Event</label>
               <input
@@ -66,7 +66,7 @@
                 id="eventName"
                 name="eventName"
                 class="form-control"
-                placeholder="Contoh: Mega Jackpot 2025"
+                placeholder="Contoh: Luminara Lottery"
                 required
               />
             </div>
@@ -78,21 +78,22 @@
                 id="ticketPrice"
                 name="ticketPrice"
                 class="form-control"
-                min="1"
-                placeholder="Contoh: 100"
+                min="500"
+                placeholder="-"
+                disabled
                 required
               />
             </div>
 
             <div class="form-group">
-              <label for="totalPrizes">Total Hadiah</label>
+              <label for="prizes">Hadiah Awal</label>
               <input
                 type="number"
-                id="totalPrizes"
-                name="totalPrizes"
+                id="prizes"
+                name="prizes"
                 class="form-control"
-                min="1"
-                placeholder="Contoh: 5000"
+                min="5000"
+                placeholder="Minimal: 5000"
                 required
               />
             </div>
@@ -120,7 +121,7 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn btn-primary">
+              <button id="lottery-submit" type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> Simpan Event
               </button>
               <button type="reset" class="btn btn-secondary">
@@ -138,7 +139,6 @@
         <table class="data-table">
             <thead>
             <tr>
-                <th>ID</th>
                 <th>Nama Event</th>
                 <th>Harga Tiket</th>
                 <th>Total Hadiah</th>
@@ -148,32 +148,7 @@
                 <th>Total Tiket Terjual</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>#1</td>
-                <td>Mega Jackpot 2025</td>
-                <td>100</td>
-                <td>5000</td>
-                <td>01/10/2025 12:00</td>
-                <td>15/10/2025 23:59</td>
-                <td>
-                <span class="status-badge status-active">Aktif</span>
-                </td>
-                <td>325</td>
-            </tr>
-            <tr>
-                <td>#3</td>
-                <td>New Year Bonanza</td>
-                <td>200</td>
-                <td>10000</td>
-                <td>25/12/2025 00:00</td>
-                <td>05/01/2026 23:59</td>
-                <td>
-                <span class="status-badge status-inactive">Selesai</span>
-                </td>
-                <td>1200</td>
-            </tr>
-            </tbody>
+            <tbody id="recentLotteryTableBody"></tbody>
         </table>
         </div>
 

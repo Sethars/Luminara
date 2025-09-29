@@ -53,28 +53,45 @@ if (str_starts_with($request, "api/")) {
             authenticate($conn, $jwt_token);
             break;
 
+        case "api/checkRole":
+            require __DIR__ . '/../includes/authenticate.php';
+            checkRole($conn, $jwt_token);
+            break;
+
         case "api/logout":
             require __DIR__ . '/../includes/logout.php';
             break;
-
+            
         case "api/deleteAccount":
             deleteAccount($conn, $jwt_token);
             break;
-
-        case "api/changeUsername":
-            require __DIR__ . '/../includes/profileData.php';
-            changeUsername($conn, $jwt_token);
+                
+        //Admin Panel
+        case "api/getAdminData":
+            require __DIR__ . '/../includes/adminPanel.php';
+            getAdminData($conn, $jwt_token);
             break;
 
+        case "api/addLotteryEvent":
+            require __DIR__ . '/../includes/adminPanel.php';
+            addLotteryEvent($conn, $jwt_token);
+            break;
+            
+        //Leaderboard
         case "api/leaderboard":
             require __DIR__ . '/../includes/leaderboard.php';
             getLeaderboard($conn);
             break;
-
+                
         //Profile Function
         case 'api/getProfileData':
             require __DIR__ . '/../includes/profileData.php';
             getProfileData($conn, $jwt_token);
+            break;
+                    
+        case "api/changeUsername":
+            require __DIR__ . '/../includes/profileData.php';
+            changeUsername($conn, $jwt_token);
             break;
 
         case 'api/changeBio':
