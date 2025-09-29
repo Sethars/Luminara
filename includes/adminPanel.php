@@ -3,11 +3,12 @@
 function isAdmin($conn, $jwt_token){
     $id = auth($jwt_token)->user_id;
 
-    $stmt = $conn->prepare("SELECT `role` FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT `role` FROM users WHERE id = ? AND `role` IN ('admin', 'owner')");
     $stmt->execute([$id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if($user['role'] === "member"){
+    
+    if(!$user){
+        //UNAUTHORIZED
         return false;
     }
 
@@ -81,13 +82,47 @@ function addLotteryEvent($conn, $jwt_token){
         $stmt = $conn->prepare("INSERT INTO lottery (event_name, ticket_price, reward, started_at, ended_at) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$data['eventName'], $data['ticketPrice'], $data['prizes'], $data['startDate'], $data['endDate']]);
 
+        $lotteryId = $conn->lastInsertId();
+        
         $recentLottery = recentLottery($conn);
 
         $conn->commit();
+
+        // Nama event
+        $eventName = "lottery_" . $lotteryId . "_pick_winner";
+
+        // Query create event
+        $endedAt = date("Y-m-d H:i:s", strtotime($data['endDate']));
+        $sql = "
+        CREATE EVENT `$eventName`
+        ON SCHEDULE AT '$endedAt'
+        ON COMPLETION NOT PRESERVE
+        DO
+        UPDATE lottery l
+        JOIN (
+            SELECT lt.lottery_id, lt.user_id, lt.ticket
+            FROM lottery_ticket lt
+            WHERE lt.lottery_id = $lotteryId
+            ORDER BY RAND()
+            LIMIT 1
+        ) r ON r.lottery_id = l.id
+        SET l.winner_id = r.user_id,
+            l.winner_ticket = r.ticket;
+        ";
+        $conn->exec($sql);
 
         echo json_encode([
             "success" => true,
             "lottery" => $recentLottery
         ]);
-    } catch (Exception $e){}
+    } catch (Exception $e){
+        if ($conn->inTransaction()) {
+            $conn->rollBack();
+        }
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan di server',
+            'error'   => $e->getMessage()
+        ]));
+    }
 }

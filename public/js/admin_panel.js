@@ -163,6 +163,7 @@ function addLotteryEvent(e){
   })
   .then(res => res.json())
   .then(data => {
+    console.log(data)
     if(data.success){
       renderTable(data.lottery, tableLottery, false)
     }
