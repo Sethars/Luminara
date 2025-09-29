@@ -1,12 +1,9 @@
 import { formatMoney } from "../module_js/format_money.js";
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    const res = await fetch("api/getShopData", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetchWithAuth("api/getShopData", {});
 
     const data = await res.json();
     if (data.success) {
@@ -79,11 +76,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           const chip = document.getElementById(type).value;
 
           try{
-            const res = await fetch('api/exchangeCustom', {
+            const res = await fetchWithAuth('api/exchangeCustom', {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify({direction: type, amount: chip})
             })
@@ -145,11 +141,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       function claimDailyLogin() {
         if (canClaimDaily) {
-          fetch("api/claimDaily", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
+          fetchWithAuth("api/claimDaily", {})
             .then((res) => res.json())
             .then((data) => {
               if (data.success) {
@@ -186,11 +178,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       function claimWelcomeBonus() {
         if (!welcomeBonusClaimed) {
           // Can claim
-          fetch("api/claimWelcomeBonus", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
+          fetchWithAuth("api/claimWelcomeBonus", {})
             .then((res) => res.json())
             .then((data) => {
               if (data.success) {
@@ -233,11 +221,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           return;
         }
 
-        fetch("api/buyVip", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        fetchWithAuth("api/buyVip", {})
           .then((res) => res.json())
           .then((data) => {
             if (data.success) {
@@ -281,11 +265,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           }
         }
 
-        fetch("api/exchangeCashToChip", {
+        fetchWithAuth("api/exchangeCashToChip", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ cashAmount, chipAmount, needVip }),
         })
@@ -319,11 +302,10 @@ document.addEventListener("DOMContentLoaded", async function () {
           }
         }
 
-        fetch("api/exchangeChipToCash", {
+        fetchWithAuth("api/exchangeChipToCash", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ cashAmount, chipAmount, needVip }),
         })

@@ -1,3 +1,4 @@
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 import { formatMoney } from "../module_js/format_money.js";
 import { getQueryParam } from "../module_js/get_query.js";
 import { renderComments } from "../module_js/render_comments.js";
@@ -6,11 +7,8 @@ const id = getQueryParam('id');
 
 document.addEventListener('DOMContentLoaded', async function () {
   try{
-    const res = await fetch('api/getAnotherUserProfileData', {
+    const res = await fetchWithAuth('api/getAnotherUserProfileData', {
       method: "POST",
-      headers: {
-        Authorization : `Bearer ${token}`
-      },
       body: JSON.stringify({id})
     })
     const data = await res.json();
@@ -145,11 +143,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         msg.className = ''
 
         try{
-          const res = await fetch('api/addComment', {
+          const res = await fetchWithAuth('api/addComment', {
             method: "POST",
             headers: {
-              "Content-Type" : "application/json",
-              Authorization : `Bearer ${token}`
+              "Content-Type" : "application/json"
             },
             body: JSON.stringify({id, comment: comment.value})
           })

@@ -1,10 +1,15 @@
-async function checkAuth() {
+import { decode } from "../module_js/encrypt.js";
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
+
+export async function checkAuth() {
   document.getElementById("main-content").classList.add("d-none");
   document.getElementById("loading").classList.remove("d-none");
+  const encodedToken = localStorage.getItem('token');
+  const token = decode(encodedToken)
 
-  if (JSON.parse(localStorage.getItem("demo") || "false")) {
+  if (JSON.parse(localStorage.getItem("demo")) || false) {
     const expired = JSON.parse(localStorage.getItem("expired"));
-    const token = localStorage.getItem("token");
+    token = localStorage.getItem("token");
     if (token && Date.now() <= expired) {
       document.getElementById("main-content").classList.remove("d-none");
       document.getElementById("loading").classList.add("d-none");
@@ -24,9 +29,7 @@ async function checkAuth() {
   }
 
   try {
-    const res = await fetch("/api/auth", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await fetchWithAuth("/api/auth", {});
 
     const data = await res.json();
 
@@ -49,20 +52,3 @@ async function checkAuth() {
     window.location.href = "/login";
   }
 }
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const user = localStorage.getItem("user");
-  const isDemo = JSON.parse(localStorage.getItem("demo") || "false");
-  if (isDemo) {
-    await checkAuth();
-    return;
-  }
-
-  if (!user) {
-    const user = await checkAuth();
-    if(user){
-      window.location.reload();
-    }
-    return;
-  }
-});

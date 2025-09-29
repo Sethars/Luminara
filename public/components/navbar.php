@@ -278,8 +278,7 @@
 
 <script type="module">
 import { getQueryParam } from "../module_js/get_query.js";
-
-
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 document.addEventListener('DOMContentLoaded', function() {
   // Handle submenu toggle on mobile
@@ -346,10 +345,9 @@ input.addEventListener("input", () => {
 
   debounceTimer = setTimeout(async () => {
     try {
-      const res = await fetch(`/api/usersearch?q=${encodeURIComponent(q)}`, {
+      const res = await fetchWithAuth(`/api/usersearch?q=${encodeURIComponent(q)}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         }
       });
 

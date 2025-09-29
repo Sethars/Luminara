@@ -4,7 +4,7 @@ $title = "Black Jack";
 $css = "casual_black_jack"; 
 $script = [
     // "logout",
-    "casual_black_jack"
+    "casual_black_jack",
 ];
 $checkAuth = true;
 

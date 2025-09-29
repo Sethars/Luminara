@@ -3,7 +3,7 @@
 $title = "AdminLuminara";
 $css = "admin_panel"; 
 $script = [
-    "admin_panel"
+    "admin_panel",
 ];
 $checkAuth = true;
 

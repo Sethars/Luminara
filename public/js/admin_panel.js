@@ -1,3 +1,9 @@
+import { decode } from "../module_js/encrypt";
+
+const token = decode(localStorage.getItem('token'));
+
+
+
 // Toggle open
 document
   .getElementById("mobileMenuToggle")
