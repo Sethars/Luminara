@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 24, 2025 at 06:15 AM
+-- Generation Time: Sep 29, 2025 at 02:03 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -40,6 +40,39 @@ CREATE TABLE `history` (
   `user_id` int NOT NULL,
   `win` int NOT NULL DEFAULT '0',
   `lose` int NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lottery`
+--
+
+CREATE TABLE `lottery` (
+  `id` int NOT NULL,
+  `event_name` varchar(255) NOT NULL,
+  `ticket_price` int NOT NULL,
+  `reward` int NOT NULL,
+  `winner_id` int DEFAULT NULL,
+  `winner_ticket` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ticket_sold` int NOT NULL DEFAULT '0',
+  `started_at` datetime NOT NULL,
+  `ended_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lottery_ticket`
+--
+
+CREATE TABLE `lottery_ticket` (
+  `id` int NOT NULL,
+  `lottery_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `ticket` varchar(13) NOT NULL,
+  `lottery_number` int NOT NULL,
+  `purchased_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -112,6 +145,8 @@ CREATE TABLE `users` (
   `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `token` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `token_expired` datetime DEFAULT NULL,
   `role` enum('admin','member') DEFAULT 'member',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -156,6 +191,21 @@ ALTER TABLE `economy`
 ALTER TABLE `history`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `lottery`
+--
+ALTER TABLE `lottery`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `l.user_id` (`winner_id`);
+
+--
+-- Indexes for table `lottery_ticket`
+--
+ALTER TABLE `lottery_ticket`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `lottery_id` (`lottery_id`),
+  ADD KEY `lt.user_id` (`user_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -203,6 +253,18 @@ ALTER TABLE `history`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `lottery`
+--
+ALTER TABLE `lottery`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lottery_ticket`
+--
+ALTER TABLE `lottery_ticket`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -241,6 +303,19 @@ ALTER TABLE `economy`
 --
 ALTER TABLE `history`
   ADD CONSTRAINT `h.user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `lottery`
+--
+ALTER TABLE `lottery`
+  ADD CONSTRAINT `l.user_id` FOREIGN KEY (`winner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `lottery_ticket`
+--
+ALTER TABLE `lottery_ticket`
+  ADD CONSTRAINT `lottery_id` FOREIGN KEY (`lottery_id`) REFERENCES `lottery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `lt.user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `password_resets`

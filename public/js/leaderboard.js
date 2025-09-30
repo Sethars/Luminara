@@ -19,16 +19,19 @@ document.addEventListener("DOMContentLoaded", function () {
       .map(
         (user, index) => `
           <tr style="animation-delay: ${index * 0.1}s">
-            <td class="rank rank-${user.rank <= 3 ? user.rank : ""}">#${user.rank}</td>
+            <td class="rank rank-${user.rank <= 3 ? user.rank : ""}">#${
+          user.rank
+        }</td>
             <td>
               <div class="user-info">
-                <img src="${user.avatar}" alt="${user.name}" class="user-avatar">
+                <img src="${user.avatar}" alt="${
+          user.name
+        }" class="user-avatar">
                 <div class="user-details">
                   <h3>${user.name}</h3>
                   <div class="badges" id="badges-${user.id}"></div>
                 </div>
               </div>
-<<<<<<< HEAD
             </div>
           </td>
           <td class="money">
@@ -36,19 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
           </td>
         </tr>
       `
-=======
-            </td>
-            <td class="money">
-              <i class="fas fa-dollar-sign money-icon"></i>
-              ${formatMoney(user.money)}
-            </td>
-          </tr>
-        `
->>>>>>> 13515bfcac1623715956607976742014ad3e41bd
       )
       .join("");
 
-    data.forEach(user => {
+    data.forEach((user) => {
       renderPreviewBadges(`#badges-${user.id}`, user.badges?.used || []);
     });
   }
