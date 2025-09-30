@@ -4,6 +4,7 @@
 // header("Access-Control-Allow-Methods: POST, OPTIONS");
 require __DIR__ . "/mailer.php";
 
+
 // if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit;
 
 function checkEmail($conn) {
