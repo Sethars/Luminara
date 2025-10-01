@@ -1,0 +1,687 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background-color: #1a1a1a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 15px;
+  background-image: linear-gradient(to bottom, #1a1a1a, #2c0c0c);
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #e74c3c;
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
+  font-size: 2rem;
+  text-align: center;
+}
+
+.arena {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.card {
+  background-color: #2c3e50;
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+  border: 2px solid #34495e;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #34495e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 3px solid #e74c3c;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-avatar {
+  background-image: url("https://i.pravatar.cc/150?img=3");
+  background-size: cover;
+}
+
+.bot-avatar {
+  background-image: url("https://i.pravatar.cc/150?img=12");
+  background-size: cover;
+}
+
+.health-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #34495e;
+  border-radius: 5px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.health-fill {
+  height: 100%;
+  background-color: #2ecc71;
+  width: 100%;
+  transition: width 0.5s ease;
+}
+
+.player-name {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.bot-name {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.bet-amount {
+  background-color: #34495e;
+  padding: 8px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #f1c40f;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-weight: bold;
+  color: #f1c40f;
+}
+
+.status {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: italic;
+  color: #ecf0f1;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+#pistolImg {
+  width: 200px;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+#pistolImg.fadeIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#pistolImg.fadeOut {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+#pistolImg.recoil {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  45% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateX(-75px) rotate(-45deg);
+  }
+  100% {
+    transform: translateZ(0px) rotate(0deg);
+  }
+}
+
+#pistolImg.recoil-bot {
+  animation: shake-bot 0.3s;
+}
+
+@keyframes shake-bot {
+  0% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  45% {
+    transform: translateX(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateX(75px) rotate(45deg);
+  } /* mirror arah player */
+  100% {
+    transform: translateZ(0px) rotate(0deg);
+  }
+}
+
+.chambers {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chamber {
+  width: 60px;
+  height: 90px;
+  background-image: url("../assets/img/roulette/bullet.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.chamber.active {
+  background-image: url("../assets/img/roulette/sudah-di-pakai.png");
+  filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.8));
+}
+
+.chamber.bullet {
+  background-image: url("../assets/img/roulette/reveal.png");
+  filter: drop-shadow(0 0 10px rgba(243, 156, 18, 0.8));
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.actions button {
+  padding: 12px 18px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.actions button:hover:not(:disabled) {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+.actions button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+#turnProgress {
+  width: 250px;
+  height: 10px;
+  background-color: #34495e;
+  border-radius: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+#turnProgressBar {
+  height: 100%;
+  width: 100%;
+  background-color: limegreen;
+  transition: width 1s linear, background-color 0.5s ease;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: #2c3e50;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 350px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.modal-content button {
+  padding: 10px 18px;
+  margin: 0 8px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #2980b9;
+}
+
+#revealBtn {
+  right: 20px;
+  padding: 10px 15px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 50;
+}
+
+#revealBtn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+#muteBtn {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 50;
+}
+
+#muteBtn:hover {
+  background-color: #8e44ad;
+  transform: scale(1.05);
+}
+
+.game-info {
+  margin-top: 15px;
+  text-align: center;
+  color: #ecf0f1;
+  font-style: italic;
+  font-size: 0.9rem;
+  max-width: 500px;
+}
+
+.turn-indicator {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e74c3c;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Welcome Modal Styles */
+#welcomeModal {
+  display: flex;
+}
+
+#welcomeModal .modal-content {
+  max-width: 400px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  border: 2px solid #e74c3c;
+}
+
+#welcomeModal h2 {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+}
+
+#welcomeModal p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+#welcomeModal .start-btn {
+  background-color: #e74c3c;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+#welcomeModal .start-btn:hover {
+  background-color: #c0392b;
+}
+
+#btnBotSmart,
+#btnBotSuicide {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+#btnBotSmart:hover,
+#btnBotSuicide:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #5dade2, #2e86c1);
+}
+
+#btnBotSmart:active,
+#btnBotSuicide:active {
+  transform: scale(0.95);
+}
+
+.shake_scared {
+  animation: shake_scared 0.6s infinite; /* infinite = loop terus */
+}
+
+@keyframes shake_scared {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+  }
+  20% {
+    transform: translate(2px, -2px) rotate(2deg);
+  }
+  30% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+  }
+  40% {
+    transform: translate(2px, -2px) rotate(2deg);
+  }
+  50% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+  }
+  60% {
+    transform: translate(2px, -2px) rotate(2deg);
+  }
+  70% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+  }
+  80% {
+    transform: translate(2px, -2px) rotate(2deg);
+  }
+  90% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+}
+
+/* Mobile Responsive - Horizontal Layout */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+
+  .arena {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .card {
+    width: 180px;
+    padding: 15px;
+    flex-shrink: 0;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 10px;
+  }
+
+  .player-name,
+  .bot-name {
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+  }
+
+  .bet-amount {
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+
+  .stats {
+    font-size: 0.8rem;
+    margin: 5px 0;
+  }
+
+  .health-bar {
+    height: 8px;
+    margin: 5px 0;
+  }
+
+  .status {
+    font-size: 0.8rem;
+    height: 25px;
+    margin-top: 5px;
+  }
+
+  #pistolImg {
+    width: 120px;
+    flex-shrink: 0;
+  }
+
+  .turn-indicator {
+    top: -25px;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+  }
+
+  .chambers {
+    gap: 5px;
+    margin: 10px 0;
+  }
+
+  .chamber {
+    width: 45px;
+    height: 70px;
+  }
+
+  .actions {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .actions button {
+    padding: 10px 15px;
+    font-size: 0.8rem;
+  }
+
+  #turnProgress {
+    width: 200px;
+    height: 8px;
+  }
+
+  .modal-content {
+    max-width: 300px;
+    padding: 20px;
+  }
+
+  .modal-content p {
+    font-size: 1rem;
+  }
+
+  .modal-content button {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+
+  #revealBtn,
+  #muteBtn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .game-info {
+    font-size: 0.8rem;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .arena {
+    gap: 5px;
+  }
+
+  .card {
+    width: 150px;
+    padding: 12px;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+  }
+
+  .player-name,
+  .bot-name {
+    font-size: 1rem;
+  }
+
+  .bet-amount {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  .stats {
+    font-size: 0.7rem;
+  }
+
+  .status {
+    font-size: 0.7rem;
+  }
+
+  #pistolImg {
+    width: 100px;
+  }
+
+  .chamber {
+    width: 40px;
+    height: 60px;
+  }
+
+  .actions button {
+    padding: 8px 12px;
+    font-size: 0.7rem;
+  }
+
+  #turnProgress {
+    width: 180px;
+  }
+
+  #welcomeModal .modal-content {
+    max-width: 280px;
+    padding: 15px;
+  }
+
+  #welcomeModal h2 {
+    font-size: 1.5rem;
+  }
+
+  #welcomeModal p {
+    font-size: 0.9rem;
+  }
+}
