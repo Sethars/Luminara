@@ -99,7 +99,6 @@ include_once __DIR__ . '/../components/header.php';
                 <div class="position-relative">
                   <input type="number" id="lobbyBet" required min="10" placeholder="Minimal 10 chips" class="form-control" />
                   <div class="position-absolute top-50 end-0 translate-middle-y me-3 text-secondary">
-                    <i class="fas fa-coins text-warning"></i>
                   </div>
                 </div>
                 <small class="text-secondary">Minimal taruhan: 10 chips</small>

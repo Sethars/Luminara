@@ -409,6 +409,7 @@ body {
         </button>
 
         <!-- Footer Cash -->
+         <br><br><br>
         <div class="profile-footer position-absolute bottom-0 end-0 w-100 text-end px-3 py-2">
           <small class="text-muted">Cash:</small>
           <span id="public-preview-cash" class="fw-bold text-success"></span>

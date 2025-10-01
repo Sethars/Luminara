@@ -1,5 +1,7 @@
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 \[22-Sep-2025 03:29:53 UTC] PHP Fatal error:  Uncaught UnexpectedValueException: Wrong number of segments in D:\localweb\WEB_LOCAL\Luminara\vendor\firebase\php-jwt\src\JWT.php:109
 Stack trace:
 #0 D:\localweb\WEB_LOCAL\Luminara\includes\auth.php(20): Firebase\JWT\JWT::decode('RCfvgmOR4FXSI3b...', Object(Firebase\JWT\Key))
@@ -542,6 +544,7 @@ Stack trace:
 [29-Sep-2025 13:33:32 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\adminPanel.php on line 4
 [29-Sep-2025 13:46:48 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\adminPanel.php on line 4
 [29-Sep-2025 13:58:24 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\adminPanel.php on line 4
+<<<<<<< HEAD
 [30-Sep-2025 02:07:39 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\authenticate.php on line 48
 [30-Sep-2025 02:07:39 UTC] PHP Warning:  Trying to access array offset on false in C:\laragon\www\luminara\includes\authenticate.php on line 54
 [30-Sep-2025 02:54:08 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\authenticate.php on line 48
@@ -689,3 +692,6 @@ Stack trace:
 [01-Oct-2025 08:18:34 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\adminPanel.php on line 4
 [01-Oct-2025 08:23:42 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\authenticate.php on line 48
 [01-Oct-2025 08:23:42 UTC] PHP Warning:  Trying to access array offset on false in C:\laragon\www\luminara\includes\authenticate.php on line 54
+=======
+>>>>>>> f14aaeb2d285e675dd259e746e9aa58aeb23b924
+>>>>>>> e21ecd6017983c725aefcfee03d9f40de8254934
