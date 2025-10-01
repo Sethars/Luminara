@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 29, 2025 at 02:03 PM
+-- Generation Time: Oct 01, 2025 at 01:09 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -54,7 +54,7 @@ CREATE TABLE `lottery` (
   `ticket_price` int NOT NULL,
   `reward` int NOT NULL,
   `winner_id` int DEFAULT NULL,
-  `winner_ticket` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `winner_ticket_id` int DEFAULT NULL,
   `ticket_sold` int NOT NULL DEFAULT '0',
   `started_at` datetime NOT NULL,
   `ended_at` datetime NOT NULL
@@ -71,7 +71,7 @@ CREATE TABLE `lottery_ticket` (
   `lottery_id` int NOT NULL,
   `user_id` int NOT NULL,
   `ticket` varchar(13) NOT NULL,
-  `lottery_number` int NOT NULL,
+  `lottery_number` json NOT NULL,
   `purchased_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -197,14 +197,15 @@ ALTER TABLE `history`
 --
 ALTER TABLE `lottery`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `l.user_id` (`winner_id`);
+  ADD KEY `l.user_id` (`winner_id`),
+  ADD KEY `winner_ticket_id` (`winner_ticket_id`);
 
 --
 -- Indexes for table `lottery_ticket`
 --
 ALTER TABLE `lottery_ticket`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `lottery_id` (`lottery_id`),
+  ADD UNIQUE KEY `uniq_ticket_per_lottery` (`lottery_id`,`ticket`),
   ADD KEY `lt.user_id` (`user_id`);
 
 --
@@ -308,7 +309,8 @@ ALTER TABLE `history`
 -- Constraints for table `lottery`
 --
 ALTER TABLE `lottery`
-  ADD CONSTRAINT `l.user_id` FOREIGN KEY (`winner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `l.user_id` FOREIGN KEY (`winner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `winner_ticket_id` FOREIGN KEY (`winner_ticket_id`) REFERENCES `lottery_ticket` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lottery_ticket`

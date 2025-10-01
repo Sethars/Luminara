@@ -695,3 +695,5 @@ Stack trace:
 =======
 >>>>>>> f14aaeb2d285e675dd259e746e9aa58aeb23b924
 >>>>>>> e21ecd6017983c725aefcfee03d9f40de8254934
+[01-Oct-2025 13:04:18 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\authenticate.php on line 48
+[01-Oct-2025 13:04:18 UTC] PHP Warning:  Trying to access array offset on false in C:\laragon\www\luminara\includes\authenticate.php on line 54
