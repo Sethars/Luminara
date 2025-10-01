@@ -14,7 +14,9 @@ let botStats = { wins: 0, losses: 0 };
 const templates = [
   "Apakah kau benar-benar yakin dengan keputusan ini?",
   "Sesuatu terasa tidak beres, masih mau lanjut?",
-  "Pikirkan sekali lagi, mungkin ada jalan lain...",
+  "klo gw sih ga yakin",
+  "jangan si klo kata gw",
+  "mengin satunya dah",
 ];
 
 const pistolImg = document.getElementById("pistolImg");
@@ -103,8 +105,8 @@ function updateStats() {
 function showPistol(target) {
   pistolImg.src =
     target === "self"
-      ? "https://www.gunsandammo.com/files/2014/12/Magnum_Research_Stainless_Desert_Eagle_F.jpg"
-      : "https://images.guns.com/prod/2022/02/02/61fac8e727d7ad3eeb2d22fd6fe364b2bf4ae5f7b0556.jpg?imwidth=600";
+      ? "../../assets/img/roulette/kiri.png"
+      : "../../assets/img/roulette/kanan.png";
 
   pistolImg.className = "fadeIn";
 
@@ -185,15 +187,19 @@ btnSelf.addEventListener("click", () => confirmAction("self"));
 btnBot.addEventListener("click", () => confirmAction("bot"));
 
 const confirmYes = document.getElementById("confirmYes");
+
 function confirmAction(target) {
-  if (turn !== "player") return;
+  if (turn !== "player") return; // hanya player yg bisa buka modal
   actionType = target;
   document.getElementById("confirmText").innerText =
     templates[Math.floor(Math.random() * templates.length)];
-  document.getElementById("confirmModal").style.display = "flex";
+  document.getElementById("confirmModal").style.display = "flex"; // buka modal
 }
+
 confirmYes.addEventListener("click", () => {
   closeModal();
+  if (turn !== "player") return; // kalau giliran sudah lewat, abaikan
+
   btnSelf.disabled = true;
   btnBot.disabled = true;
   performAction("player", actionType);
@@ -207,11 +213,11 @@ function performAction(actor, target) {
   pistolImg.src =
     actor === "player"
       ? isSelf
-        ? "https://www.gunsandammo.com/files/2014/12/Magnum_Research_Stainless_Desert_Eagle_F.jpg"
-        : "https://images.guns.com/prod/2022/02/02/61fac8e727d7ad3eeb2d22fd6fe364b2bf4ae5f7b0556.jpg?imwidth=600"
+        ? "../../assets/img/roulette/kiri.png"
+        : "../../assets/img/roulette/kanan.png"
       : isSelf
-      ? "https://images.guns.com/prod/2022/02/02/61fac8e727d7ad3eeb2d22fd6fe364b2bf4ae5f7b0556.jpg?imwidth=600"
-      : "https://www.gunsandammo.com/files/2014/12/Magnum_Research_Stainless_Desert_Eagle_F.jpg";
+      ? "../../assets/img/roulette/kanan.png"
+      : "../../assets/img/roulette/kiri.png";
 
   if (actor === "player")
     playerStatus.textContent = isSelf
@@ -356,9 +362,19 @@ function startTurn() {
     updateProgress();
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
+
       if (turn === "player") {
-        // player tidak memilih → otomatis tembak diri sendiri
-        performAction("player", "self");
+        // kalau modal masih kebuka → tutup
+        if (document.getElementById("confirmModal").style.display === "flex") {
+          closeModal();
+        }
+
+        fadeOutPistol();
+        playerStatus.textContent = "Waktu habis — giliran pindah ke Bot";
+        btnSelf.disabled = true;
+        btnBot.disabled = true;
+
+        setTimeout(nextTurn, 300);
       } else {
         botThink();
       }

@@ -92,11 +92,23 @@
       </div>
     </div>
 
-    <div class="modal" id="confirmModal">
-      <div class="modal-content">
-        <p id="confirmText"></p>
-        <button id="confirmYes">Yakin</button>
-        <button onclick="closeModal()">Batal</button>
+    <div class="modal" id="confirmModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.75); justify-content: center; align-items: center;">
+      <div class="modal-content-conn" style="background-color: #1e293b; border-radius: 8px; padding: 24px; max-width: 420px; width: 90%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2); border: 1px solid #334155;">
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background-color: rgba(239, 68, 68, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; color: #ef4444;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #f1f5f9;">Konfirmasi Tindakan</h3>
+        </div>
+        
+        <p id="confirmText" style="margin: 0 0 20px 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;"></p>
+        
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <button onclick="closeModal()" style="padding: 8px 14px; background-color: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Batal</button>
+          <button id="confirmYes" style="padding: 8px 14px; background-color: #ef4444; color: white; border: none; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Lanjutkan</button>
+        </div>
       </div>
     </div>
 
@@ -121,7 +133,7 @@
 
     <audio id="sfxEmpty" src="../../assets/audio/roulette/kosong.aac"></audio>
     <audio id="sfxShot" src="../../assets/audio/roulette/dor.aac"></audio>
-    <audio id="bgm" src="../../assets/audio/roulette/bpkMulyono.mp3" loop></audio>
+    <audio id="bgm" src="../../assets/audio/roulette/bgm.mp3" loop></audio>
 
 
   </body>
