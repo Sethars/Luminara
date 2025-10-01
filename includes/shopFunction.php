@@ -87,7 +87,7 @@ function claimDaily($conn, $jwt_token){
 
         echo json_encode(['success' => true, 'message' => 'Berhasil claim', 'chip' => $chipAmount,'vip' => (bool)$data['isVip']]);
     } catch(Exception $e){
-         if ($conn->inTransaction()) {
+        if ($conn->inTransaction()) {
             $conn->rollback();
         }
         die(json_encode([

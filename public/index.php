@@ -182,14 +182,14 @@ if (str_starts_with($request, "api/")) {
             break;
 
         //Lottery
-        case "api/createEventLottery":
-            require __DIR__ . '/../includes/lottery.php';
-            createEventLottery($conn, $jwt_token);
-            break;
-
         case "api/getLotteryData":
             require __DIR__ . '/../includes/lottery.php';
-            getLotteryData($conn);
+            getLotteryData($conn, $jwt_token);
+            break;
+            
+        case "api/buyTicketLottery":
+            require __DIR__ . '/../includes/lottery.php';
+            buyTicketLottery($conn, $jwt_token);
             break;
 
         default:
@@ -252,6 +252,9 @@ switch ($request) {
         break;
     case 'RRLobby_list':
         require __DIR__. '/pages/RRLobby_list.php';
+        break;
+    case '401':
+        require __DIR__. '/pages/unauthorized.php';
         break;
     default:
         require __DIR__ . '/pages/not_found.php';

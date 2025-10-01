@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="badges" id="badges-${user.id}"></div>
                 </div>
               </div>
-<<<<<<< HEAD
             </div>
           </td>
           <td class="money">
@@ -36,15 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
           </td>
         </tr>
       `
-=======
-            </td>
-            <td class="money">
-              <i class="fas fa-dollar-sign money-icon"></i>
-              ${formatMoney(user.money)}
-            </td>
-          </tr>
-        `
->>>>>>> 13515bfcac1623715956607976742014ad3e41bd
       )
       .join("");
 

@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const data = await res.json();
     if(!data.success){
       console.error(data.message || "Gagal mengambil data")
+      if(data.error === 401){
+        window.location.href = "/401"
+      }
     }
 
     // render total user
@@ -166,6 +169,11 @@ function addLotteryEvent(e){
     console.log(data)
     if(data.success){
       renderTable(data.lottery, tableLottery, false)
+    } else {
+      console.error(data.message || "Anda tidak memiliki akses")
+      if(data.error === 401){
+        window.location.href = "/401"
+      }
     }
   })
 }
