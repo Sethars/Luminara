@@ -210,6 +210,7 @@ function performAction(actor, target) {
   const isSelf = target === "self";
   const chamberHasBullet = chambers[currentIndex];
 
+  // Default pistol (sebelum cek peluru)
   pistolImg.src =
     actor === "player"
       ? isSelf
@@ -234,10 +235,20 @@ function performAction(actor, target) {
     if (chamberHasBullet) {
       document.getElementById("sfxShot").play();
 
+      // 🔥 Ganti gambar ke versi "dor"
+      if (actor === "player" && target === "self")
+        pistolImg.src = "../../assets/img/roulette/dor-kiri.png";
+      else if (actor === "player" && target === "bot")
+        pistolImg.src = "../../assets/img/roulette/dor-kanan.png";
+      else if (actor === "bot" && target === "self")
+        pistolImg.src = "../../assets/img/roulette/dor-kanan.png";
+      else if (actor === "bot" && target === "player")
+        pistolImg.src = "../../assets/img/roulette/dor-kiri.png";
+
       // Hapus class recoil lama
       pistolImg.classList.remove("recoil-kiri", "recoil-kanan");
 
-      // Tentukan arah recoil sesuai actor & target
+      // Tambah recoil sesuai arah
       if (actor === "player" && target === "self")
         pistolImg.classList.add("recoil-kiri");
       else if (actor === "player" && target === "bot")
@@ -247,6 +258,7 @@ function performAction(actor, target) {
       else if (actor === "bot" && target === "player")
         pistolImg.classList.add("recoil-kiri");
 
+      // Kurangi HP
       if (isSelf) {
         if (actor === "player")
           document.getElementById("playerHealth").style.width = "0%";
@@ -273,16 +285,15 @@ function performAction(actor, target) {
         1000
       );
     } else {
+      // Kalau kosong
       document.getElementById("sfxEmpty").play();
       advanceChamber();
       setTimeout(() => fadeOutPistol(), 500);
 
       if (isSelf) {
-        // tetap giliran yang sama
-        setTimeout(() => startTurn(), 1000);
+        setTimeout(() => startTurn(), 1000); // tetap giliran yang sama
       } else {
-        // pindah giliran
-        setTimeout(nextTurn, 1000);
+        setTimeout(nextTurn, 1000); // pindah giliran
       }
     }
   }, 600);
