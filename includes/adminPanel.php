@@ -38,7 +38,7 @@ function recentLottery($conn) {
 
 function getAdminData($conn, $jwt_token){
     if(!isAdmin($conn, $jwt_token)){
-        echo json_encode(['success' => false, "message" => "Anda tidak memiliki akses"]);
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
         exit;
     }
 
@@ -71,7 +71,7 @@ function getAdminData($conn, $jwt_token){
 
 function addLotteryEvent($conn, $jwt_token){
     if(!isAdmin($conn, $jwt_token)){
-        echo json_encode(['success' => false, "message" => "Anda tidak memiliki akses"]);
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
         exit;
     }
 
@@ -83,7 +83,7 @@ function addLotteryEvent($conn, $jwt_token){
         $stmt->execute([$data['eventName'], $data['ticketPrice'], $data['prizes'], $data['startDate'], $data['endDate']]);
 
         $lotteryId = $conn->lastInsertId();
-        
+
         $recentLottery = recentLottery($conn);
 
         $conn->commit();
@@ -94,20 +94,27 @@ function addLotteryEvent($conn, $jwt_token){
         // Query create event
         $endedAt = date("Y-m-d H:i:s", strtotime($data['endDate']));
         $sql = "
-        CREATE EVENT `$eventName`
-        ON SCHEDULE AT '$endedAt'
-        ON COMPLETION NOT PRESERVE
-        DO
-        UPDATE lottery l
-        JOIN (
-            SELECT lt.lottery_id, lt.user_id, lt.ticket
-            FROM lottery_ticket lt
-            WHERE lt.lottery_id = $lotteryId
-            ORDER BY RAND()
-            LIMIT 1
-        ) r ON r.lottery_id = l.id
-        SET l.winner_id = r.user_id,
-            l.winner_ticket = r.ticket;
+            CREATE EVENT `$eventName`
+            ON SCHEDULE AT '$endedAt'
+            ON COMPLETION NOT PRESERVE
+            DO
+            BEGIN
+                UPDATE lottery l
+                JOIN (
+                    SELECT lt.lottery_id, lt.user_id, lt.id
+                    FROM lottery_ticket lt
+                    WHERE lt.lottery_id = $lotteryId
+                    ORDER BY RAND()
+                    LIMIT 1
+                ) r ON r.lottery_id = l.id
+                SET l.winner_id = r.user_id,
+                    l.winner_ticket_id = r.id;
+                    
+                UPDATE profiles p
+                JOIN lottery l ON l.id = $lotteryId
+                SET p.cash = p.cash + l.reward
+                WHERE p.id = l.winner_id;
+            END;
         ";
         $conn->exec($sql);
 

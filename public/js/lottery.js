@@ -1,8 +1,12 @@
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
+
 // Elemen DOM
+const lotteryTitle = document.getElementById("lottery-title")
 const jackpotDisplayEl = document.getElementById("jackpot-display");
-const jackpotAmountEl = document.getElementById("jackpot-amount");
+const ticketPriceEl = document.getElementById("ticket-price")
 const buyButtonEl = document.getElementById("buy-ticket");
 const ticketDisplayEl = document.getElementById("ticket-display");
+const ticketTitleEl = document.getElementById("ticket-title");
 const ticketNumbersEl = document.getElementById("ticket-numbers");
 const ticketIdEl = document.getElementById("ticket-id");
 const ticketDateEl = document.getElementById("ticket-date");
@@ -16,47 +20,52 @@ const rulesButton = document.getElementById("rules-button");
 const rulesModal = document.getElementById("rules-modal");
 const closeModal = document.getElementById("close-modal");
 
-let lotteryData = {};
+let lottery = {}
+let tickets = {}
+let isActive = false
+let isLottery = false
 
 //Ambil data lotre
 document.addEventListener('DOMContentLoaded', async function(){
-  const res = await fetch('api/getLotteryData')
+  const res = await fetchWithAuth('api/getLotteryData')
   const data = await res.json();
 
-  if(data.success){
-    lotteryData = {
-      ticketPrice: 5000,
-      jackpotPercentage: 0.5, // Diubah menjadi 50%
-      initialJackpot: 50000,
-      currentJackpot: data.lottery.reward,
-      ticketsSold: 0,
-      purchaseHistory: [],
-      isLotteryEnded: false,
-      winnerTicket: null,
-    }
-  } else {
+  if(!data.success){
     if(data.message === "Event belum dimulai"){
-      lotteryData = {
-        isLotteryEnded: true
-      }
       showNotification(data.message)
     }
-    console.error(data.message);
+    showNotification(data.message);
     if(data.error) console.error(data.error)
   }
 
+  lottery = data.lottery || {};
+  tickets = data.user_tickets || {};
+  isLottery = data.success;
+  isActive = data.is_active;
+
+  console.log(data);
+  console.log(lottery);
+  console.log(tickets);
+
   // Event listener untuk tombol beli
+  buyButtonEl.disabled = !isActive
   buyButtonEl.addEventListener("click", buyTicket);
 
   // Buat sparkles setiap 300ms
   setInterval(createSparkle, 300);
 
   // Update countdown setiap detik
-  setInterval(updateCountdown, 1000);
+  isActive ?
+  setInterval(updateCountdown, 1000)
+  :
+  clearInterval()
 
   // Inisialisasi tampilan
-  updateJackpotDisplay();
-  updateCountdown();
+  lotteryTitle.textContent = isLottery ? lottery.event_name : ""
+  updateJackpotDisplay(isLottery, isActive);
+  updateTicketPrice(isActive);
+  updateCountdown(isLottery);
+  updatePurchaseHistory()
 })
 
 // Format angka dengan pemisah ribuan
@@ -65,22 +74,29 @@ function formatNumber(amount) {
 }
 
 // Update tampilan jackpot
-function updateJackpotDisplay() {
-  jackpotAmountEl.textContent = formatNumber(lotteryData.currentJackpot);
-}
-
-// Generate nomor tiket acak
-function generateRandomNumbers() {
-  const numbers = [];
-  for (let i = 0; i < 5; i++) {
-    numbers.push(Math.floor(Math.random() * 10));
+function updateJackpotDisplay(isLottery, isActive) {
+  if(isLottery){
+    isActive ?
+    jackpotDisplayEl.innerHTML = `
+      <i class="fas fa-trophy"></i> HADIAH UTAMA
+      <span id="jackpot-amount">${": " + formatNumber(lottery.reward) + " Cash"}</span>
+    `
+    :
+    jackpotDisplayEl.innerHTML = `
+      <i class="fas fa-trophy"></i> PEMENANG HADIAH UTAMA
+      <span id="jackpot-amount">${": " + lottery.username}</span>
+    `
+  } else {
+    jackpotDisplayEl.innerHTML = `<span>Event belum dimulai</span>`
   }
-  return numbers;
 }
 
-// Generate ID tiket unik
-function generateTicketId() {
-  return "TIX-" + Math.random().toString(36).substr(2, 9).toUpperCase();
+// Update tampilan harga tiket
+function updateTicketPrice(isActive){
+  isActive ? 
+  ticketPriceEl.innerHTML = `${" " + formatNumber(lottery.ticket_price) + " Cash"}`
+  :
+  ticketPriceEl.innerHTML = "—"
 }
 
 // Tampilkan notifikasi
@@ -95,93 +111,34 @@ function showNotification(message) {
 
 // Update riwayat pembelian
 function updatePurchaseHistory() {
-  if (lotteryData.purchaseHistory.length === 0) {
+  if (tickets.length === 0) {
     historyListEl.innerHTML =
       '<p style="text-align: center; color: #ccc;">Belum ada pembelian</p>';
     return;
   }
 
-  historyListEl.innerHTML = "";
-
-  lotteryData.purchaseHistory.forEach((ticket) => {
-    const historyItem = document.createElement("div");
-    historyItem.className = "history-item";
-
-    const numbersContainer = document.createElement("div");
-    numbersContainer.className = "history-numbers";
-
-    ticket.numbers.forEach((num) => {
-      const numberBall = document.createElement("div");
-      numberBall.className = "history-number";
-      if (
-        lotteryData.isLotteryEnded &&
-        lotteryData.winnerTicket &&
-        lotteryData.winnerTicket.id === ticket.id
-      ) {
-        numberBall.classList.add("winner");
-      }
-      numberBall.textContent = num;
-      numbersContainer.appendChild(numberBall);
-    });
-
-    const ticketInfo = document.createElement("div");
-    ticketInfo.innerHTML = `
-                    <div>${ticket.id}</div>
-                    <div>${ticket.date}</div>
-                    ${
-                      lotteryData.isLotteryEnded &&
-                      lotteryData.winnerTicket &&
-                      lotteryData.winnerTicket.id === ticket.id
-                        ? '<div style="color: #ffd700; font-weight: bold;">🏆 PEMENANG</div>'
-                        : ""
-                    }
-                `;
-
-    historyItem.appendChild(numbersContainer);
-    historyItem.appendChild(ticketInfo);
-
-    historyListEl.appendChild(historyItem);
-  });
-}
-
-//Beli tiket
-function buyTicket() {
-  // Cek apakah lotre sudah berakhir
-  if (lotteryData.isLotteryEnded) {
-    showNotification("Lotre sudah berakhir! Tunggu lotre berikutnya.");
-    return;
+  let displayTicket = tickets[0];
+  let winner = false;
+  if (isLottery && !isActive) {
+    winner = tickets.find(
+      (t) => t.ticket === lottery.winner_ticket
+    );
+    if (winner) {
+      displayTicket = winner;
+    }
   }
 
-  // Generate nomor tiket
-  const numbers = generateRandomNumbers();
-  const ticketId = generateTicketId();
-  const currentDate = new Date().toLocaleDateString("id-ID");
-
-  // Tambah ke riwayat
-  const newTicket = {
-    id: ticketId,
-    numbers: numbers,
-    date: currentDate,
-  };
-
-  lotteryData.purchaseHistory.unshift(newTicket);
-
-  // Update jackpot
-  const jackpotIncrease =
-  lotteryData.ticketPrice * lotteryData.jackpotPercentage;
-  lotteryData.currentJackpot += jackpotIncrease;
-  lotteryData.ticketsSold += 1;
-
-  // Update tampilan
-  updateJackpotDisplay();
-
-  // Tampilkan tiket
+  // Tampilkan tiket pilihan (pemenang atau index-0)
   ticketDisplayEl.style.display = "block";
   ticketNumbersEl.innerHTML = "";
 
-  numbers.forEach((num, index) => {
+  JSON.parse(displayTicket.lottery_number).forEach((num, index) => {
     const numberBall = document.createElement("div");
     numberBall.className = "number-ball";
+    if(winner){ 
+      numberBall.classList.add("winner")
+      ticketTitleEl.textContent = "Tiket Anda Yang Berhasil Memenangkan Lottery"
+    }
     numberBall.textContent = num;
     ticketNumbersEl.appendChild(numberBall);
 
@@ -191,35 +148,106 @@ function buyTicket() {
     }, index * 100);
   });
 
-  ticketIdEl.textContent = ticketId;
-  ticketDateEl.textContent = currentDate;
+  ticketIdEl.textContent = displayTicket.ticket;
+  ticketDateEl.textContent = displayTicket.purchased_at;
 
-  // Update riwayat
-  updatePurchaseHistory();
+  historyListEl.innerHTML = "";
 
-  // Tampilkan notifikasi
-  showNotification(
-    `Tiket berhasil dibeli!`
-  );
+  tickets.forEach((ticket) => {
+    const historyItem = document.createElement("div");
+    historyItem.className = "history-item";
+
+    const numbersContainer = document.createElement("div");
+    numbersContainer.className = "history-numbers";
+
+    JSON.parse(ticket.lottery_number).forEach((num) => {
+      const numberBall = document.createElement("div");
+      numberBall.className = "history-number";
+      if (
+        isLottery &&
+        !isActive &&
+        lottery.winner_ticket === ticket.ticket
+      ) {
+        numberBall.classList.add("winner");
+      }
+      numberBall.textContent = num;
+      numbersContainer.appendChild(numberBall);
+    });
+    historyItem.appendChild(numbersContainer);
+
+    if(isLottery && !isActive && lottery.winner_ticket === ticket.ticket){
+      const winnerInfo = document.createElement("div");
+      winnerInfo.innerHTML = '<div style="color: #ffd700; font-weight: bold;">🏆 PEMENANG</div>'               
+      historyItem.appendChild(winnerInfo);
+    }
+
+    const ticketInfo = document.createElement("div");
+    ticketInfo.innerHTML = `
+                    <div>${ticket.ticket}</div>
+                    <div>${ticket.purchased_at}</div>
+                `;
+    historyItem.appendChild(ticketInfo);
+
+    historyListEl.appendChild(historyItem);
+  });
+}
+
+//Beli tiket
+function buyTicket() {
+  // Cek apakah lotre sudah berakhir
+  if (!isActive) {
+    showNotification("Lotre sudah berakhir! Tunggu lotre berikutnya.");
+    return;
+  }
+
+  let id = lottery.id
+  fetchWithAuth("api/buyTicketLottery",{
+    method: "POST",
+    headers: {"Content-Type" : "application/json"},
+    body: JSON.stringify({id})
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      // Update jackpot
+      const jackpotIncrease = lottery.ticket_price / 2;
+      lottery.reward += jackpotIncrease;
+      lottery.ticket_sold += 1;
+
+      // Update tampilan
+      updateJackpotDisplay(isLottery, isActive);
+
+      // Update riwayat
+      tickets.unshift(data.new_ticket)
+      updatePurchaseHistory();
+
+      // Tampilkan notifikasi
+      showNotification(
+        `Tiket berhasil dibeli!`
+      );
+    } else {
+      showNotification(data.message);
+    }
+  })
 }
 
 // Fungsi untuk memilih pemenang
 function selectWinner() {
   // ========== FUNGSI UNTUK MEMILIH PEMENANG SECARA ACAK ==========
   // Jika tidak ada tiket yang terjual, tidak ada pemenang
-  if (lotteryData.purchaseHistory.length === 0) {
+  if (lottery.purchaseHistory.length === 0) {
     showNotification("Tidak ada tiket yang terjual. Tidak ada pemenang.");
     return;
   }
 
   // Pilih tiket secara acak dari daftar pembelian
   const randomIndex = Math.floor(
-    Math.random() * lotteryData.purchaseHistory.length
+    Math.random() * lottery.purchaseHistory.length
   );
-  lotteryData.winnerTicket = lotteryData.purchaseHistory[randomIndex];
+  lottery.winnerTicket = lottery.purchaseHistory[randomIndex];
 
   // Tampilkan pemenang
-  winnerNameEl.textContent = lotteryData.winnerTicket.username;
+  winnerNameEl.textContent = lottery.winnerTicket.username;
   winnerAnnouncementEl.classList.add("show");
 
   // Sembunyikan tampilan jackpot
@@ -235,27 +263,24 @@ function selectWinner() {
   // Tampilkan notifikasi
   showNotification(
     `Pemenang telah dipilih: ${
-      lotteryData.winnerTicket.username
-    } dengan hadiah ${formatNumber(lotteryData.currentJackpot)}!`
+      lottery.winnerTicket.username
+    } dengan hadiah ${formatNumber(lottery.currentJackpot)}!`
   );
 
   // ========== AKHIR FUNGSI PEMILIH PEMENANG ==========
 }
 
-function updateCountdown() {
+function updateCountdown(isLotteryEnded) {
+  if(isLotteryEnded) return;
+
   // Waktu sekarang dalam GMT+7
   const now = new Date();
   const gmt7 = new Date(
     now.getTime() + 7 * 60 * 60 * 1000 + now.getTimezoneOffset() * 60 * 1000
   );
 
-  // Set waktu mulai (hari ini jam 00:00:00 GMT+7)
-  const startDate = new Date(gmt7);
-  startDate.setHours(0, 0, 0, 0);
-
-  // Set waktu akhir (3 hari dari sekarang jam 00:00:00 GMT+7)
-  const endDate = new Date(startDate);
-  endDate.setDate(endDate.getDate() + 3);
+  // Set waktu akhir
+  const endDate = new Date(lottery.ended_at || gmt7);
 
   // Hitung selisih waktu
   const diff = endDate - gmt7;
@@ -266,13 +291,6 @@ function updateCountdown() {
     document.getElementById("hours").textContent = "00";
     document.getElementById("minutes").textContent = "00";
     document.getElementById("seconds").textContent = "00";
-
-    // Jika lotre belum berakhir, akhiri lotre dan pilih pemenang
-    if (!lotteryData.isLotteryEnded) {
-      lotteryData.isLotteryEnded = true;
-      selectWinner();
-    }
-
     return;
   }
 

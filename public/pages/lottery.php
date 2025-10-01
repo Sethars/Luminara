@@ -16,12 +16,9 @@ $checkAuth = true;
 
 
         <div class="lottery-container position-absolute top-50 start-50 translate-middle">
-            <h1 class="lottery-title">Luminara Money Jumpscare</h1>
+            <h1 class="lottery-title" id="lottery-title"></h1>
 
-            <div class="jackpot-display floating" id="jackpot-display">
-                <i class="fas fa-trophy"></i> HADIAH UTAMA:
-                <span id="jackpot-amount">50,000</span>
-            </div>
+            <div class="jackpot-display floating" id="jackpot-display"></div>
 
             <div class="winner-announcement" id="winner-announcement">
                 <i class="fas fa-crown"></i> PEMENANG: <span id="winner-name"></span>
@@ -52,13 +49,13 @@ $checkAuth = true;
             <div class="ticket-section">
                 <div class="ticket-price">
                     <span class="price-label" style="color:white;">Harga Tiket:</span>
-                    <span class="price-value">5000Cash</span>
+                    <span class="price-value" id="ticket-price"></span>
                 </div>
                 <button class="buy-button" id="buy-ticket">Beli Tiket Sekarang</button>
             </div>
 
             <div class="ticket-display" id="ticket-display" style="display:none">
-                <h3 class="ticket-title">Tiket Anda</h3>
+                <h3 class="ticket-title" id="ticket-title">Tiket Anda</h3>
                 <div class="lottery-numbers" id="ticket-numbers"></div>
                 <div class="ticket-info">
                     <span>ID Tiket: <span id="ticket-id"></span></span>

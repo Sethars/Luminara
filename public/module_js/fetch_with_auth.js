@@ -1,10 +1,8 @@
 import { refreshAccessToken } from "./refresh_token.js";
 import { decode } from "./encrypt.js";
 
-
-let token = decode(localStorage.getItem('token'));
-
 export async function fetchWithAuth(url, options = {}, retry = true) {
+  let token = decode(localStorage.getItem('token'));
   options.headers = options.headers || {};
 
   if (token) options.headers["Authorization"] = "Bearer " + token;
@@ -16,7 +14,7 @@ export async function fetchWithAuth(url, options = {}, retry = true) {
     if (newToken) {
       token = newToken; // update token
       options.headers["Authorization"] = "Bearer " + token;
-      return fetch(url, options);
+      return fetchWithAuth(url, options, false);
     } else {
       localStorage.clear()
       window.location.href = "/login"

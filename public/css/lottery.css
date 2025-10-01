@@ -184,7 +184,7 @@ body {
   animation: bounce 0.5s ease;
 }
 
-.number-ball.winner {
+.number-ball.winner, .history-number.winner {
   background: #ff5722;
   color: #fff;
   box-shadow: 0 0 15px rgba(255, 87, 34, 0.7);
@@ -307,6 +307,7 @@ body {
 .history-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-wrap: wrap;

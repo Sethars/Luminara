@@ -281,7 +281,7 @@ import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 document.addEventListener('DOMContentLoaded', function() {
   //cek role user
-  fetchWithAuth('api/checkRole', {})
+  fetchWithAuth('api/checkRole')
     .then(res => res.json())
     .then(result => {
         if (result.role !== "member") {
