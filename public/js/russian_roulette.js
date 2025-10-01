@@ -226,27 +226,29 @@ function performAction(actor, target) {
 
   setTimeout(() => {
     if (chamberHasBullet) {
-      //catat untuk player
-      pistolImg.classList.add("recoil");
       document.getElementById("sfxShot").play();
-      if (actor === "player") {
-        pistolImg.classList.add("recoil"); // player shake
-      } else {
-        pistolImg.classList.add("recoil-bot"); // bot mirror shake
-      }
+
+      // Hapus class recoil lama
+      pistolImg.classList.remove("recoil-kiri", "recoil-kanan");
+
+      // Tentukan arah recoil sesuai actor & target
+      if (actor === "player" && target === "self")
+        pistolImg.classList.add("recoil-kiri");
+      else if (actor === "player" && target === "bot")
+        pistolImg.classList.add("recoil-kanan");
+      else if (actor === "bot" && target === "self")
+        pistolImg.classList.add("recoil-kanan");
+      else if (actor === "bot" && target === "player")
+        pistolImg.classList.add("recoil-kiri");
 
       if (isSelf) {
-        if (actor === "player") {
+        if (actor === "player")
           document.getElementById("playerHealth").style.width = "0%";
-        } else {
-          document.getElementById("botHealth").style.width = "0%";
-        }
+        else document.getElementById("botHealth").style.width = "0%";
       } else {
-        if (actor === "player") {
+        if (actor === "player")
           document.getElementById("botHealth").style.width = "0%";
-        } else {
-          document.getElementById("playerHealth").style.width = "0%";
-        }
+        else document.getElementById("playerHealth").style.width = "0%";
       }
 
       setTimeout(() => pistolImg.classList.add("fadeOut"), 400);

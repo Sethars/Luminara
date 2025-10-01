@@ -168,11 +168,11 @@ h1 {
   transform: translateY(50px);
 }
 
-#pistolImg.recoil {
-  animation: shake 0.3s;
+#pistolImg.recoil-kanan {
+  animation: shake-kanan 0.3s;
 }
 
-@keyframes shake {
+@keyframes shake-kanan {
   0% {
     transform: translateX(0px) rotate(0deg);
   }
@@ -187,11 +187,11 @@ h1 {
   }
 }
 
-#pistolImg.recoil-bot {
-  animation: shake-bot 0.3s;
+#pistolImg.recoil-kiri {
+  animation: shake-kiri 0.3s;
 }
 
-@keyframes shake-bot {
+@keyframes shake-kiri {
   0% {
     transform: translateX(0px) rotate(0deg);
   }
