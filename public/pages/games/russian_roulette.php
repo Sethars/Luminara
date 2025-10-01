@@ -18,7 +18,7 @@
         <div class="health-bar">
           <div class="health-fill" id="playerHealth"></div>
         </div>
-        <div class="bet-amount">Taruhan: $100</div>
+        <div class="bet-amount">Taruhan: 100 Chip</div>
         <div class="stats">
           <div class="stat-item">
             <span>Menang</span>
@@ -78,17 +78,36 @@
     </div>
 
     <!-- Welcome Modal -->
-    <div class="modal" id="welcomeModal">
-      <div class="modal-content">
-        <h2>Selamat Datang</h2>
-        <p>Selamat datang di Russian Roulette! Game yang menguji nyali Anda.</p>
-        <p>
-          Aturan mainnya sederhana: ada 6 chamber, 1 di antaranya berisi peluru.
-          Pemain dan bot bergantian menembak diri sendiri atau lawan.
-        </p>
-        <p>Siapa yang tertembak peluru, dia kalah!</p>
-        <p>Apakah Anda siap menghadapi tantangan ini?</p>
-        <button class="start-btn" onclick="startGame()">Mulai Game</button>
+    <div class="modal" id="welcomeModal" style="display: flex; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.75); justify-content: center; align-items: center;">
+      <div class="modal-content-conn" style="background-color: #1e293b; border-radius: 8px; padding: 24px; max-width: 420px; width: 90%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2); border: 1px solid #334155;">
+        <div style="display: flex; align-items: center; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; background-color: rgba(220, 38, 38, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px; height: 20px; color: #dc2626;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: #f1f5f9;">Selamat Datang</h3>
+        </div>
+        
+        <p style="margin: 0 0 16px 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;">Selamat datang di Russian Roulette! Game yang menguji nyali Anda.</p>
+        
+        <div style="background-color: rgba(220, 38, 38, 0.08); border: 1px solid rgba(220, 38, 38, 0.2); border-radius: 6px; padding: 12px; margin-bottom: 16px;">
+          <p style="margin: 0 0 12px 0; font-size: 0.95rem; color: #f87171; line-height: 1.5; font-weight: 500;">
+            Aturan mainnya:
+          </p>
+          <ul style="margin: 0; padding-left: 20px; color: #fecaca;">
+            <li style="margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5;">Ada 6 chamber, 1 di antaranya berisi peluru</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5;">Pemain dan bot bergantian menembak diri sendiri atau lawan</li>
+            <li style="font-size: 0.95rem; line-height: 1.5;">Siapa yang tertembak peluru, dia kalah!</li>
+          </ul>
+        </div>
+        
+        <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #fca5a5; line-height: 1.5; font-weight: 500;">Apakah Anda siap menghadapi tantangan ini?</p>
+        
+        <div style="display: flex; justify-content: flex-end; gap: 10px;">
+          <!-- <button onclick="closeModal()" style="padding: 8px 14px; background-color: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Keluar</button> -->
+          <button onclick="startGame()" style="padding: 8px 14px; background-color: #dc2626; color: white; border: none; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">Mulai Game</button>
+        </div>
       </div>
     </div>
 

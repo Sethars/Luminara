@@ -12,11 +12,12 @@ let playerStats = { wins: 0, losses: 0 };
 let botStats = { wins: 0, losses: 0 };
 
 const templates = [
-  "Apakah kau benar-benar yakin dengan keputusan ini?",
-  "Sesuatu terasa tidak beres, masih mau lanjut?",
   "klo gw sih ga yakin",
   "jangan si klo kata gw",
-  "mengin satunya dah",
+  "mending satunya dah",
+  "salah ini mah",
+  "salah langkah mokad loh",
+  "yakin ga nih",
 ];
 
 const pistolImg = document.getElementById("pistolImg");
@@ -222,8 +223,9 @@ function performAction(actor, target) {
 
   if (actor === "player")
     playerStatus.textContent = isSelf
-      ? "Player menembak diri sendiri"
-      : "Player menembak bot";
+      ? "" //Anda menembak diri sendiri
+      : "";
+  // Anda menembak bot
   else
     botStatus.textContent = isSelf
       ? "Bot menembak diri sendiri"
