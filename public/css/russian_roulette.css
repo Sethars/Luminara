@@ -68,13 +68,13 @@ h1 {
   overflow: hidden;
 }
 
-.player-avatar {
+/* .player-avatar {
   background-image: url("https://i.pravatar.cc/150?img=3");
   background-size: cover;
-}
+} */
 
 .bot-avatar {
-  background-image: url("https://i.pravatar.cc/150?img=12");
+  background-image: url("../assets/img/roulette/agent-or-spy-icon-incognito-logo-vector.jpg");
   background-size: cover;
 }
 

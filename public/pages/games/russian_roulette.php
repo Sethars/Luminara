@@ -11,8 +11,10 @@
 
     <div class="arena">
       <div class="card player-card">
-        <div class="avatar player-avatar"></div>
-        <div class="player-name">PLAYER</div>
+        <div class="avatar player-avatar">
+          <img src="../../assets/img/photo_profile/1759201128_kitsan.jpg" alt="" style="width:100px; height:100px;">
+        </div>
+        <div class="player-name">Hiiragi</div>
         <div class="health-bar">
           <div class="health-fill" id="playerHealth"></div>
         </div>
