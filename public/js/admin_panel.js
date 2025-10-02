@@ -2,6 +2,8 @@ import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 import { debounce } from "../module_js/debounce.js";
 
 // element DOM
+const photoProfile = document.getElementById("photo-profile-admin");
+const username = document.getElementById("username-admin");
 const tableUser = document.getElementById("recentUsersTableBody");
 const tableLottery = document.getElementById("recentLotteryTableBody");
 
@@ -29,6 +31,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         window.location.href = "/401"
       }
     }
+    // render data admin
+    photoProfile.src = JSON.parse(localStorage.getItem("profile")).photo
+    username.textContent = JSON.parse(localStorage.getItem("user")).username
 
     // render total user
     document.getElementById("total-user").textContent = data.totalUser;
