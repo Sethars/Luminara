@@ -12,9 +12,12 @@ let playerStats = { wins: 0, losses: 0 };
 let botStats = { wins: 0, losses: 0 };
 
 const templates = [
-  "Apakah kau benar-benar yakin dengan keputusan ini?",
-  "Sesuatu terasa tidak beres, masih mau lanjut?",
-  "Pikirkan sekali lagi, mungkin ada jalan lain...",
+  "klo gw sih ga yakin",
+  "jangan si klo kata gw",
+  "mending satunya dah",
+  "salah ini mah",
+  "salah langkah mokad loh",
+  "yakin ga nih",
 ];
 
 const pistolImg = document.getElementById("pistolImg");
@@ -103,8 +106,8 @@ function updateStats() {
 function showPistol(target) {
   pistolImg.src =
     target === "self"
-      ? "https://www.gunsandammo.com/files/2014/12/Magnum_Research_Stainless_Desert_Eagle_F.jpg"
-      : "https://images.guns.com/prod/2022/02/02/61fac8e727d7ad3eeb2d22fd6fe364b2bf4ae5f7b0556.jpg?imwidth=600";
+      ? "../../assets/img/roulette/kiri.png"
+      : "../../assets/img/roulette/kanan.png";
 
   pistolImg.className = "fadeIn";
 
@@ -185,15 +188,19 @@ btnSelf.addEventListener("click", () => confirmAction("self"));
 btnBot.addEventListener("click", () => confirmAction("bot"));
 
 const confirmYes = document.getElementById("confirmYes");
+
 function confirmAction(target) {
-  if (turn !== "player") return;
+  if (turn !== "player") return; // hanya player yg bisa buka modal
   actionType = target;
   document.getElementById("confirmText").innerText =
     templates[Math.floor(Math.random() * templates.length)];
-  document.getElementById("confirmModal").style.display = "flex";
+  document.getElementById("confirmModal").style.display = "flex"; // buka modal
 }
+
 confirmYes.addEventListener("click", () => {
   closeModal();
+  if (turn !== "player") return; // kalau giliran sudah lewat, abaikan
+
   btnSelf.disabled = true;
   btnBot.disabled = true;
   performAction("player", actionType);
@@ -204,19 +211,21 @@ function performAction(actor, target) {
   const isSelf = target === "self";
   const chamberHasBullet = chambers[currentIndex];
 
+  // Default pistol (sebelum cek peluru)
   pistolImg.src =
     actor === "player"
       ? isSelf
-        ? "https://www.gunsandammo.com/files/2014/12/Magnum_Research_Stainless_Desert_Eagle_F.jpg"
-        : "https://images.guns.com/prod/2022/02/02/61fac8e727d7ad3eeb2d22fd6fe364b2bf4ae5f7b0556.jpg?imwidth=600"
+        ? "../../assets/img/roulette/kiri.png"
+        : "../../assets/img/roulette/kanan.png"
       : isSelf
-      ? "https://images.guns.com/prod/2022/02/02/61fac8e727d7ad3eeb2d22fd6fe364b2bf4ae5f7b0556.jpg?imwidth=600"
-      : "https://www.gunsandammo.com/files/2014/12/Magnum_Research_Stainless_Desert_Eagle_F.jpg";
+      ? "../../assets/img/roulette/kanan.png"
+      : "../../assets/img/roulette/kiri.png";
 
   if (actor === "player")
     playerStatus.textContent = isSelf
-      ? "Player menembak diri sendiri"
-      : "Player menembak bot";
+      ? "" //Anda menembak diri sendiri
+      : "";
+  // Anda menembak bot
   else
     botStatus.textContent = isSelf
       ? "Bot menembak diri sendiri"
@@ -228,10 +237,20 @@ function performAction(actor, target) {
     if (chamberHasBullet) {
       document.getElementById("sfxShot").play();
 
+      // 🔥 Ganti gambar ke versi "dor"
+      if (actor === "player" && target === "self")
+        pistolImg.src = "../../assets/img/roulette/dor-kiri.png";
+      else if (actor === "player" && target === "bot")
+        pistolImg.src = "../../assets/img/roulette/dor-kanan.png";
+      else if (actor === "bot" && target === "self")
+        pistolImg.src = "../../assets/img/roulette/dor-kanan.png";
+      else if (actor === "bot" && target === "player")
+        pistolImg.src = "../../assets/img/roulette/dor-kiri.png";
+
       // Hapus class recoil lama
       pistolImg.classList.remove("recoil-kiri", "recoil-kanan");
 
-      // Tentukan arah recoil sesuai actor & target
+      // Tambah recoil sesuai arah
       if (actor === "player" && target === "self")
         pistolImg.classList.add("recoil-kiri");
       else if (actor === "player" && target === "bot")
@@ -241,6 +260,7 @@ function performAction(actor, target) {
       else if (actor === "bot" && target === "player")
         pistolImg.classList.add("recoil-kiri");
 
+      // Kurangi HP
       if (isSelf) {
         if (actor === "player")
           document.getElementById("playerHealth").style.width = "0%";
@@ -267,16 +287,15 @@ function performAction(actor, target) {
         1000
       );
     } else {
+      // Kalau kosong
       document.getElementById("sfxEmpty").play();
       advanceChamber();
       setTimeout(() => fadeOutPistol(), 500);
 
       if (isSelf) {
-        // tetap giliran yang sama
-        setTimeout(() => startTurn(), 1000);
+        setTimeout(() => startTurn(), 1000); // tetap giliran yang sama
       } else {
-        // pindah giliran
-        setTimeout(nextTurn, 1000);
+        setTimeout(nextTurn, 1000); // pindah giliran
       }
     }
   }, 600);
@@ -356,9 +375,19 @@ function startTurn() {
     updateProgress();
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
+
       if (turn === "player") {
-        // player tidak memilih → otomatis tembak diri sendiri
-        performAction("player", "self");
+        // kalau modal masih kebuka → tutup
+        if (document.getElementById("confirmModal").style.display === "flex") {
+          closeModal();
+        }
+
+        fadeOutPistol();
+        playerStatus.textContent = "Waktu habis — giliran pindah ke Bot";
+        btnSelf.disabled = true;
+        btnBot.disabled = true;
+
+        setTimeout(nextTurn, 300);
       } else {
         botThink();
       }
