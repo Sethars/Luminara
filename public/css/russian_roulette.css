@@ -504,7 +504,7 @@ h1 {
   }
 
   .arena {
-    margin-top: 250px;
+    margin-top: 150px;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 10px;
@@ -611,6 +611,7 @@ h1 {
   .game-info {
     font-size: 0.8rem;
     margin-top: 10px;
+    margin-bottom: 150px;
   }
 }
 

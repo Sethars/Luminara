@@ -310,20 +310,15 @@ function botThink() {
   setTimeout(() => {
     let choice;
 
-    // --- Kondisi baru: jika 2 chamber berikutnya ada peluru → bot tembak player
-    if (
-      chambers[(currentIndex + 1) % chambers.length] &&
-      chambers[(currentIndex + 2) % chambers.length]
-    ) {
-      choice = "player";
-    }
     // --- Fitur 2: kalau chamber berikutnya ada peluru → bot bunuh diri
-    else if (botSuicideLast && chambers[(currentIndex + 1) % chambers.length]) {
-      choice = "self";
+    if (botSuicideLast && chambers[(currentIndex + 1) % chambers.length]) {
+      // choice = "self";
+      choice = Math.random() < 0.8 ? "self" : "player";
     }
     // --- Fitur 1: kalau chamber saat ini ada peluru → bot tembak player
     else if (botSmartMode && chambers[currentIndex]) {
-      choice = "player";
+      // choice = "player";
+      choice = Math.random() < 0.2 ? "self" : "player";
     }
     // --- Default random ---
     else {

@@ -67,15 +67,39 @@ if (str_starts_with($request, "api/")) {
             break;
                 
         //Admin Panel
+
         case "api/getAdminData":
             require __DIR__ . '/../includes/adminPanel.php';
             getAdminData($conn, $jwt_token);
             break;
 
+            //Lottery
         case "api/addLotteryEvent":
             require __DIR__ . '/../includes/adminPanel.php';
             addLotteryEvent($conn, $jwt_token);
             break;
+
+            //pengumuman
+        case "api/addAnnouncement":
+            require __DIR__ . '/../includes/adminPanel.php';
+            addAnnouncement($conn, $jwt_token);
+            break;
+
+        case "api/editAnnouncement":
+            require __DIR__ . '/../includes/adminPanel.php';
+            editAnnouncement($conn, $jwt_token);
+            break;
+
+        case "api/deleteAnnouncement":
+            require __DIR__ . '/../includes/adminPanel.php';
+            deleteAnnouncement($conn, $jwt_token);
+            break;
+
+        case "api/getAnnouncements":
+            require __DIR__ . '/../includes/adminPanel.php';
+            getAnnouncements($conn);
+            break;
+
             
         //Leaderboard
         case "api/leaderboard":
@@ -190,6 +214,12 @@ if (str_starts_with($request, "api/")) {
         case "api/buyTicketLottery":
             require __DIR__ . '/../includes/lottery.php';
             buyTicketLottery($conn, $jwt_token);
+            break;
+
+        //pengumuman
+        case "api/getAnnouncements":
+            require __DIR__ . '/../includes/announcement.php';
+            getAnnouncements($conn, $jwt_token);
             break;
 
         default:

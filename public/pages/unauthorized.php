@@ -137,7 +137,7 @@
             ade balik ade, ngapain ke sini
         </p>
         <div class="actions">
-            <a href="/login" class="btn btn-primary">Login</a>
+            <!-- <a href="/login" class="btn btn-primary">Login</a> -->
             <a href="/" class="btn btn-secondary">Kembali ke Beranda</a>
         </div>
     </div>
