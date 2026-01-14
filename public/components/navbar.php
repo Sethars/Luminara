@@ -119,13 +119,15 @@
           </a>
         </li>
         <!-- Gambling Dropdown -->
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarGambling" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             <i class="bi bi-dice-3-fill me-1"></i> Games
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarGambling">
-            <li class="dropdown-submenu">
+          <ul class="dropdown-menu" aria-labelledby="navbarGambling"> -->
+
+
+            <!-- <li class="dropdown-submenu">
               <a class="dropdown-item dropdown-toggle" href="#" id="bjSubmenu"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-suit-spade me-2"></i> Black Jack
@@ -143,8 +145,8 @@
                   </a>
                 </li>
               </ul>
-            </li>
-            <li class="dropdown-submenu">
+            </li> -->
+            <!-- <li class="dropdown-submenu">
               <a class="dropdown-item dropdown-toggle" href="#" id="bjSubmenu"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-chevron-bar-contract me-2"></i> Roulatte
@@ -161,19 +163,41 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
+
+
+
+            <!-- Single items -->
+            <!-- <li>
+              <a class="dropdown-item" href="/casual_black_jack">
+                <i class="bi bi-suit-spade me-2"></i> Black Jack
+              </a>
+            </li>               
+            <li>
+              <a class="dropdown-item" href="/RRLobby_list">
+                <i class="fas fa-skull-crossbones me-2"></i> Russian Roulette
+              </a>
+            </li>                     
             <li>
               <a class="dropdown-item" href="/lottery">
                 <i class="fa fa-ticket me-2"></i> lottery
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="/lottery">
+              <a class="dropdown-item" href="/coin_flip">
                 <i class="bi bi-coin me-2"></i> Coin Flip
               </a>
             </li>
           </ul>
+        </li> -->
+
+        <li class="nav-item">
+          <a href="/game_list" class="nav-link">
+            <i class="bi bi-dice-3-fill me-1"></i> Game List
+          </a>
         </li>
+
+
         <!-- Shop -->
         <li class="nav-item">
           <a href="/shop" class="nav-link">
@@ -202,12 +226,6 @@
                 <i class="bi bi-percent"></i> Win Rate
               </a>
             </li>
-            <li>
-              <a class="dropdown-item" href="devices.php">
-                <i class="far fa-circle me-2"></i> Dept
-              </a>
-            </li>
-
           </ul>
         </li>
 

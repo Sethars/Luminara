@@ -53,7 +53,19 @@ function getAdminData($conn, $jwt_token){
         $totalLottery = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
         //5 User Terbaru
-        $stmt = $conn->query("SELECT username AS `name`, email, `role`, DATE_FORMAT(created_at, '%b %e, %Y') AS joined FROM users ORDER BY created_at DESC LIMIT 5");
+        $stmt = $conn->query("
+            SELECT 
+                u.id, 
+                u.username AS `name`, 
+                u.email, 
+                u.`role`, 
+                DATE_FORMAT(u.created_at, '%b %e, %Y') AS joined,
+                p.badges
+            FROM users u
+            LEFT JOIN profiles p ON u.id = p.user_id
+            ORDER BY u.created_at DESC 
+            LIMIT 5
+        ");
         $recentUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         //5 Event lottery terbaru
@@ -241,5 +253,74 @@ function getAnnouncements($conn) {
             'message' => 'Terjadi kesalahan saat ambil announcement',
             'error'   => $e->getMessage()
         ]));
+    }
+}
+
+function getEvents($conn, $jwt_token) {
+    if (!isAdmin($conn, $jwt_token)) {
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
+        exit;
+    }
+
+    try {
+        $stmt = $conn->prepare("SELECT * FROM events ORDER BY created_at DESC");
+        $stmt->execute();
+        $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode(['success' => true, 'data' => $events]);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Gagal memuat event', 'error' => $e->getMessage()]);
+    }
+}
+
+function addEvent($conn, $jwt_token) {
+    if (!isAdmin($conn, $jwt_token)) {
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents("php://input"), true);
+    $nama = trim($data['nama'] ?? '');
+    $pesan = trim($data['pesan'] ?? '');
+    $reward_chips = intval($data['reward_chips'] ?? 0);
+    $end_at = trim($data['end_at'] ?? '');
+    $vip = intval($data['vip'] ?? 0);
+
+    if ($nama === '' || $end_at === '') {
+        echo json_encode(['success' => false, 'message' => 'Nama dan tanggal berakhir wajib diisi']);
+        return;
+    }
+
+    try {
+        $stmt = $conn->prepare("INSERT INTO events (nama, pesan, reward_chips, end_at, vip) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$nama, $pesan, $reward_chips, $end_at, $vip]);
+
+        echo json_encode(['success' => true, 'message' => 'Event berhasil ditambahkan']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Gagal menambah event', 'error' => $e->getMessage()]);
+    }
+}
+
+function deleteEvent($conn, $jwt_token) {
+    if (!isAdmin($conn, $jwt_token)) {
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = intval($data['id'] ?? 0);
+
+    if ($id <= 0) {
+        echo json_encode(['success' => false, 'message' => 'ID event tidak valid']);
+        return;
+    }
+
+    try {
+        $stmt = $conn->prepare("DELETE FROM events WHERE id = ?");
+        $stmt->execute([$id]);
+
+        echo json_encode(['success' => true, 'message' => 'Event berhasil dihapus']);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Gagal menghapus event', 'error' => $e->getMessage()]);
     }
 }

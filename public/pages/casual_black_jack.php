@@ -19,7 +19,7 @@ $checkAuth = true;
     <body>
         
         <header>
-        <button class=" position-absolute top-0 start-0 fas fa-sign-out-alt me-2" style="margin:15px; rotate:180deg; border-radius:10px; color:crimson; background-color:transparent; font-size:2rem;"></button>
+        <button  class="position-absolute top-0 start-0 fas fa-sign-out-alt me-2" style="margin:15px; rotate:180deg; border-radius:10px; color:crimson; background-color:transparent; font-size:2rem;"   onclick="window.location.href='/game_list'" ></button>
         <h1>♠️ Blackjack ♥️</h1>
         <p>Play against the dealer bot</p>
         </header>
@@ -28,7 +28,7 @@ $checkAuth = true;
         <div class="game-info">
             <div class="score">Wins: <span id="wins">0</span></div>
             <div class="score">Losses: <span id="losses">0</span></div>
-            <div class="score">Ties: <span id="ties">0</span></div>
+            <!-- <div class="score">Ties: <span id="ties">0</span></div> -->
         </div>
 
         <div class="message" id="message">Place your bet to start playing</div>
@@ -127,7 +127,7 @@ $checkAuth = true;
         <div class="chip-info-panel">
             <div class="chip-icon-panel">$</div>
             <span class="chip-label-panel">Chips:</span>
-            <span class="chip-value-panel" id="chip-count-panel">1000</span>
+            <span class="chip-value-panel" id="balance"></span>
         </div>
         <div class="bet-info-panel">
             <div class="chip-icon-panel">B</div>

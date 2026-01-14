@@ -1,3 +1,5 @@
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
+
 // Game state
 let deck = [];
 let playerHand = [];
@@ -21,8 +23,9 @@ let stats = {
   ties: 0,
   gamesPlayed: 0,
   blackjacks: 0,
-  chips: 1000,
 };
+
+let chips = 0; // Default chip sebelum di-fetch
 
 // DOM elements
 const dealerHandEl = document.getElementById("dealer-hand");
@@ -695,7 +698,7 @@ function dealerTurnSplit() {
       messageEl.textContent +=
         " | Game Over! You're out of chips. Refreshing your chips...";
       setTimeout(() => {
-        stats.chips = 1000;
+        // stats.chips = 1000;
         updateStatsDisplay();
         updateBetPanel();
         messageEl.textContent = "Your chips have been refreshed to 1000";
@@ -931,39 +934,48 @@ function endGame(result) {
   if (result === "blackjack") {
     stats.blackjacks++;
     stats.wins++;
-    // Blackjack pays 1.5:1
+    // Blackjack pays 3:2 -> total returned = 2.5 * bet (original bet was already deducted)
     stats.chips += Math.floor(currentBet * 2.5);
   } else if (result === "win") {
     stats.wins++;
-    // Regular win pays 1:1
+    // Regular win pays 1:1 -> return original + winnings = 2 * bet
     stats.chips += currentBet * 2;
   } else if (result === "lose") {
     stats.losses++;
-    // Bet already deducted, no additional action needed
+    // Lose: bet already deducted when placing bet, nothing to add
   } else if (result === "tie") {
     stats.ties++;
-    // Return the bet on a tie
+    // Push: return original bet
     stats.chips += currentBet;
   }
 
   // Add insurance win if applicable
   if (hasInsurance && calculateScore(dealerHand) === 21) {
-    stats.chips += insuranceBet * 3; // 2:1 payout + original bet
+    stats.chips += insuranceBet * 3; // 2:1 payout + original insurance bet
   }
+
+  // Sync balance to UI, localStorage and backend
+  updateBalance(stats.chips);
+
+  // Reset bet-related flags
+  currentBet = 0;
+  insuranceBet = 0;
+  hasInsurance = false;
+  doubleDown = false;
 
   // Check if player is out of chips
   if (stats.chips <= 0) {
-    messageEl.textContent +=
-      " Game Over! You're out of chips. Refreshing your chips...";
+    messageEl.textContent += " | You're out of chips. Refilling to 1000...";
     setTimeout(() => {
-      stats.chips = 1000;
+      // stats.chips = 1000;
+      updateBalance(stats.chips);
       updateStatsDisplay();
       updateBetPanel();
-      messageEl.textContent = "Your chips have been refreshed to 1000";
+      messageEl.textContent = "Your chips have been refilled to 1000.";
     }, 3000);
   }
 
-  // Save stats to localStorage
+  // Save stats to localStorage (keeps wins/losses/etc)
   localStorage.setItem("blackjackStats", JSON.stringify(stats));
   updateStatsDisplay();
   updateBetPanel();
@@ -972,6 +984,7 @@ function endGame(result) {
   setTimeout(() => {
     bettingSection.classList.add("active");
     resetBet();
+    console.log("Game over. Place your bet to play again.");
   }, 1500);
 }
 
@@ -1003,4 +1016,117 @@ function hideRules() {
 }
 
 // Initialize the game when the page loads
+
+/* ============================================================
+============= FETCH & UPDATE CHIP DARI BACKEND =============
+============================================================ */
+
+// Ambil chip saat halaman pertama kali load
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const res = await fetchWithAuth("api/getChip", { method: "GET" });
+    const data = await res.json();
+
+    if (data.success && data.data?.chip !== undefined) {
+      chips = parseInt(data.data.chip);
+
+      // Update tampilan & simpan ke localStorage
+      displayChip(chips);
+      localStorage.setItem("blackjackStats", JSON.stringify({ chips }));
+
+      console.log("✅ Chip berhasil dimuat:", chips);
+    } else {
+      console.warn("⚠️ Gagal ambil chip:", data.message);
+      displayChip(0);
+    }
+  } catch (err) {
+    console.error("❌ Error saat fetch chip:", err);
+    displayChip(0);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const res = await fetchWithAuth("api/getwinlose", { method: "GET" });
+    const data = await res.json();
+
+    if (data.success && data.data) {
+      const win = parseInt(data.data.win) || 0;
+      const lose = parseInt(data.data.lose) || 0;
+
+      // Simpan raw playerStats juga (dipakai di server side/debug)
+      localStorage.setItem("playerStats", JSON.stringify({ win, lose }));
+
+      // Sinkron ke object stats yang dipakai UI
+      stats.wins = win;
+      stats.losses = lose;
+
+      // gamesPlayed diisi dari playerStats (win + lose) ditambah ties bila ada
+      stats.gamesPlayed = win + lose + (stats.ties || 0);
+
+      // Simpan seluruh stats ke localStorage agar initGame bisa memuatnya
+      localStorage.setItem("blackjackStats", JSON.stringify(stats));
+
+      console.log(`✅ Win/Lose berhasil dimuat: ${win}/${lose}`);
+      // Update tampilan berdasarkan stats yang baru
+      updateStatsDisplay();
+    } else {
+      console.warn("⚠️ Gagal ambil win/lose:", data.message);
+      // Pastikan tampilan tetap terupdate walau gagal
+      updateStatsDisplay();
+    }
+  } catch (err) {
+    console.error("❌ Error saat fetch win/lose:", err);
+    updateStatsDisplay();
+  }
+});
+
+/* ============================================================
+================= UPDATE CHIP KE BACKEND =================
+============================================================ */
+
+async function updateChipToDB(newBalance) {
+  try {
+    const res = await fetchWithAuth("api/CoinFlip", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chip: newBalance }),
+    });
+
+    const data = await res.json();
+    if (!data.success) {
+      console.warn("⚠️ Gagal update chip ke DB:", data.message);
+    }
+  } catch (err) {
+    console.error("❌ Error saat update chip:", err);
+  }
+}
+
+/* ============================================================
+================== SINKRON KE TAMPILAN ===================
+============================================================ */
+
+function displayChip(value) {
+  const balanceElement = document.getElementById("balance");
+  const chipPanel = document.getElementById("chip-count-panel");
+
+  const formatted = value.toLocaleString("en-US");
+
+  if (balanceElement) balanceElement.textContent = formatted;
+  if (chipPanel) chipPanel.textContent = formatted;
+}
+
+function updateBalance(newValue) {
+  chips = newValue;
+
+  // Update tampilan
+  displayChip(chips);
+
+  // Simpan lokal agar persist
+  localStorage.setItem("blackjackStats", JSON.stringify({ chips }));
+
+  // Update ke backend
+  updateChipToDB(chips);
+}
+
 window.onload = initGame;

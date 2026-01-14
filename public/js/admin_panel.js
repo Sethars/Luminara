@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     // render table users
     renderTable(data.users, tableUser);
 
+    console.log(data.users);
+
     // render table lottery
     renderTable(data.lottery, tableLottery, false);
 
@@ -355,3 +357,116 @@ document
 
 // init
 loadAnnouncements();
+
+const eventForm = document.getElementById("event-form");
+const eventsTableBody = document.getElementById("events-table-body");
+
+// Load semua event
+async function loadEvents() {
+  try {
+    const res = await fetchWithAuth("api/getEvents");
+    const data = await res.json();
+
+    if (!data.success) {
+      console.error(data.message || "Gagal mengambil event");
+      if (data.error === 401) window.location.href = "/401";
+      return;
+    }
+
+    renderEventsTable(data.data);
+  } catch (err) {
+    console.error("Error loadEvents:", err);
+  }
+}
+
+// Render tabel event
+function renderEventsTable(events) {
+  eventsTableBody.innerHTML = "";
+
+  if (!events || events.length === 0) {
+    eventsTableBody.innerHTML = `<tr><td colspan="9" class="text-center">Belum ada event</td></tr>`;
+    return;
+  }
+
+  events.forEach((ev) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${ev.id}</td>
+      <td>${ev.nama}</td>
+      <td>${ev.pesan || "-"}</td>
+      <td>${ev.reward_chips}</td>
+      <td>${formatDate(ev.created_at)}</td>
+      <td>${formatDate(ev.end_at)}</td>
+      <td>${
+        ev.vip == 1 ? '<span class="badge bg-info">VIP</span>' : "Umum"
+      }</td>
+      <td>${getEventStatus(ev.end_at)}</td>
+      <td>
+        <button class="btn btn-sm btn-danger" onclick="deleteEvent(${ev.id})">
+          <i class="fas fa-trash"></i>
+        </button>
+      </td>
+    `;
+    eventsTableBody.appendChild(row);
+  });
+}
+
+// Tambah event baru
+async function addEvent(e) {
+  e.preventDefault();
+
+  const nama = document.getElementById("event-name").value.trim();
+  // const pesan = document.getElementById("event-message").value.trim();
+  const pesan = document
+    .getElementById("event-message")
+    .value.trim()
+    .slice(0, 50);
+  const reward_chips = parseInt(document.getElementById("event-chips").value);
+  const end_at = document.getElementById("event-end").value;
+  const vip = document.getElementById("event-vip").checked ? 1 : 0;
+
+  if (!nama || !end_at)
+    return alert("Nama event dan tanggal berakhir wajib diisi!");
+
+  const body = { nama, pesan, reward_chips, end_at, vip };
+
+  const res = await fetchWithAuth("api/addEvent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    showNotification("Event berhasil ditambahkan!");
+    eventForm.reset();
+    loadEvents();
+  } else {
+    alert(data.message || "Gagal menambahkan event");
+  }
+}
+
+// Hapus event
+window.deleteEvent = async function (id) {
+  if (!confirm("Yakin ingin menghapus event ini?")) return;
+
+  const res = await fetchWithAuth("api/deleteEvent", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id }),
+  });
+
+  const data = await res.json();
+  if (data.success) {
+    showNotification("Event berhasil dihapus!");
+    loadEvents();
+  } else {
+    alert(data.message || "Gagal menghapus event");
+  }
+};
+
+// Inisialisasi form event
+if (eventForm) {
+  eventForm.addEventListener("submit", addEvent);
+  loadEvents();
+}

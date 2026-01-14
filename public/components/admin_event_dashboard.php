@@ -133,7 +133,7 @@
                     
                     <div class="mb-3">
                         <label for="event-message" class="form-label">Pesan/Keterangan</label>
-                        <textarea class="form-control" id="event-message" rows="3" placeholder="Tambahkan pesan atau keterangan untuk event ini..."></textarea>
+                        <textarea maxlength="50" class="form-control" id="event-message" rows="3" placeholder="Tambahkan pesan atau keterangan untuk event ini..."></textarea>
                     </div>
                     
                     <div class="mb-3">
@@ -175,11 +175,10 @@
                                 <th class="pesan-col">Pesan</th> <!-- Fixed width -->
                                 <th>Chips</th>
                                 <th>Tanggal Dibuat</th>
-                                <th>Dibuat Oleh</th>
                                 <th>Tanggal Berakhir</th>
                                 <th>Khusus VIP</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th>Aksi</th> <!-- cukup hapus tanpa edit -->
                             </tr>
                         </thead>
                         <tbody id="events-table-body">
@@ -192,37 +191,7 @@
     </div>
 
 <script>
-    // Data dummy untuk users
-    const users = [
-        { id: 1, name: "Admin Utama" },
-        { id: 2, name: "Admin Event" },
-        { id: 3, name: "Super Admin" }
-    ];
-
-    // Data dummy untuk events
-    let events = [
-        {
-            id: 1,
-            nama: "Turnamen Poker Mingguan",
-            pesan: "Turnamen poker mingguan dengan hadiah menarik. Daftar sekarang juga!",
-            chips: 5000,
-            created_at: "2023-05-15T10:30:00",
-            end_at: "2023-05-22T23:59:59",
-            created_by: 1,
-            vip: false
-        },
-        {
-            id: 2,
-            nama: "Lucky Draw Bulanan",
-            pesan: "Undian berhadiah chip setiap bulan. Semakin sering bermain, semakin besar kesempatan menang!",
-            chips: 10000,
-            created_at: "2023-05-10T14:20:00",
-            end_at: "2023-06-10T23:59:59",
-            created_by: 2,
-            vip: true
-        }
-    ];
-
+   
     // Format tanggal GMT+7
     function formatDate(dateString) {
         const options = { 
@@ -247,10 +216,6 @@
         return `${year}-${month}-${day}T${hours}:${minutes}`;
     }
 
-    function getUserName(userId) {
-        const user = users.find(u => u.id === userId);
-        return user ? user.name : "Unknown";
-    }
 
     function getEventStatus(endDate) {
         const now = new Date();
@@ -270,82 +235,8 @@
         }
     }
 
-    function renderTable() {
-        const tableBody = document.getElementById('events-table-body');
-        tableBody.innerHTML = '';
-        
-        events.forEach(event => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${event.id}</td>
-                <td>${event.nama}</td>
-                <td>${event.pesan ? event.pesan.substring(0, 50) + (event.pesan.length > 50 ? '...' : '') : '-'}</td>
-                <td>${event.chips.toLocaleString('id-ID')}</td>
-                <td>${formatDate(event.created_at)}</td>
-                <td>${getUserName(event.created_by)}</td>
-                <td>${formatDate(event.end_at)}</td>
-                <td>${event.vip ? '<span class="badge bg-info">VIP</span>' : '-'}</td>
-                <td>${getEventStatus(event.end_at)}</td>
-                <td>
-                    <button class="btn btn-sm btn-danger delete-btn" data-id="${event.id}">
-                        <i class="fas fa-trash"></i> Hapus
-                    </button>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
 
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', handleDelete);
-        });
-    }
 
-    // Form submit
-    document.getElementById('event-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const id = document.getElementById('event-id').value;
-        const nama = document.getElementById('event-name').value;
-        const pesan = document.getElementById('event-message').value;
-        const chips = parseInt(document.getElementById('event-chips').value);
-        const end_at = document.getElementById('event-end').value;
-        const vip = document.getElementById('event-vip').checked;
-        
-        const currentUserId = 1;
-        
-        if (id) {
-            const index = events.findIndex(event => event.id == id);
-            if (index !== -1) {
-                events[index] = { ...events[index], nama, pesan, chips, end_at, vip };
-            }
-        } else {
-            const newId = events.length > 0 ? Math.max(...events.map(e => e.id)) + 1 : 1;
-            events.push({
-                id: newId,
-                nama,
-                pesan,
-                chips,
-                created_at: new Date().toISOString(),
-                end_at,
-                created_by: currentUserId,
-                vip
-            });
-        }
-        
-        this.reset();
-        document.getElementById('event-id').value = '';
-        renderTable();
-        showNotification(id ? 'Event berhasil diperbarui!' : 'Event berhasil ditambahkan!');
-    });
-
-    function handleDelete(e) {
-        const id = e.currentTarget.getAttribute('data-id');
-        if (confirm('Apakah Anda yakin ingin menghapus event ini?')) {
-            events = events.filter(event => event.id != id);
-            renderTable();
-            showNotification('Event berhasil dihapus!');
-        }
-    }
 
     function showNotification(message) {
         const notification = document.createElement('div');

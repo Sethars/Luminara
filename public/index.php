@@ -95,6 +95,23 @@ if (str_starts_with($request, "api/")) {
             deleteAnnouncement($conn, $jwt_token);
             break;
 
+        case "api/getEvents":
+            require __DIR__ . '/../includes/adminPanel.php';
+            getEvents($conn, $jwt_token);
+            break;
+
+        case "api/addEvent":
+            require __DIR__ . '/../includes/adminPanel.php';
+            addEvent($conn, $jwt_token);
+            break;
+
+        case "api/deleteEvent":
+            require __DIR__ . '/../includes/adminPanel.php';
+            deleteEvent($conn, $jwt_token);
+            break;
+
+        //end admin panel
+
         case "api/getAnnouncements":
             require __DIR__ . '/../includes/adminPanel.php';
             getAnnouncements($conn);
@@ -221,6 +238,36 @@ if (str_starts_with($request, "api/")) {
             require __DIR__ . '/../includes/announcement.php';
             getAnnouncements($conn, $jwt_token);
             break;
+        //Random User
+        case "api/getRandomUser":
+            require __DIR__ . '/../includes/announcement.php';
+            getRandomUser($conn, $jwt_token);
+            break;
+        
+        //event usr
+        case "api/getEventsUsr":
+            require __DIR__ . '/../includes/announcement.php';
+            getEvents($conn, $jwt_token);
+            break;
+            
+        case "api/claimEvent":
+            require __DIR__ . '/../includes/announcement.php';
+            claimEvent($conn, $jwt_token);
+            break;
+        case "api/getChip":
+            require __DIR__ . '/../includes/chip.php';
+            getChip($conn, $jwt_token);
+            break;
+        case "api/getwinlose":
+            require __DIR__ . '/../includes/chip.php';
+            getwinlose($conn, $jwt_token);
+            break;
+        case "api/CoinFlip":
+            require __DIR__ . '/../includes/Coin_flip.php';
+            Coinflip($conn, $jwt_token);
+            break;
+        
+        
 
         default:
             http_response_code(404);
@@ -282,6 +329,15 @@ switch ($request) {
         break;
     case 'RRLobby_list':
         require __DIR__. '/pages/RRLobby_list.php';
+        break;
+    case 'coin_flip':
+        require __DIR__. '/pages/games/coin_flip.php';
+        break;
+    case 'game_list':
+        require __DIR__. '/pages/game_list.php';
+        break;
+    case 'slot':
+        require __DIR__. '/pages/games/slot.php';
         break;
     case '401':
         require __DIR__. '/pages/unauthorized.php';

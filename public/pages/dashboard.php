@@ -38,80 +38,9 @@ include_once __DIR__ . '/../components/header.php';
         <!-- Admin Events Section -->
         <div class="admin-events">
             <h2><i class="fas fa-gift"></i> Admin Events</h2>
-            <div class="events-container">
+            <div class="events-container" id="userEventsContainer">                
                 <div class="event-card">
-                    <div class="event-header">Weekend Bonus</div>
-                    <div class="event-body">
-                        <div class="event-prize">
-                            <i class="fas fa-coins"></i>
-                            5,000 Chips
-                        </div>
-                        <div class="event-description">Special weekend bonus for all active players. Claim now before it expires!</div>
-                    </div>
-                    <div class="event-footer">
-                        <button class="claim-btn">Claim</button>
-                        <div class="expiry-date">Expires: 2023-12-31</div>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-header">Lucky Draw</div>
-                    <div class="event-body">
-                        <div class="event-prize">
-                            <i class="fas fa-coins"></i>
-                            10,000 Chips
-                        </div>
-                        <div class="event-description">Participate in our lucky draw event for a chance to win big prizes!</div>
-                    </div>
-                    <div class="event-footer">
-                        <button class="claim-btn">Claim</button>
-                        <div class="expiry-date">Expires: 2024-01-15</div>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-header">New Year Special</div>
-                    <div class="event-body">
-                        <div class="event-prize">
-                            <i class="fas fa-coins"></i>
-                            15,000 Chips
-                        </div>
-                        <div class="event-description">Celebrate the New Year with our special bonus event. Limited time only!</div>
-                    </div>
-                    <div class="event-footer">
-                        <button class="claim-btn">Claim</button>
-                        <div class="expiry-date">Expires: 2024-01-31</div>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-header">High Roller Bonus</div>
-                    <div class="event-body">
-                        <div class="event-prize">
-                            <i class="fas fa-coins"></i>
-                            25,000 Chips
-                        </div>
-                        <div class="event-description">Exclusive bonus for our VIP players. Claim your special reward now!</div>
-                    </div>
-                    <div class="event-footer">
-                        <button class="claim-btn">Claim</button>
-                        <div class="expiry-date">Expires: 2024-02-14</div>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-header">Anniversary Event</div>
-                    <div class="event-body">
-                        <div class="event-prize">
-                            <i class="fas fa-coins"></i>
-                            50,000 Chips
-                        </div>
-                        <div class="event-description">Celebrate our casino anniversary with this massive bonus event!</div>
-                    </div>
-                    <div class="event-footer">
-                        <button class="claim-btn">Claim</button>
-                        <div class="expiry-date">Expires: 2024-03-01</div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -125,7 +54,7 @@ include_once __DIR__ . '/../components/header.php';
                 </button>
             </div>
             <div class="players-container" id="playersContainer">
-
+                    
             </div>
         </div>
         

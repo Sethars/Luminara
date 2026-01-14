@@ -17,7 +17,7 @@ include_once __DIR__ . '/../components/header.php';
     <div class="flex-column col-lg-7 left-side d-none d-lg-flex align-items-center justify-content-center">
       <!-- Bisa isi gambar/banner kalau mau -->
       <img src="../assets/img/logo.png" alt="Login Banner" class="img-fluid w-50">
-       <strong class="penjelasan">Lorem, ipsum dolor sit amet consectetur</strong>
+       <strong class="penjelasan">Spin first, regret later.</strong>
        <br>
 
       <div id="carouselExampleFade" class="carousel slide carousel-fade w-75" data-bs-ride="carousel">
@@ -26,7 +26,7 @@ include_once __DIR__ . '/../components/header.php';
             <img src="../assets/img/1.png" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
-            <img src="../assets/img/2.png" class="d-block w-100" alt="...">
+            <img src="../assets/img/Roulatte.jpg" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
             <img src="../assets/img/3.png" class="d-block w-100" alt="...">
