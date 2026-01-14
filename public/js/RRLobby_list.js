@@ -1,64 +1,75 @@
 import { showModal } from "../module_js/show_modal.js";
 import { closeModal } from "../module_js/close_modal.js";
+import { Encoder } from "../module_js/encrypt.js";
+import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
+import { getQueryParam } from "../module_js/get_query.js";
 
-// Dummy data untuk lobby
-let lobbies = [
-  {
-    id: 1,
-    name: "Lobby Pemula",
-    host: "Player1",
-    players: 1,
-    maxPlayers: 2,
-    status: "Menunggu",
-    bet: 1000,
-    mode: "pvp",
-    created: "2024-01-15 14:30",
-  },
-  {
-    id: 2,
-    name: "High Stakes",
-    host: "ProGamer",
-    players: 2,
-    maxPlayers: 2,
-    status: "Penuh",
-    bet: 10000,
-    mode: "pvp",
-    created: "2024-01-15 15:45",
-  },
-  {
-    id: 3,
-    name: "Quick Game",
-    host: "SpeedRunner",
-    players: 1,
-    maxPlayers: 1,
-    status: "Bermain",
-    bet: 500,
-    mode: "bot",
-    created: "2024-01-15 16:20",
-  },
-];
+const encoder = new Encoder();
 
-let filteredLobbies = [...lobbies];
+//elemnt DOM
+const searchInput = document.getElementById("searchInput");
+const refreshButton = document.getElementById("btn-refresh");
+const refreshIcon = document.getElementById("refresh-icon");
+const gameMode = document.getElementById("gameMode");
+const createLobbyForm = document.getElementById("createLobbyForm");
+
+//data dari query
+const action = getQueryParam("action");
+const newMode = getQueryParam("mode");
+const newBet = getQueryParam("bet");
+
+// data kosong untuk lobby
+let lobbies = [];
+let filteredLobbies = [];
 let currentPage = 1;
 const itemsPerPage = 5;
 
 // Initialize page
 document.addEventListener("DOMContentLoaded", function () {
-  renderLobbies();
-  renderPagination();
-  updateModeDisplay();
+  //ambil data dan render
+  getLobbiesList();
 
   // Event listeners
-  const searchInput = document.getElementById("searchInput");
   if (searchInput) searchInput.addEventListener("keyup", searchLobbies);
-
-  const gameMode = document.getElementById("gameMode");
+  if(refreshButton) refreshButton.addEventListener("click", getLobbiesList);
   if (gameMode) gameMode.addEventListener("change", updateModeDisplay);
-
-  const createLobbyForm = document.getElementById("createLobbyForm");
-  if (createLobbyForm)
+  if (createLobbyForm){
     createLobbyForm.addEventListener("submit", submitCreateLobby);
+  }
+
+  //action dari query param
+  if(action === "addLobby"){
+    showModal("createLobbyModal");
+    gameMode.value = newMode;
+    document.getElementById("lobbyBet").value = newBet;
+  }
 });
+
+// get data lobby
+function getLobbiesList() {
+  refreshIcon.classList.add("spin");
+  refreshButton.disabled = true;
+
+  fetch("api/getLobbiesList")
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        showToast(data.message);
+      }
+      lobbies = data.lobbies;
+      filteredLobbies = [...lobbies];
+      renderLobbies();
+      renderPagination();
+      updateModeDisplay();
+    })
+    .catch(() => {
+      showToast("Gagal mengambil data lobbies");
+    })
+    .finally(() => {
+      refreshIcon.classList.remove("spin");
+      refreshButton.disabled = false;
+    });
+}
 
 // Render lobby list
 function renderLobbies() {
@@ -94,12 +105,8 @@ function renderLobbies() {
 
       const joinButton =
         lobby.status === "Menunggu" && lobby.players < lobby.maxPlayers
-          ? `<button data-join-id="${lobby.id}" class="btn btn-red">
+          ? `<button data-slug="${encoder.encode(`name=${lobby.name}&id=${lobby.id}&mode=${lobby.mode}`)}" data-name="${lobby.name}" class="btn btn-red">
                 <i class="fas fa-sign-in-alt me-2"></i>Bergabung
-            </button>`
-          : lobby.status === "Bermain" && lobby.mode === "bot"
-          ? `<button data-join-id="${lobby.id}" class="btn btn-red">
-                <i class="fas fa-play me-2"></i>Main
             </button>`
           : `<button class="btn btn-gray" disabled>
                 ${lobby.status === "Penuh" ? "Penuh" : "Bermain"}
@@ -116,9 +123,7 @@ function renderLobbies() {
             <div class="col-12 col-md">
               <div class="d-flex align-items-center mb-2">
                 <h3 class="h5 fw-bold me-3 mb-0">${lobby.name}</h3>
-                <span class="badge ${statusClass} badge-status">${
-        lobby.status
-      }</span>
+                <span class="badge ${statusClass} badge-status">${lobby.status}</span>
                 ${modeBadge}
               </div>
               <div class="row g-2 text-secondary small">
@@ -132,7 +137,7 @@ function renderLobbies() {
                 <div class="col-12 col-sm-6">
                   <div class="d-flex align-items-center">
                     <i class="fas fa-coins me-2 text-warning"></i>
-                    Bet: ${lobby.bet.toLocaleString("id-ID")}
+                    Bet: ${lobby.bet}
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
@@ -153,9 +158,9 @@ function renderLobbies() {
     .join("");
 
   // Re-attach join button listeners
-  document.querySelectorAll("[data-join-id]").forEach((btn) => {
+  document.querySelectorAll("[data-slug]").forEach((btn) => {
     btn.addEventListener("click", () =>
-      joinLobby(parseInt(btn.dataset.joinId))
+      joinLobby(btn.dataset.slug, btn.dataset.name)
     );
   });
 }
@@ -233,10 +238,31 @@ function searchLobbies() {
 
 // Update mode display
 function updateModeDisplay() {
+  const lobbyNameDisplay = document.getElementById("lobby-name");
+  const lobbyName = document.getElementById("lobbyName");
   const mode = document.getElementById("gameMode").value;
   const modeDisplay = document.getElementById("modeDisplay");
+  const passwordDisplay = document.getElementById("passwordDisplay");
+  const button = document.getElementById("createLobbyButton");
   if (!modeDisplay) return;
 
+  if(mode !== "pvp") {
+    lobbyName.removeAttribute("required");
+    lobbyNameDisplay.classList.add("d-none");
+    passwordDisplay.classList.add("d-none");
+  } else {
+    lobbyName.setAttribute("required", "required");
+    lobbyNameDisplay.classList.remove("d-none");
+    passwordDisplay.classList.remove("d-none");
+  }
+
+  if(mode === "") {
+    modeDisplay.classList.add("d-none");
+    button.disabled = true;
+  } else {
+    modeDisplay.classList.remove("d-none");
+    button.disabled = false;
+  }
   modeDisplay.innerHTML =
     mode === "pvp"
       ? `<div class="mode-display d-flex justify-content-between align-items-center">
@@ -272,56 +298,112 @@ function submitCreateLobby(e) {
   const lobbyName = document.getElementById("lobbyName").value;
   const lobbyBet = parseInt(document.getElementById("lobbyBet").value);
   const gameMode = document.getElementById("gameMode").value;
+  const password = document.getElementById("lobbyPassword").value;
 
   if (lobbyBet < 10) {
     showToast("Taruhan minimal 10 chips!");
     return;
   }
 
-  const newLobby = {
-    id: lobbies.length + 1,
-    name: lobbyName,
-    host: "You",
-    players: 1,
-    maxPlayers: gameMode === "bot" ? 1 : 2,
-    status: gameMode === "bot" ? "Bermain" : "Menunggu",
-    bet: lobbyBet,
-    mode: gameMode,
-    created: new Date().toLocaleString("id-ID", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-  };
+  const name = gameMode === "bot" ? "LOBBY VS BOT" : lobbyName
 
-  lobbies.unshift(newLobby);
-  filteredLobbies = [...lobbies];
-  currentPage = 1;
+  fetchWithAuth('api/addLobby', {
+    method: "POST",
+    header: {"Content-Type" : "application/json"},
+    body: JSON.stringify({name, gameMode, lobbyBet, password})
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data.success){
+      if(data.lobby && gameMode === "pvp"){
+        lobbies.unshift(data.lobby);
+        filteredLobbies = [...lobbies];
+        currentPage = 1;
 
-  renderLobbies();
-  renderPagination();
+        renderLobbies();
+        renderPagination();
+      }
 
-  closeModal("createLobbyModal");
+      closeModal("createLobbyModal");
 
-  showToast(
-    `Lobby "${lobbyName}" berhasil dibuat! ${
-      gameMode === "bot" ? "Mulai bermain" : "Menunggu pemain lain bergabung"
-    }.`
-  );
+      showToast(
+        `Lobby "${lobbyName}" berhasil dibuat! ${
+          gameMode === "bot" ? "Mulai bermain" : "Menunggu pemain lain bergabung"
+        }.`
+      );
+
+      const lobbyId = data.lobby.id;
+
+      if(gameMode === "bot"){
+        setTimeout(() => window.location.href=`games/russian-roulette?lobby=${encoder.encode(`name=${lobbyName}&id=${data.lobby}&mode=${gameMode}`)}`, 500)
+      } else {
+        setTimeout(() => window.location.href=`russian-roulette-lobby?lobby=${encoder.encode(`name=${lobbyName}&id=${lobbyId}&mode=${gameMode}`)}`, 500)
+      }
+    }
+  })
+  .catch(() => {});
 }
 
 // Join lobby
-function joinLobby(lobbyId) {
-  const lobby = lobbies.find((l) => l.id === lobbyId);
-  if (lobby) {
-    if (lobby.mode === "bot") {
-      showToast(`Memulai permainan melawan bot di lobby: ${lobby.name}`);
-    } else {
-      showToast(`Bergabung ke lobby: ${lobby.name}`);
+function joinLobby(slug, name) {
+  const decodedSlug = encoder.decode(slug);
+  const id = new URLSearchParams(decodedSlug).get('id');
+
+  fetch("api/validateJoinLobby", {
+    method: "POST",
+    header: {"Content-Type" : "application/json"},
+    body: JSON.stringify({id})
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(!data.success){
+      showToast(data.message)
+      return;
     }
-  }
+    
+    if(!data.password){
+      redirectLobby(id, slug, name);
+      return;
+    }
+
+    showModal("password-modal");
+    document.getElementById("join-private-lobby").addEventListener("click", function (){
+      const password = document.getElementById("password-lobby").value;
+      const msg = document.getElementById("msg");
+      console.log(data)
+
+      msg.textContent = "";
+      msg.className = "";
+
+      if(password !== data.password){
+        msg.textContent = "Password salah";
+        msg.className = "text-danger";
+        return;
+      }
+      
+      closeModal("password-modal")
+      redirectLobby(id, slug, name);
+    })
+  })
+}
+
+function redirectLobby(id, slug, name) {
+  fetchWithAuth("api/joinLobby", {
+    method: "POST",
+    header: {"Content-Type" : "application/json"},
+    body: JSON.stringify({id})
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(!data.success){
+      showToast(data.message);
+      return;
+    }
+
+  showToast(`Bergabung ke lobby: ${name}`);
+  setTimeout(() => window.location.href = `russian-roulette-lobby?lobby=${slug}`, 500)
+  })
+  .catch(() => {});
 }
 
 // Show toast notification

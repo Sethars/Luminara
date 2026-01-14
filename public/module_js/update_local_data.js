@@ -10,7 +10,7 @@ export function updateLocalData (storageKey, field, value) {
   try {
     data[field] = value;
     localStorage.setItem(storageKey, JSON.stringify(data));
-    console.log(`${storageKey}.${field} berhasil diupdate jadi:`, value);
+    // console.log(`${storageKey}.${field} berhasil diupdate jadi:`, value);
   } catch (err) {
     console.error("Gagal update data:", err);
   }

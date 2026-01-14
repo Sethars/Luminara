@@ -42,6 +42,8 @@ function getAdminData($conn, $jwt_token){
         exit;
     }
 
+    $id = auth($jwt_token)->user_id;
+
     try{
 
         //Total users
@@ -78,7 +80,13 @@ function getAdminData($conn, $jwt_token){
             "users" => $recentUser,
             "lottery" => $recentLottery
         ]);
-    } catch(Exception $e){}
+    } catch(Exception $e){
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan di server',
+            'error'   => $e->getMessage()
+        ]));
+    }
 }
 
 function addLotteryEvent($conn, $jwt_token){

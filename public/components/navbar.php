@@ -299,16 +299,16 @@ import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 document.addEventListener('DOMContentLoaded', function() {
   //cek role user
-  fetchWithAuth('api/checkRole')
+  document.getElementById("navbarUser").addEventListener("click", function(){
+    fetchWithAuth('api/checkRole')
     .then(res => res.json())
     .then(result => {
         if (result.role !== "member") {
             document.getElementById('admin-panel').classList.remove('d-none');
         }
     })
-    .catch(err => {
-        console.error(err);
-    });
+    .catch(() => {});
+  });
 
   // Handle submenu toggle on mobile
   const submenuToggles = document.querySelectorAll('.dropdown-submenu > .dropdown-toggle');

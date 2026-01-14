@@ -229,6 +229,7 @@ function buyTicket() {
       showNotification(data.message);
     }
   })
+  .catch(() => {});
 }
 
 // Fungsi untuk memilih pemenang

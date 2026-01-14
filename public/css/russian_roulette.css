@@ -68,16 +68,6 @@ h1 {
   overflow: hidden;
 }
 
-/* .player-avatar {
-  background-image: url("https://i.pravatar.cc/150?img=3");
-  background-size: cover;
-} */
-
-.bot-avatar {
-  background-image: url("../assets/img/roulette/agent-or-spy-icon-incognito-logo-vector.jpg");
-  background-size: cover;
-}
-
 .health-bar {
   width: 100%;
   height: 10px;
@@ -99,6 +89,7 @@ h1 {
   margin-bottom: 5px;
   color: #3498db;
   font-weight: bold;
+  text-align: center;
 }
 
 .bot-name {
@@ -106,6 +97,7 @@ h1 {
   margin-bottom: 5px;
   color: #e74c3c;
   font-weight: bold;
+  text-align: center;
 }
 
 .bet-amount {
@@ -384,7 +376,7 @@ h1 {
 
 .turn-indicator {
   position: absolute;
-  top: -30px;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #e74c3c;
@@ -688,4 +680,50 @@ h1 {
   #welcomeModal p {
     font-size: 0.9rem;
   }
+}
+
+.reveal-mask {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999999;
+  animation: reveal 1.5s ease forwards;
+  pointer-events: none; /* biar scroll tetap bisa */
+}
+
+/* Lingkaran yang melebar dari tengah */
+.reveal-mask::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: #000;
+  border-radius: 50%;
+  animation: circleGrow 2.5s ease forwards;
+}
+
+@keyframes circleGrow {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  80% {
+    width: 300vmax;
+    height: 300vmax;
+    opacity: 1;
+  }
+  100% {
+    width: 300vmax;
+    height: 300vmax;
+    opacity: 0;
+  }
+}
+
+@keyframes reveal {
+  0%, 80% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
 }

@@ -233,6 +233,70 @@ if (str_starts_with($request, "api/")) {
             buyTicketLottery($conn, $jwt_token);
             break;
 
+        //Russian Roulette
+        case "api/getLobbiesList":
+            require __DIR__. '/../includes/russianRoulette.php';
+            getLobbiesList($conn);
+            break;
+
+        case "api/addLobby":
+            require __DIR__. '/../includes/russianRoulette.php';
+            addLobby($conn, $jwt_token);
+            break;
+            
+        case "api/validateJoinLobby":
+            require __DIR__. '/../includes/russianRoulette.php';
+            validateJoinLobby($conn);
+            break;
+
+        case "api/joinLobby":
+            require __DIR__. '/../includes/russianRoulette.php';
+            joinLobby($conn, $jwt_token);
+            break;
+
+        case "api/getLobbyData":
+            require __DIR__. '/../includes/russianRoulette.php';
+            getLobbyData($conn, $jwt_token);
+            break;
+
+        case "api/updateStatusReady":
+            require __DIR__. '/../includes/russianRoulette.php';
+            updateStatusReady($conn, $jwt_token);
+            break;
+
+        case "api/sendMessageLobby":
+            require __DIR__. '/../includes/russianRoulette.php';
+            sendMessageLobby($conn, $jwt_token);
+            break;
+
+        case "api/updateAndGetDataLobby":
+            require __DIR__. '/../includes/russianRoulette.php';
+            updateAndGetDataLobby($conn, $jwt_token);
+            break;
+
+        case "api/updateLastSeenInGame":
+            require __DIR__. '/../includes/russianRoulette.php';
+            updateLastSeenInGame($conn, $jwt_token);
+            break;
+
+        case "api/beforeStartGame":
+            require __DIR__. '/../includes/russianRoulette.php';
+            beforeStartGame($conn, $jwt_token);
+            break;
+
+        case "api/startGamePvp":
+            require __DIR__. '/../includes/russianRoulette.php';
+            startGamePvp($conn, $jwt_token);
+            break;
+
+        case "api/startGameVsBot":
+            require __DIR__. '/../includes/russianRoulette.php';
+            startGameVsBot($conn, $jwt_token);
+            break;
+
+        case "api/gameOverVsBot":
+            require __DIR__. '/../includes/russianRoulette.php';
+            gameOverVsBot($conn, $jwt_token);
         //pengumuman
         case "api/getAnnouncements":
             require __DIR__ . '/../includes/announcement.php';
@@ -341,6 +405,12 @@ switch ($request) {
         break;
     case '401':
         require __DIR__. '/pages/unauthorized.php';
+        break;
+    case 'russian-roulette-lobby':
+        require __DIR__. '/pages/RRLobby.php';
+        break;
+    case 'games/russian-roulette':
+        require __DIR__. '/pages/games/russian_roulette.php';
         break;
     default:
         require __DIR__ . '/pages/not_found.php';

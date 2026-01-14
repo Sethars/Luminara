@@ -55,13 +55,12 @@ $checkAuth = true;
             <div class="header-actions">
                 <div class="user-profile">
                 <img
-                    src="https://randomuser.me/api/portraits/men/32.jpg"
+                    id="photo-profile-admin"
                     alt="User"
                     class="user-avatar"
                 />
                 <div>
-                    <div style="font-weight: 600">Alex Morgan</div>
-                    <div style="font-size: 12px; color: #666">Administrator</div>
+                    <div style="font-weight: 600" id="username-admin">Admin</div>
                 </div>
                 </div>
             </div>
