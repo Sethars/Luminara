@@ -181,6 +181,7 @@ function addLotteryEvent(e){
       }
     }
   })
+  .catch(() => {});
 }
 
 // fungsi search

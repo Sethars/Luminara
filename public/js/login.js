@@ -1,8 +1,9 @@
-import { encode } from "../module_js/encrypt.js";
+import { Encoder } from "../module_js/encrypt.js";
 import { showModal } from "../module_js/show_modal.js";
 import { closeModal } from "../module_js/close_modal.js";
 import { generateRandomString } from "../module_js/generate_random_string.js";
 
+const encoder = new Encoder();
 const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
 localStorage.clear();
@@ -41,7 +42,7 @@ document
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem('token', encode(data.token))
+        localStorage.setItem('token', encoder.encode(data.token))
         showModal("loginSuccess");
       } else {
         showModal("loginFailed");

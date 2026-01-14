@@ -1,11 +1,12 @@
-import { decode } from "../module_js/encrypt.js";
+import { Encoder } from "../module_js/encrypt.js";
 import { fetchWithAuth } from "../module_js/fetch_with_auth.js";
 
 export async function checkAuth() {
   document.getElementById("main-content").classList.add("d-none");
   document.getElementById("loading").classList.remove("d-none");
+  const encoder = new Encoder();
   const encodedToken = localStorage.getItem('token');
-  const token = decode(encodedToken)
+  const token = encoder.decode(encodedToken)
 
   if (JSON.parse(localStorage.getItem("demo")) || false) {
     const expired = JSON.parse(localStorage.getItem("expired"));

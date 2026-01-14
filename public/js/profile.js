@@ -1,4 +1,3 @@
-import { decode } from "../module_js/encrypt.js";
 import { showModal } from "../module_js/show_modal.js";
 import { setLoading } from "../module_js/setLoading.js";
 import { updateLocalData } from "../module_js/update_local_data.js";
@@ -22,72 +21,73 @@ document.addEventListener("DOMContentLoaded", async function () {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        document.getElementById("profile-money").textContent = formatMoney(data.money);
-        document.getElementById("public-preview-cash").textContent = formatMoney(data.money);
-        document.getElementById("created_at").textContent = data.created_at;
-        document.getElementById("total-matches").textContent = data.total_matches;
-        document.getElementById("win-rate").textContent = data.winrate + "%";
-        const ctx = document.getElementById("winRateChart").getContext("2d");
-        const winRateChart = new Chart(ctx, {
-          type: "doughnut",
-          data: {
-            labels: [`Kemenangan: ${data.win}`, `Kekalahan: ${data.lose}`],
-            datasets: [
-              {
-                data: [data.winrate, data.total_matches > 0 ? 100 - data.winrate : 0],
-                backgroundColor: [
-                  "rgba(52, 152, 219, 0.8)",
-                  "rgba(189, 195, 199, 0.8)",
-                ],
-                borderColor: ["rgba(52, 152, 219, 1)", "rgba(189, 195, 199, 1)"],
-                borderWidth: 1,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                position: "bottom",
-                labels: {
-                  font: {
-                    size: 14,
-                  },
-                  padding: 15,
-                },
-              },
-              title: {
-                display: true,
-                text: "Win Rate Diagram",
+  .then((res) => res.json())
+  .then((data) => {
+    if (data.success) {
+      document.getElementById("profile-money").textContent = formatMoney(data.money);
+      document.getElementById("public-preview-cash").textContent = formatMoney(data.money);
+      document.getElementById("created_at").textContent = data.created_at;
+      document.getElementById("total-matches").textContent = data.total_matches;
+      document.getElementById("win-rate").textContent = data.winrate + "%";
+      const ctx = document.getElementById("winRateChart").getContext("2d");
+      const winRateChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: [`Kemenangan: ${data.win}`, `Kekalahan: ${data.lose}`],
+          datasets: [
+            {
+              data: [data.winrate, data.total_matches > 0 ? 100 - data.winrate : 0],
+              backgroundColor: [
+                "rgba(52, 152, 219, 0.8)",
+                "rgba(189, 195, 199, 0.8)",
+              ],
+              borderColor: ["rgba(52, 152, 219, 1)", "rgba(189, 195, 199, 1)"],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
                 font: {
-                  size: 16,
+                  size: 14,
                 },
-                padding: {
-                  top: 10,
-                  bottom: 15,
-                },
+                padding: 15,
               },
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    return context.label + ": " + context.raw.toFixed(2) + "%";
-                  },
+            },
+            title: {
+              display: true,
+              text: "Win Rate Diagram",
+              font: {
+                size: 16,
+              },
+              padding: {
+                top: 10,
+                bottom: 15,
+              },
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return context.label + ": " + context.raw.toFixed(2) + "%";
                 },
               },
             },
           },
-        });
+        },
+      });
 
-        const commentList = document.querySelector('.comments-list')
-        renderComments(commentList, data.comments, true)
-      } else {
-        console.error(data.error || "")
-      }
-    });
+      const commentList = document.querySelector('.comments-list')
+      renderComments(commentList, data.comments, true)
+    } else {
+      console.error(data.error || "")
+    }
+  })
+  .catch(() => {});
 
   //Username
   document.getElementById("preview-username").textContent = user

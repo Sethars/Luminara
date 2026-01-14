@@ -142,36 +142,37 @@ document.addEventListener("DOMContentLoaded", async function () {
       function claimDailyLogin() {
         if (canClaimDaily) {
           fetchWithAuth("api/claimDaily", {})
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.success) {
-                chipBalance += data.chip;
-                canClaimDaily = false;
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              chipBalance += data.chip;
+              canClaimDaily = false;
 
-                // Update UI
-                updateBalanceDisplay();
-                startCountdown();
+              // Update UI
+              updateBalanceDisplay();
+              startCountdown();
 
-                document
-                  .getElementById("dailyLoginCard")
-                  .classList.add("claimed");
-                document.getElementById("dailyLoginBtn").disabled = true;
-                document.getElementById("dailyLoginBtn").textContent =
-                  "Sudah Diambil";
-                // Show notification
-                if (data.vip) {
-                  showNotification(
-                    "Berhasil klaim 500 Chip (Bonus VIP)!",
-                    "success"
-                  );
-                } else {
-                  showNotification("Berhasil klaim 100 Chip!", "success");
-                }
+              document
+                .getElementById("dailyLoginCard")
+                .classList.add("claimed");
+              document.getElementById("dailyLoginBtn").disabled = true;
+              document.getElementById("dailyLoginBtn").textContent =
+                "Sudah Diambil";
+              // Show notification
+              if (data.vip) {
+                showNotification(
+                  "Berhasil klaim 500 Chip (Bonus VIP)!",
+                  "success"
+                );
               } else {
-                console.error(data.message);
-                if (data.error) console.error(data.error);
+                showNotification("Berhasil klaim 100 Chip!", "success");
               }
-            });
+            } else {
+              console.error(data.message);
+              if (data.error) console.error(data.error);
+            }
+          })
+          .catch(() => {});
         }
       }
 
@@ -179,31 +180,32 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (!welcomeBonusClaimed) {
           // Can claim
           fetchWithAuth("api/claimWelcomeBonus", {})
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.success) {
-                //Update chip
-                chipBalance += 1000;
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              //Update chip
+              chipBalance += 1000;
 
-                // Set as claimed
-                welcomeBonusClaimed = true;
+              // Set as claimed
+              welcomeBonusClaimed = true;
 
-                // Update UI
-                updateBalanceDisplay();
-                document
-                  .getElementById("welcomeBonusCard")
-                  .classList.add("claimed");
-                document.getElementById("welcomeBonusBtn").disabled = true;
-                document.getElementById("welcomeBonusBtn").textContent =
-                  "Sudah Diambil";
+              // Update UI
+              updateBalanceDisplay();
+              document
+                .getElementById("welcomeBonusCard")
+                .classList.add("claimed");
+              document.getElementById("welcomeBonusBtn").disabled = true;
+              document.getElementById("welcomeBonusBtn").textContent =
+                "Sudah Diambil";
 
-                // Show notification
-                showNotification("Berhasil klaim 1000 Chip!", "success");
-              } else {
-                console.error(data.message);
-                if (data.error) console.error(data.error);
-              }
-            });
+              // Show notification
+              showNotification("Berhasil klaim 1000 Chip!", "success");
+            } else {
+              console.error(data.message);
+              if (data.error) console.error(data.error);
+            }
+          })
+          .catch(() => {});
         }
       }
 
@@ -222,34 +224,35 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         fetchWithAuth("api/buyVip", {})
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              cashBalance -= 50000;
-              isVIP = true;
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            cashBalance -= 50000;
+            isVIP = true;
 
-              //Update UI + Show Notification
-              updateBalanceDisplay();
-              showNotification(
-                "Selamat! Anda sekarang adalah member VIP!",
-                "vip"
-              );
+            //Update UI + Show Notification
+            updateBalanceDisplay();
+            showNotification(
+              "Selamat! Anda sekarang adalah member VIP!",
+              "vip"
+            );
 
-              // Update VIP button
-              document.getElementById("buyVipBtn").textContent =
-                "Anda adalah VIP";
-              document.getElementById("buyVipBtn").disabled = true;
+            // Update VIP button
+            document.getElementById("buyVipBtn").textContent =
+              "Anda adalah VIP";
+            document.getElementById("buyVipBtn").disabled = true;
 
-              if (data.badges) {
-                const profile = JSON.parse(localStorage.getItem("profile"));
-                profile.badges = data.badges;
-                localStorage.setItem("profile", JSON.stringify(profile));
-              }
-            } else {
-              showNotification(data.message, "error");
-              if (data.error) console.error(data.error);
+            if (data.badges) {
+              const profile = JSON.parse(localStorage.getItem("profile"));
+              profile.badges = data.badges;
+              localStorage.setItem("profile", JSON.stringify(profile));
             }
-          });
+          } else {
+            showNotification(data.message, "error");
+            if (data.error) console.error(data.error);
+          }
+        })
+        .catch(() => {});
       }
 
       function exchangeCashToChip(cashAmount, chipAmount, needVip) {
@@ -272,21 +275,22 @@ document.addEventListener("DOMContentLoaded", async function () {
           },
           body: JSON.stringify({ cashAmount, chipAmount, needVip }),
         })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              cashBalance -= cashAmount;
-              chipBalance += chipAmount;
-              updateBalanceDisplay();
-              showNotification(
-                `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
-                "success"
-              );
-            } else {
-              showNotification(data.message, "error");
-              if (data.error) console.error(data.error);
-            }
-          });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            cashBalance -= cashAmount;
+            chipBalance += chipAmount;
+            updateBalanceDisplay();
+            showNotification(
+              `Berhasil menukar ${cashAmount} Cash menjadi ${chipAmount} Chip!`,
+              "success"
+            );
+          } else {
+            showNotification(data.message, "error");
+            if (data.error) console.error(data.error);
+          }
+        })
+        .catch(() => {});
       }
 
       function exchangeChipToCash(chipAmount, cashAmount, needVip) {
@@ -309,21 +313,22 @@ document.addEventListener("DOMContentLoaded", async function () {
           },
           body: JSON.stringify({ cashAmount, chipAmount, needVip }),
         })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              cashBalance += cashAmount;
-              chipBalance -= chipAmount;
-              updateBalanceDisplay();
-              showNotification(
-                `Berhasil menukar ${chipAmount} Chip menjadi ${cashAmount} Cash!`,
-                "success"
-              );
-            } else {
-              showNotification(data.message, "error");
-              if (data.error) console.error(data.error);
-            }
-          });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            cashBalance += cashAmount;
+            chipBalance -= chipAmount;
+            updateBalanceDisplay();
+            showNotification(
+              `Berhasil menukar ${chipAmount} Chip menjadi ${cashAmount} Cash!`,
+              "success"
+            );
+          } else {
+            showNotification(data.message, "error");
+            if (data.error) console.error(data.error);
+          }
+        })
+        .catch(() => {});
       }
 
       function showNotification(message, type) {

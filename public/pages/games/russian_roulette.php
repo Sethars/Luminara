@@ -6,33 +6,21 @@
     <title>Russian Roulette</title>
     <link rel="stylesheet" href="../../css/russian_roulette.css">
   </head>
+  <div class="reveal-mask"></div>
   <body>
     <h1>RUSSIAN ROULETTE</h1>
 
     <div class="arena">
       <div class="card player-card">
+        <div class="player-name">Player</div>
         <div class="avatar player-avatar">
-          <img src="../../assets/img/photo_profile/ppkosong.jpg" alt="" style="width:100px; height:100px;">
+          <img id="player-photo" src="../../assets/img/photo_profile/ppkosong.jpg" alt="" style="width:100px; height:100px;">
         </div>
-        <div class="player-name">Hiiragi</div>
+        <div class="player-name" id="player-name">-</div>
         <div class="health-bar">
           <div class="health-fill" id="playerHealth"></div>
         </div>
-        <div class="bet-amount">Taruhan: 100 Chip</div>
-        <div class="stats">
-          <div class="stat-item">
-            <span>Menang</span>
-            <span class="stat-value" id="playerWins">0</span>
-          </div>
-          <div class="stat-item">
-            <span>Kalah</span>
-            <span class="stat-value" id="playerLosses">0</span>
-          </div>
-          <div class="stat-item">
-            <span>Rasio</span>
-            <span class="stat-value" id="playerRatio">0%</span>
-          </div>
-        </div>
+        <div class="bet-amount">Taruhan: <span class="bet-amount-text">0</span> Chip</div>
         <div class="status" id="playerStatus"></div>
       </div>
 
@@ -40,27 +28,16 @@
       <div class="turn-indicator" id="turnIndicator">PLAYER'S TURN</div>
 
       <div class="card bot-card">
-        <div class="avatar bot-avatar"></div>
         <div class="bot-name">BOT</div>
+        <div class="avatar bot-avatar">
+          <img id="bot-photo" src="../assets/img/roulette/agent-or-spy-icon-incognito-logo-vector.jpg" alt="" style="width:100px; height:100px;">
+        </div>
+        <div class="bot-name" id="bot-name">ASEP KARBURATOR</div>
         <div class="health-bar">
           <div class="health-fill" id="botHealth"></div>
         </div>
-        <div class="bet-amount">Taruhan: $100</div>
-        <div class="stats">
-          <div class="stat-item">
-            <span>Menang</span>
-            <span class="stat-value" id="botWins">0</span>
-          </div>
-          <div class="stat-item">
-            <span>Kalah</span>
-            <span class="stat-value" id="botLosses">0</span>
-          </div>
-          <div class="stat-item">
-            <span>Rasio</span>
-            <span class="stat-value" id="botRatio">0%</span>
-          </div>
-        </div>
-        <div class="status" id="botStatus"></div>
+        <div class="bet-amount">Taruhan: <span class="bet-amount-text">0</span> Chip</div>
+        <div class="status" id="enemyStatus"></div>
       </div>
     </div>
 
@@ -68,7 +45,7 @@
 
     <div class="actions" id="playerActions">
       <button id="btnSelf">Tembak Diri Sendiri</button>
-      <button id="btnBot">Tembak Lawan</button>
+      <button id="btnEnemy">Tembak Lawan</button>
     </div>
 
     <div id="turnProgress"><div id="turnProgressBar"></div></div>
@@ -97,7 +74,9 @@
           </p>
           <ul style="margin: 0; padding-left: 20px; color: #fecaca;">
             <li style="margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5;">Ada 6 chamber, 1 di antaranya berisi peluru</li>
-            <li style="margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5;">Pemain dan bot bergantian menembak diri sendiri atau lawan</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5;">Pemain dan lawan bergantian menembak diri sendiri atau lawan</li>
+            <li style="margin-bottom: 8px; font-size: 0.95rem; line-height: 1.5;">Jika Anda memuat ulang halaman atau keluar saat permainan berlangung maka Anda akan kehilangan chip Anda dan langsung dinyatakan kalah</li>
+            <li style="font-size: 0.95rem; line-height: 1.5;">Fee 10% dari hadiah pemenang.</li>
             <li style="font-size: 0.95rem; line-height: 1.5;">Siapa yang tertembak peluru, dia kalah!</li>
           </ul>
         </div>
@@ -105,8 +84,8 @@
         <p style="margin: 0 0 20px 0; font-size: 0.95rem; color: #fca5a5; line-height: 1.5; font-weight: 500;">Apakah Anda siap menghadapi tantangan ini?</p>
         
         <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <!-- <button onclick="closeModal()" style="padding: 8px 14px; background-color: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Keluar</button> -->
-          <button onclick="startGame()" style="padding: 8px 14px; background-color: #dc2626; color: white; border: none; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">Mulai Game</button>
+          <button onclick="window.location.href= '../RRLobby_list'" style="padding: 8px 14px; background-color: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Keluar</button>
+          <button id="startGameBtn" style="padding: 8px 14px; background-color: #dc2626; color: white; border: none; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">Mulai Game</button>
         </div>
       </div>
     </div>
@@ -125,7 +104,7 @@
         <p id="confirmText" style="margin: 0 0 20px 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;"></p>
         
         <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <button onclick="closeModal()" style="padding: 8px 14px; background-color: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Batal</button>
+          <button id="close-modal" style="padding: 8px 14px; background-color: transparent; color: #94a3b8; border: 1px solid #334155; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Batal</button>
           <button id="confirmYes" style="padding: 8px 14px; background-color: #ef4444; color: white; border: none; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Lanjutkan</button>
         </div>
       </div>
@@ -134,18 +113,27 @@
     <div class="modal" id="gameOverModal">
       <div class="modal-content">
         <p id="gameOverText"></p>
-        <button onclick="restartGame()">Main Lagi</button>
-        <button onclick="window.location.reload()">Keluar</button>
+        <p id="gameOverInfo"></p>
+        <button id="play-again">Main Lagi</button>
+        <button onclick="window.location.href = '../RRLobby_list'">Keluar</button>
+      </div>
+    </div>
+
+    <div class="modal" id="reddirectModal">
+      <div class="modal-content">
+        <p id="reddirectText"></p>
+        <button id="new-game" onclick="window.location.href = '/RRLobby_list'">Buat Lobby Baru</button>
+        <button onclick="window.location.href = '/'">Keluar</button>
       </div>
     </div>
 
     <div style="position: fixed; right: 10px; bottom: 10px; text-align: right">
-      <button id="revealBtn" onclick="toggleReveal()">Reveal</button>
-      <button id="muteBtn" onclick="toggleMute()">🔊</button>
-      <button id="btnBotSmart" onclick="toggleBotSmart()">
+      <button id="revealBtn" style="display: none;">Reveal</button>
+      <button id="muteBtn">🔊</button>
+      <button id="btnBotSmart" style="display: none;">
         Bot Smart Mode: ON
       </button>
-      <button id="btnBotSuicide" onclick="toggleBotSuicide()">
+      <button id="btnBotSuicide" style="display: none;">
         Bot Suicide Last: ON
       </button>
     </div>
@@ -156,5 +144,5 @@
 
 
   </body>
-  <script src="../../js/russian_roulette.js"></script>
+  <script type="module" src="../../js/russian_roulette.js"></script>
 </html>

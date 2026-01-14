@@ -214,7 +214,7 @@ body {
 
 .custom-toast.show {
   transform: translateY(0);
-}
+} 
 
 /* Mode display */
 .mode-display {
@@ -244,4 +244,18 @@ body {
   .btn-rules-text {
     display: none;
   }
+}
+
+/* Animasi muter */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
 }

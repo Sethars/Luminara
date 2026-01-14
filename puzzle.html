@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Puzzle Jigsaw 4x4</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      background: #101010;
+      color: white;
+      font-family: Poppins, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .puzzle-board {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 0;
+      border: 2px solid #333;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .piece {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Forest-pano-mist.jpg/800px-Forest-pano-mist.jpg');
+      background-size: 400px 400px;
+      cursor: grab;
+      transition: transform 0.2s ease;
+      mask-size: cover;
+      -webkit-mask-size: cover;
+    }
+
+    .piece:active {
+      cursor: grabbing;
+      transform: scale(1.1);
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧩 Jigsaw Puzzle 4x4</h1>
+  <div class="puzzle-board" id="board"></div>
+
+  <script>
+    const board = document.getElementById("board");
+    const size = 4; // 4x4 puzzle
+    const pieceSize = 100;
+    const shapes = [
+      'https://upload.wikimedia.org/wikipedia/commons/3/37/Jigsaw_puzzle_piece_shape_01.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/6/6b/Jigsaw_puzzle_piece_shape_02.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/0/0b/Jigsaw_puzzle_piece_shape_03.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/f/f7/Jigsaw_puzzle_piece_shape_04.svg'
+    ];
+
+    let pieces = [];
+
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const piece = document.createElement("div");
+        piece.className = "piece";
+        piece.style.backgroundPosition = `-${x * pieceSize}px -${y * pieceSize}px`;
+        const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+        piece.style.maskImage = `url(${randomShape})`;
+        piece.style.webkitMaskImage = `url(${randomShape})`;
+
+        piece.draggable = true;
+        piece.dataset.index = y * size + x;
+
+        pieces.push(piece);
+      }
+    }
+
+    // Acak urutan awal
+    pieces.sort(() => Math.random() - 0.5);
+    pieces.forEach(p => board.appendChild(p));
+
+    // Drag & drop logic
+    let dragged = null;
+    board.addEventListener("dragstart", e => {
+      dragged = e.target;
+    });
+    board.addEventListener("dragover", e => e.preventDefault());
+    board.addEventListener("drop", e => {
+      e.preventDefault();
+      if (e.target.classList.contains("piece") && dragged) {
+        const temp = document.createElement("div");
+        board.insertBefore(temp, dragged);
+        board.insertBefore(dragged, e.target);
+        board.insertBefore(e.target, temp);
+        board.removeChild(temp);
+      }
+    });
+  </script>
+</body>
+</html>
