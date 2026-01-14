@@ -141,3 +141,113 @@ function addLotteryEvent($conn, $jwt_token){
         ]));
     }
 }
+
+// includes/announcement.php
+
+function addAnnouncement($conn, $jwt_token) {
+    if(!isAdmin($conn, $jwt_token)){
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents("php://input"), true);
+    $pesan = trim($data['pesan'] ?? '');
+
+    if ($pesan === '') {
+        echo json_encode(['success' => false, 'message' => 'Pesan tidak boleh kosong']);
+        return;
+    }
+
+    try {
+        $stmt = $conn->prepare("INSERT INTO announcements (pesan) VALUES (?);");
+        $stmt->execute([$pesan]);
+
+        echo json_encode(['success' => true, 'message' => 'Announcement berhasil ditambahkan']);
+    } catch (Exception $e) {
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan saat menambah announcement',
+            'error'   => $e->getMessage()
+        ]));
+    }
+}
+
+function editAnnouncement($conn, $jwt_token) {
+    if(!isAdmin($conn, $jwt_token)){
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = $data['id'] ?? null;
+    $pesan = trim($data['pesan'] ?? '');
+
+    if (!$id || $pesan === '') {
+        echo json_encode(['success' => false, 'message' => 'ID dan Pesan wajib diisi']);
+        return;
+    }
+
+    try {
+        $stmt = $conn->prepare("UPDATE announcements SET pesan = ? WHERE id = ?;");
+        $stmt->execute([$pesan, $id]);
+
+        if ($stmt->rowCount() > 0) {
+            echo json_encode(['success' => true, 'message' => 'Announcement berhasil diupdate']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Tidak ada data yang diupdate']);
+        }
+    } catch (Exception $e) {
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan saat update announcement',
+            'error'   => $e->getMessage()
+        ]));
+    }
+}
+
+function deleteAnnouncement($conn, $jwt_token) {
+    if(!isAdmin($conn, $jwt_token)){
+        echo json_encode(['success' => false, "error" => 401, "message" => "Anda tidak memiliki akses"]);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents("php://input"), true);
+    $id = $data['id'] ?? null;
+
+    if (!$id) {
+        echo json_encode(['success' => false, 'message' => 'ID wajib diisi']);
+        return;
+    }
+
+    try {
+        $stmt = $conn->prepare("DELETE FROM announcements WHERE id = ?;");
+        $stmt->execute([$id]);
+
+        if ($stmt->rowCount() > 0) {
+            echo json_encode(['success' => true, 'message' => 'Announcement berhasil dihapus']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Gagal hapus, data tidak ditemukan']);
+        }
+    } catch (Exception $e) {
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan saat hapus announcement',
+            'error'   => $e->getMessage()
+        ]));
+    }
+}
+
+function getAnnouncements($conn) {
+    try {
+        $stmt = $conn->query("SELECT id, pesan, created_at FROM announcements ORDER BY created_at DESC;");
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode(['success' => true, 'data' => $rows]);
+    } catch (Exception $e) {
+        die(json_encode([
+            'success' => false,
+            'message' => 'Terjadi kesalahan saat ambil announcement',
+            'error'   => $e->getMessage()
+        ]));
+    }
+}

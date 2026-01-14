@@ -26,12 +26,19 @@ $checkAuth = true;
                     <a href="#" class="menu-item active" data-section="dashboard">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
+                    <a href="#" class="menu-item" data-section="announcement">
+                        <i class="fa fa-bullhorn"></i> Announcement
+                    </a>
                     <a href="#" class="menu-item" data-section="users">
                         <i class="fas fa-users"></i> Users
                     </a>
                     <a href="#" class="menu-item" data-section="lottery">
-                        <i class="fas fa-dice"></i> Lottery event
+                        <i class="fas fa-dice"></i> Lottery Event
                     </a>
+ 
+                    <a href="#" class="menu-item" data-section="event">
+                        <i class="fa fa-calendar"></i> Admin Event
+                    </a>                    
                     <a href="/" class="menu-item logout">
                         <i class="fas fa-sign-out-alt"></i> Keluar Admin Panel
                     </a>
@@ -70,6 +77,18 @@ $checkAuth = true;
         <div id="admin_lottery_dashboard" class="" style="display:none;">
             <?php include __DIR__ . '/../components/admin_lottery_dashboard.php'; ?>
         </div>
+
+        <div id="admin_event_dashboard" class="" style="display:none;">
+            <?php include __DIR__ . '/../components/admin_event_dashboard.php'; ?>
+        </div>
+
+        <div id="admin_announcement_dashboard" class="" style="display:none;">
+            <?php include __DIR__ . '/../components/admin_announcement_dashboard.php'; ?>
+        </div>
+
+        
+
+        
 
         <?php
         include_once __DIR__ . '/../components/footer.php';

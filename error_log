@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -4868,3 +4869,14 @@ Stack trace:
 [13-Nov-2025 06:15:17 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
 [13-Nov-2025 06:15:22 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
 [14-Jan-2026 04:39:34 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\lottery.php on line 4
+=======
+>>>>>>> e97af79f3968100fce72a9f30b5ab9267377bacb
+[14-Jan-2026 04:47:12 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\lottery.php on line 4
+[14-Jan-2026 04:47:13 UTC] PHP Warning:  Attempt to read property "user_id" on null in C:\laragon\www\luminara\includes\lottery.php on line 4
+[14-Jan-2026 04:47:31 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
+[14-Jan-2026 04:47:36 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
+[14-Jan-2026 04:47:41 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
+[14-Jan-2026 04:47:46 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
+[14-Jan-2026 04:47:51 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
+[14-Jan-2026 04:47:56 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629
+[14-Jan-2026 04:48:01 UTC] PHP Warning:  Undefined array key "id" in C:\laragon\www\luminara\includes\russianRoulette.php on line 629

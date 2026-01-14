@@ -19,16 +19,15 @@ document.getElementById("closeSidebar").addEventListener("click", function () {
   document.getElementById("sidebar").classList.remove("active");
 });
 
-
 // admin_panel.js
 document.addEventListener("DOMContentLoaded", async function () {
-  try{
-    const res = await fetchWithAuth('api/getAdminData');
+  try {
+    const res = await fetchWithAuth("api/getAdminData");
     const data = await res.json();
-    if(!data.success){
-      console.error(data.message || "Gagal mengambil data")
-      if(data.error === 401){
-        window.location.href = "/401"
+    if (!data.success) {
+      console.error(data.message || "Gagal mengambil data");
+      if (data.error === 401) {
+        window.location.href = "/401";
       }
     }
     // render data admin
@@ -45,14 +44,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     renderTable(data.lottery, tableLottery, false);
 
     // hitung harga tiket
-    const inputPrizes = document.getElementById("prizes").addEventListener("input", 
+    const inputPrizes = document.getElementById("prizes").addEventListener(
+      "input",
       debounce((e) => {
         calcTicketPrice(e);
       }, 300)
     );
 
     // tambah event lottery
-    document.getElementById("lottery-form").addEventListener('submit', addLotteryEvent)
+    document
+      .getElementById("lottery-form")
+      .addEventListener("submit", addLotteryEvent);
 
     menuItems.forEach((item) => {
       item.addEventListener("click", (e) => {
@@ -64,8 +66,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // default
     showSection("dashboard");
-  } catch(err){
-    console.error(err)
+  } catch (err) {
+    console.error(err);
   }
 });
 
@@ -77,6 +79,8 @@ const sections = {
   dashboard: document.getElementById("admin_dashboard"),
   users: document.getElementById("admin_users_dashboard"),
   lottery: document.getElementById("admin_lottery_dashboard"),
+  announcement: document.getElementById("admin_announcement_dashboard"),
+  event: document.getElementById("admin_event_dashboard"),
 };
 
 function showSection(section) {
@@ -107,19 +111,22 @@ function renderTable(items, tableBody, action = true) {
       span.classList.add(key);
 
       if (typeof value === "string") {
-        const safeValue = value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-_]/g, "");
+        const safeValue = value
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^a-z0-9\-_]/g, "");
         if (safeValue) {
           span.classList.add(`${key}-${safeValue}`);
         }
       }
 
       span.textContent = value;
-      
+
       cell.appendChild(span);
       row.appendChild(cell);
     });
 
-    if(action){
+    if (action) {
       // Tambahin kolom actions di ujung
       const actionCell = document.createElement("td");
       actionCell.innerHTML = `
@@ -137,51 +144,50 @@ function renderTable(items, tableBody, action = true) {
 }
 
 // hitung harga tiket
-function calcTicketPrice(e){
+function calcTicketPrice(e) {
   const ticketPrice = parseInt(e.target.value) / 10;
 
-  const ticketPriceInput = document.getElementById("ticketPrice")
-  ticketPriceInput.placehorder = ticketPrice
-  ticketPriceInput.value = ticketPrice
+  const ticketPriceInput = document.getElementById("ticketPrice");
+  ticketPriceInput.placehorder = ticketPrice;
+  ticketPriceInput.value = ticketPrice;
 }
 
 // tambah event lottery
-function addLotteryEvent(e){
+function addLotteryEvent(e) {
   e.preventDefault();
-  
+
   const form = e.target;
   const fd = new FormData(form);
 
-  const prizes = parseInt(fd.get("prizes"))
+  const prizes = parseInt(fd.get("prizes"));
   const ticketPrice = prizes / 10;
 
-  fd.append("ticketPrice", ticketPrice)
+  fd.append("ticketPrice", ticketPrice);
 
   const obj = {};
   fd.forEach((value, key) => {
     obj[key] = value;
   });
 
-  console.log(obj)
+  console.log(obj);
 
   fetchWithAuth("api/addLotteryEvent", {
     method: "POST",
-    headers: {"Content-Type" : "application/json"},
-    body: JSON.stringify(obj)
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(obj),
   })
-  .then(res => res.json())
-  .then(data => {
-    console.log(data)
-    if(data.success){
-      renderTable(data.lottery, tableLottery, false)
-    } else {
-      console.error(data.message || "Anda tidak memiliki akses")
-      if(data.error === 401){
-        window.location.href = "/401"
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      if (data.success) {
+        renderTable(data.lottery, tableLottery, false);
+      } else {
+        console.error(data.message || "Anda tidak memiliki akses");
+        if (data.error === 401) {
+          window.location.href = "/401";
+        }
       }
-    }
-  })
-  .catch(() => {});
+    });
 }
 
 // fungsi search
@@ -201,3 +207,156 @@ searchInput.addEventListener(
     handleSearch(e.target.value);
   }, 300)
 );
+
+const announcementList = document.getElementById("announcementList");
+const emptyState = document.getElementById("emptyState");
+const modal = document.getElementById("announcementModal");
+const deleteModal = document.getElementById("deleteModal");
+
+const modalTitle = document.getElementById("modalTitle");
+const announcementIdInput = document.getElementById("announcementId");
+const pesanInput = document.getElementById("pesan");
+const saveBtn = document.getElementById("saveBtn");
+
+let deleteId = null;
+
+// load announcements
+async function loadAnnouncements() {
+  const res = await fetchWithAuth("api/getAnnouncements");
+  const data = await res.json();
+
+  if (data.success && data.data.length > 0) {
+    emptyState.style.display = "none";
+    announcementList.innerHTML = "";
+
+    data.data.forEach((item) => {
+      const div = document.createElement("div");
+      div.className = "announcement-item";
+      div.innerHTML = `
+        <div class="announcement-content">
+          <p>${item.pesan}</p>
+          <small>Dibuat: ${item.created_at}</small>
+        </div>
+        <div class="announcement-actions">
+          <button class="btn btn-sm btn-edit" data-id="${item.id}" data-pesan="${item.pesan}">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-sm btn-delete" data-id="${item.id}">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `;
+      announcementList.appendChild(div);
+    });
+
+    // attach events
+    document.querySelectorAll(".btn-edit").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        openModal("edit", btn.dataset.id, btn.dataset.pesan);
+      });
+    });
+
+    document.querySelectorAll(".btn-delete").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        deleteId = btn.dataset.id;
+        deleteModal.style.display = "block";
+      });
+    });
+  } else {
+    announcementList.innerHTML = "";
+    emptyState.style.display = "block";
+  }
+}
+
+// open modal (add / edit)
+function openModal(mode, id = null, pesan = "") {
+  if (mode === "add") {
+    modalTitle.textContent = "Tambah Announcement";
+    announcementIdInput.value = "";
+    pesanInput.value = "";
+  } else {
+    modalTitle.textContent = "Edit Announcement";
+    announcementIdInput.value = id;
+    pesanInput.value = pesan;
+  }
+  modal.style.display = "block";
+}
+
+// close modal
+function closeModal() {
+  modal.style.display = "none";
+}
+function closeDeleteModal() {
+  deleteModal.style.display = "none";
+}
+
+// save announcement
+async function saveAnnouncement() {
+  const id = announcementIdInput.value;
+  const pesan = pesanInput.value;
+
+  if (!pesan) return alert("Pesan tidak boleh kosong!");
+
+  let url = "api/addAnnouncement";
+  let method = "POST";
+  let body = { pesan };
+
+  if (id) {
+    url = "api/editAnnouncement";
+    method = "PUT";
+    body = { id, pesan };
+  }
+
+  const res = await fetchWithAuth(url, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    closeModal();
+    loadAnnouncements();
+  } else {
+    alert(data.message || "Gagal simpan");
+  }
+}
+
+// confirm delete
+async function confirmDelete() {
+  if (!deleteId) return;
+  const res = await fetchWithAuth("api/deleteAnnouncement", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: deleteId }),
+  });
+  const data = await res.json();
+
+  if (data.success) {
+    closeDeleteModal();
+    loadAnnouncements();
+  } else {
+    alert(data.message || "Gagal hapus");
+  }
+}
+
+// event binding
+document
+  .getElementById("addAnnouncementBtn")
+  .addEventListener("click", () => openModal("add"));
+document.getElementById("closeModal").addEventListener("click", closeModal);
+document.getElementById("cancelBtn").addEventListener("click", closeModal);
+saveBtn.addEventListener("click", saveAnnouncement);
+
+document
+  .getElementById("closeDeleteModal")
+  .addEventListener("click", closeDeleteModal);
+document
+  .getElementById("cancelDeleteBtn")
+  .addEventListener("click", closeDeleteModal);
+document
+  .getElementById("confirmDeleteBtn")
+  .addEventListener("click", confirmDelete);
+
+// init
+loadAnnouncements();
